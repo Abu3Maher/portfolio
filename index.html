@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>محمد النملة — مطوّر خلفيات</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23040814'/><rect width='32' height='32' rx='8' fill='none' stroke='%23E5A55C' stroke-width='1.5' stroke-opacity='0.5'/><text x='16' y='22' text-anchor='middle' font-family='inherit' font-weight='800' font-size='13' fill='%23F7FAFF' letter-spacing='-1'>MN</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink0:  #040814;
+      --ink1:  #0A1220;
+      --ink2:  #141F31;
+      --ink3:  #53647D;
+      --body:  #D2DCEB;
+      --sub:   #9DAFC4;
+      --muted: #74859A;
+      --head:  #F7FAFF;
+      --accent: #E5A55C;
+      --glass:        rgba(12, 20, 34, 0.66);
+      --glass2:       rgba(7, 12, 22, 0.82);
+      --glass-border: rgba(173, 187, 206, 0.10);
+      --glass-bord2:  rgba(229, 165, 92, 0.24);
+      --blur: blur(18px);
+      --r:  12px;
+      --rl: 20px;
+      --t:  0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --tf: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #f4f7fb;
+      background-image:
+        radial-gradient(ellipse 80% 65% at 50% 38%, rgba(15, 27, 42, 0.05) 0%, transparent 68%),
+        radial-gradient(ellipse 42% 28% at 18% 82%, rgba(229, 165, 92, 0.05) 0%, transparent 65%);
+      background-attachment: fixed;
+      color: #1a2431;
+      line-height: 1.7;
+      font-weight: 400;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Ambient orbs ── */
+    .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: -1; filter: blur(90px); }
+    .orb-a {
+      width: 580px; height: 580px;
+      background: radial-gradient(circle, rgba(15,27,42,0.12) 0%, transparent 70%);
+      top: -140px; right: -100px;
+      animation: orbA 22s ease-in-out infinite alternate;
+    }
+    .orb-b {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(229,165,92,0.10) 0%, transparent 70%);
+      bottom: 5%; left: -80px;
+      animation: orbB 28s ease-in-out infinite alternate;
+    }
+    .orb-c {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(138,167,200,0.08) 0%, transparent 70%);
+      top: 50%; left: 40%;
+      animation: orbC 34s ease-in-out infinite alternate;
+    }
+    @keyframes orbA { to { transform: translate(-60px, 100px) scale(1.14); } }
+    @keyframes orbB { to { transform: translate(80px, -60px) scale(1.10); } }
+    @keyframes orbC { to { transform: translate(-40px, 80px) scale(1.08); } }
+
+    ::selection { background: rgba(242,179,109,0.18); color: var(--head); }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--ink2); border-radius: 3px; }
+
+    /* ── Cursor ── */
+    #cur {
+      position: fixed; z-index: 9999; pointer-events: none;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--head); transform: translate(-50%,-50%);
+      mix-blend-mode: difference;
+      transition: width .18s, height .18s;
+    }
+    #cur-r {
+      position: fixed; z-index: 9998; pointer-events: none;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid rgba(242,179,109,0.22);
+      transform: translate(-50%,-50%);
+      transition: width .32s, height .32s, border-color .22s;
+    }
+    .hov #cur  { width: 10px; height: 10px; }
+    .hov #cur-r { width: 46px; height: 46px; border-color: rgba(242,179,109,0.44); }
+
+    /* ── Progress bar ── */
+    #prog {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 500;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--head));
+      transform-origin: left; transform: scaleX(0);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 62px; border-bottom: 1px solid transparent;
+      transition: background var(--t), border-color var(--t);
+    }
+    nav.up {
+      background: rgba(6,10,18,0.82);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      border-bottom-color: var(--glass-border);
+    }
+    .nav-w {
+      max-width: 1160px; margin: 0 auto; padding: 0 36px;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; cursor: none; }
+    .logo-sq {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: rgba(242,179,109,0.08);
+      border: 1px solid var(--glass-bord2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 800; color: var(--head);
+      backdrop-filter: var(--blur);
+    }
+    .logo-name { font-size: .88rem; font-weight: 700; color: var(--head); letter-spacing: -.01em; line-height: 1; }
+    .logo-role { font-size: .61rem; color: var(--sub); display: block; margin-top: 2px; letter-spacing: .03em; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a {
+      font-size: .77rem; font-weight: 500; color: var(--sub);
+      text-decoration: none; padding: 6px 13px; border-radius: 8px; cursor: none;
+      transition: color var(--tf), background var(--tf);
+    }
+    .nav-links a:hover { color: var(--head); background: rgba(242,179,109,0.06); }
+    .nav-r { display: flex; align-items: center; gap: 11px; }
+    .avail {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .64rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--head); padding: 5px 12px;
+      background: var(--glass); border: 1px solid var(--glass-bord2);
+      border-radius: 100px; backdrop-filter: var(--blur);
+    }
+    .adot { width: 5px; height: 5px; border-radius: 50%; background: #a8e6cf; box-shadow: 0 0 6px rgba(168,230,207,0.55); animation: pulse 2.5s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .77rem; font-weight: 700; color: var(--ink0);
+      background: var(--head); padding: 9px 20px; border-radius: var(--r);
+      text-decoration: none; border: none; cursor: none; font-family: inherit;
+      transition: opacity var(--tf), transform var(--tf), box-shadow var(--tf);
+      box-shadow: 0 2px 20px rgba(242,179,109,0.08);
+    }
+    .btn-cta:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(242,179,109,0.16); }
+
+    /* ── Layout ── */
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 36px; position: relative; z-index: 1; }
+    section { padding: 116px 0; position: relative; z-index: 1; }
+
+    /* ── DARK sections ── */
+    section.theme-dark {
+      background-color: #050914;
+      background-image:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #040814 0%, #09101d 100%);
+      color: var(--body);
+      isolation: isolate; position: relative; z-index: 1;
+    }
+    section.theme-dark::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(4,8,20,0.18), rgba(4,8,20,0.06)),
+        radial-gradient(circle at top right, rgba(229,165,92,0.06), transparent 32%);
+      pointer-events: none; z-index: 0;
+    }
+    section.theme-dark .wrap { position: relative; z-index: 1; }
+    section.theme-dark .s-label { color: var(--sub); }
+    section.theme-dark .s-label::before { background: var(--accent); }
+    section.theme-dark .s-h { color: var(--head); }
+    section.theme-dark .s-p { color: var(--body); }
+    section.theme-dark .sk-card,
+    section.theme-dark .exp-wrap {
+      background: rgba(10, 16, 28, 0.84);
+      border-color: var(--glass-border);
+      color: var(--body);
+    }
+    section.theme-dark .exp-title,
+    section.theme-dark .exp-co,
+    section.theme-dark .exp-list li,
+    section.theme-dark .sk-title,
+    section.theme-dark .sk-chip { color: var(--body); }
+    section.theme-dark .sk-chip {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(173, 187, 206, 0.10);
+    }
+
+    /* ── LIGHT sections ── */
+    section.theme-light {
+      background-color: #f4f7fb;
+      background-image:
+        radial-gradient(ellipse 80% 55% at 50% 0%, rgba(215,192,150,0.10) 0%, transparent 60%),
+        linear-gradient(180deg, #fbfdff 0%, #eef3f8 100%);
+      isolation: isolate; position: relative; z-index: 2; color: #1a2431;
+    }
+    section.theme-light .s-label         { color: #6b7d94; }
+    section.theme-light .s-label::before { background: #b07d42; }
+    section.theme-light .s-h             { color: #08111d; }
+    section.theme-light .s-p             { color: #2d3e52; }
+    section.theme-light .about-p         { color: #2d3e52; }
+    section.theme-light .about-p strong  { color: #08111d; }
+    section.theme-light .fact-grid        { background: rgba(15,27,42,0.06); border-color: rgba(15,27,42,0.08); }
+    section.theme-light .fact-cell        { background: #ffffff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    section.theme-light .fc-k             { color: #6b7d94; }
+    section.theme-light .fc-v             { color: #08111d; }
+    section.theme-light .fc-v.hi          { color: #b07d42; }
+    section.theme-light .about-card       { background: #ffffff; border-color: rgba(15,27,42,0.10); box-shadow: 0 4px 32px rgba(15,27,42,0.07); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    section.theme-light .about-card::after{ background: radial-gradient(circle, rgba(176,125,66,0.12) 0%, transparent 70%); }
+    section.theme-light .ac-name          { color: #08111d; }
+    section.theme-light .ac-role          { color: #516278; }
+    section.theme-light .chip             { color: #2d3e52; background: #ffffff; border-color: rgba(15,27,42,0.12); }
+    section.theme-light .chip:hover       { color: #08111d; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.22); }
+    section.theme-light .exp-wrap::before { background: linear-gradient(180deg, #b07d42 0%, rgba(15,27,42,0.06) 100%); }
+    section.theme-light .exp-dot          { background: #fff; border-color: #b07d42; box-shadow: 0 0 0 3px rgba(229,165,92,0.12), 0 0 12px rgba(229,165,92,0.18); }
+    section.theme-light .exp-item:hover .exp-dot { border-color: #08111d; box-shadow: 0 0 0 3px rgba(8,17,29,0.08), 0 0 10px rgba(8,17,29,0.14); }
+    section.theme-light .exp-period       { color: #6b7d94; }
+    section.theme-light .exp-title        { color: #08111d; }
+    section.theme-light .exp-co           { color: #516278; }
+    section.theme-light .exp-badge        { color: #6b7d94; background: #ffffff; border-color: rgba(15,27,42,0.10); }
+    section.theme-light .exp-badge.now    { color: #b07d42; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.20); }
+    section.theme-light .exp-list li      { color: #2d3e52; }
+    section.theme-light .exp-list li::before { color: #b07d42; }
+    section.theme-light .sk-chip          { color: #2d3e52; background: #ffffff; border-color: rgba(15,27,42,0.10); }
+    section.theme-light .sk-chip:hover    { color: #08111d; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.20); }
+    section.theme-light .about-grid { align-items: start; }
+    section.theme-light .exp-wrap { margin-top: 36px; }
+    section.theme-light .exp-wrap::before { left: 0; }
+    section.theme-light .exp-dot { left: -33px; }
+    section.theme-light .fl               { color: #516278; }
+    section.theme-light .fi:focus,
+    section.theme-light .ft:focus         { border-color: rgba(229,165,92,0.34); background: #fff; }
+    section.theme-light .btn-cta          { background: #08111d; color: #f2f5f9; box-shadow: 0 4px 22px rgba(8,17,29,0.18); }
+    section.theme-light .btn-cta:hover    { box-shadow: 0 8px 30px rgba(8,17,29,0.26); }
+    section.theme-light .modal-close-btn  { color: #516278; border-color: rgba(15,27,42,0.12); }
+    section.theme-light .modal-close-btn:hover { border-color: rgba(229,165,92,0.24); background: rgba(229,165,92,0.06); }
+    section.theme-light + section.theme-dark,
+    section.theme-dark + section.theme-light { border-top: 1px solid rgba(168,183,200,0.07); }
+    section.theme-dark + section.theme-light { border-top-color: rgba(176,125,66,0.14); }
+
+    /* ── Section label ── */
+    .s-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .22em;
+      color: var(--muted); margin-bottom: 14px;
+    }
+    .s-label::before { content: ''; width: 26px; height: 1px; background: var(--ink3); }
+    .s-h {
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      font-weight: 800; letter-spacing: -.04em; line-height: 1.1; color: var(--head);
+    }
+    .s-p { font-size: .9rem; font-weight: 400; color: var(--body); line-height: 1.88; max-width: 480px; margin-top: 12px; }
+
+    /* ── Reveal animations ── */
+    .rv   { opacity:0; transform:translateY(32px); transition:opacity .8s ease,transform .8s ease; }
+    .rv-l { opacity:0; transform:translateX(-32px); transition:opacity .8s ease,transform .8s ease; }
+    .rv-r { opacity:0; transform:translateX(32px);  transition:opacity .8s ease,transform .8s ease; }
+    .rv-s { opacity:0; transform:scale(.96); transition:opacity .7s ease,transform .7s ease; }
+    .rv.on,.rv-l.on,.rv-r.on,.rv-s.on { opacity:1; transform:none; }
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+    .d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+
+    /* ══════════════════════════
+       HERO — name only, cinematic
+       ══════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 62px;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(69,87,124,0.22) 0%, transparent 68%),
+        linear-gradient(180deg, #040814 0%, #08101d 100%);
+      z-index: 1;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 65% 60% at 68% 32%, rgba(69,87,124,0.20) 0%, transparent 62%),
+        radial-gradient(ellipse 45% 48% at 18% 72%, rgba(229,165,92,0.09) 0%, transparent 58%);
+    }
+    /* Grid lines */
+    #hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(173,187,206,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(173,187,206,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 60px 0 80px;
+      width: 100%;
+    }
+
+    /* Animated badge */
+    @keyframes fu { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+    @keyframes fi { from{opacity:0} to{opacity:1} }
+    @keyframes shine {
+      from { background-position: -200% center; }
+      to   { background-position: 200% center; }
+    }
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes lineGrow { from{transform:scaleX(0);opacity:0} to{transform:scaleX(1);opacity:1} }
+    @keyframes charIn {
+      from { opacity:0; transform: translateY(40px) rotate(4deg); }
+      to   { opacity:1; transform: none; }
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity:.18; transform:scale(1); }
+      50% { opacity:.28; transform:scale(1.08); }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .67rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--sub);
+      opacity:0; animation: fu .6s .15s ease forwards;
+      margin-bottom: 36px;
+    }
+    .hero-eyebrow .ey-line {
+      display: inline-block; width: 24px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent));
+    }
+
+    
+    .hero-name-wrap {
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .hero-first, .hero-last {
+      display: block;
+      font-size: clamp(4rem, 10vw, 10rem);
+      font-weight: 800;
+      letter-spacing: -.06em;
+      line-height: .88;
+    }
+    .hero-first {
+      color: var(--head);
+      opacity:0; animation: fu 1s .28s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-last {
+      color: transparent;
+      -webkit-text-stroke: 1.2px rgba(242,179,109,0.32);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      opacity:0; animation: fu 1s .42s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    /* Animated underline */
+    .hero-underline {
+      width: 240px; height: 1px; margin: 22px auto 28px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform-origin: center;
+      opacity:0; animation: lineGrow .9s .7s ease forwards;
+    }
+
+    .hero-role-line {
+      font-size: clamp(.88rem, 1.4vw, 1.1rem);
+      font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--sub);
+      opacity:0; animation: fu .8s .82s ease forwards;
+      margin-bottom: 40px;
+    }
+    .hero-role-line strong { color: var(--accent); font-weight: 600; }
+
+    .hero-soc {
+      display: flex; gap: 8px; justify-content: center;
+      opacity:0; animation: fu .8s .98s ease forwards;
+    }
+    .soc {
+      width: 40px; height: 40px; border-radius: 12px;
+      border: 1px solid var(--glass-border); background: var(--glass);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink3); text-decoration: none;
+      backdrop-filter: var(--blur);
+      transition: all var(--tf); cursor: none;
+    }
+    .soc:hover { color: var(--head); border-color: var(--glass-bord2); background: rgba(242,179,109,0.06); transform: translateY(-3px); }
+
+    /* Scroll hint */
+    .hero-scroll {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity:0; animation: fi 1s 1.4s ease forwards;
+    }
+    .hero-scroll span { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+    .hero-scroll-bar {
+      width: 1px; height: 40px;
+      background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+      animation: scrollBarDrop 1.8s 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollBarDrop {
+      0% { transform: scaleY(0); transform-origin: top; opacity:0; }
+      40% { transform: scaleY(1); transform-origin: top; opacity:1; }
+      60% { transform: scaleY(1); transform-origin: bottom; opacity:1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity:0; }
+    }
+
+    /* Glow orbs specific to hero */
+    .hero-glow {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+    }
+    .hero-glow-a {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(69,87,124,0.18) 0%, transparent 70%);
+      top: -100px; right: -120px;
+      animation: glowPulse 8s ease-in-out infinite;
+    }
+    .hero-glow-b {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(229,165,92,0.10) 0%, transparent 70%);
+      bottom: -80px; left: -80px;
+      animation: glowPulse 11s 2s ease-in-out infinite;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: transparent; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-p { font-size:.89rem; font-weight:400; color:var(--body); line-height:1.9; margin-bottom:15px; }
+    .about-p strong { color:var(--head); font-weight:600; }
+    .fact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap:1px; margin-top:30px;
+      background: var(--glass-border);
+      border: 1px solid var(--glass-border); border-radius: var(--r); overflow: hidden;
+    }
+    .fact-cell { padding:15px 17px; background:var(--glass2); backdrop-filter:var(--blur); }
+    .fc-k { font-size:.59rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-bottom:4px; font-weight:600; }
+    .fc-v { font-size:.8rem; font-weight:600; color:var(--head); }
+    .fc-v.hi { color:var(--body); }
+    .about-card {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: var(--rl); padding: 30px;
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      position: relative; overflow: hidden;
+    }
+    .about-card::after {
+      content:''; position:absolute; bottom:-80px; left:-80px;
+      width:250px; height:250px; border-radius:50%;
+      background: radial-gradient(circle, rgba(242,179,109,0.16) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .ac-name { font-size:1.08rem; font-weight:700; color:var(--head); margin-bottom:3px; position:relative; z-index:1; }
+    .ac-role { font-size:.72rem; color:var(--sub); margin-bottom:22px; position:relative; z-index:1; font-weight:500; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; position:relative; z-index:1; }
+    .chip {
+      font-size:.67rem; font-weight:500; color:var(--sub);
+      background:rgba(12,20,32,0.82); border:1px solid rgba(168,183,200,0.12);
+      border-radius:6px; padding:3px 9px; cursor:default;
+      transition:all var(--tf);
+    }
+    .chip:hover { color:var(--head); background:rgba(242,179,109,0.07); border-color:var(--glass-bord2); }
+
+    /* ── SKILLS ── */
+    #skills { background: transparent; }
+    .sk-head { margin-bottom:52px; }
+    .sk-layout {
+      display:grid; grid-template-columns: .86fr 1.14fr;
+      gap: 18px; align-items: stretch;
+    }
+    .sk-overview {
+      background: #ffffff; border: 1px solid rgba(15,27,42,0.09);
+      border-radius: 28px; padding: 30px;
+      box-shadow: 0 22px 72px rgba(15,27,42,0.08);
+      display:flex; flex-direction:column; justify-content:space-between; min-height: 100%;
+    }
+    .sk-over-eyebrow { font-size:.62rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#6b7d94; margin-bottom:12px; }
+    .sk-over-title { font-size:clamp(1.7rem,2.4vw,2.4rem); line-height:1.05; letter-spacing:-.05em; color:#08111d; margin-bottom:12px; }
+    .sk-over-text { font-size:.92rem; line-height:1.88; color:#2d3e52; max-width:34ch; }
+    .sk-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:26px; }
+    .sk-metric { background:#f6f8fb; border:1px solid rgba(15,27,42,0.08); border-radius:18px; padding:14px 14px 12px; }
+    .sk-metric span { display:block; font-size:1.4rem; font-weight:800; letter-spacing:-.05em; color:#08111d; line-height:1; margin-bottom:4px; }
+    .sk-metric label { display:block; font-size:.62rem; text-transform:uppercase; letter-spacing:.12em; color:#6b7d94; }
+    .sk-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .sk-card {
+      background: #ffffff; border: 1px solid rgba(15,27,42,0.09);
+      border-radius: 24px; padding: 26px 22px;
+      transition: transform var(--tf), box-shadow var(--tf), border-color var(--tf);
+      position:relative; overflow:hidden;
+      box-shadow: 0 14px 40px rgba(15,27,42,0.05);
+    }
+    .sk-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(242,179,109,0.08), transparent);
+      transform:scaleX(0); transition:transform var(--t);
+    }
+    .sk-card:hover { transform: translateY(-3px); box-shadow: 0 18px 54px rgba(15,27,42,0.08); border-color: rgba(229,165,92,0.20); }
+    .sk-card:hover::after { transform:scaleX(1); }
+    .sk-ico {
+      width:38px; height:38px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; margin-bottom:13px;
+      background:rgba(229,165,92,0.08); border:1px solid rgba(229,165,92,0.16);
+    }
+    .sk-title { font-size:1rem; font-weight:800; color:#08111d; margin-bottom:14px; letter-spacing:-.02em; }
+    .sk-chips { display:flex; flex-wrap:wrap; gap:5px; }
+    .sk-chip {
+      font-size:.63rem; font-weight:600; color:#516278;
+      background:#f7f9fc; border:1px solid rgba(15,27,42,0.10);
+      border-radius:999px; padding:4px 9px; cursor:default; transition:all var(--tf);
+    }
+    .sk-chip:hover { color:#08111d; background:rgba(229,165,92,0.08); border-color:rgba(229,165,92,0.22); }
+    .sk-grid .sk-card:first-child { grid-column: span 2; }
+    .sk-grid .sk-card:first-child .sk-title { font-size:1.08rem; }
+
+    /* ══════════════════════════
+       PROJECTS — cinematic sticky scroll
+       ══════════════════════════ */
+    #projects {
+      background-color: #050914;
+      background-image:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #040814 0%, #09101d 100%);
+      position: relative;
+    }
+    /* per-project tint overlay — transitions slowly, nearly invisible but felt */
+    #projects::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 90% 50% at 50% 20%, var(--proj-tint, transparent) 0%, transparent 70%);
+      transition: background 1.8s cubic-bezier(.4,0,.2,1);
+      pointer-events: none; z-index: 0;
+    }
+    .proj-hdr { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:46px; position:relative; z-index:1; }
+    .proj-cinema { position:relative; margin-top:14px; --project-count:5; z-index:1; }
+
+    .ptag {
+      font-size:.6rem; font-weight:600; letter-spacing:.05em;
+      color:var(--muted); background:rgba(82,43,91,0.22); border:1px solid rgba(82,43,91,0.32);
+      border-radius:5px; padding:3px 8px;
+    }
+
+    /* cinematic wrapper */
+    .proj-sticky {
+      position: sticky;
+      top: 62px;
+      min-height: calc(100vh - 62px);
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 18px;
+      align-items: stretch;
+      padding: 14px 0 20px;
+      z-index: 2;
+    }
+    .proj-stage,
+    .proj-copy {
+      position: relative;
+      background: linear-gradient(180deg, rgba(12,18,29,0.96) 0%, rgba(7,12,21,0.92) 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 30px;
+      overflow: hidden;
+      backdrop-filter: var(--blur);
+      box-shadow:
+        0 30px 90px rgba(5,10,18,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .45s ease, filter .45s ease, border-color .35s ease;
+      will-change: transform, opacity, filter;
+    }
+    .proj-copy::before,
+    .proj-stage::before {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+    .proj-copy::before {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(242,179,109,0.10) 0%, transparent 34%),
+        radial-gradient(circle at 0% 100%, rgba(138,167,200,0.08) 0%, transparent 30%);
+      opacity: .9;
+    }
+    .proj-stage::before {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(242,179,109,0.05) 0%, transparent 50%);
+      z-index: 4;
+    }
+    .proj-stage { min-height: clamp(420px, 62vh, 700px); cursor: none; }
+
+    /* entire stage is clickable */
+    .proj-stage-click {
+      position: absolute; inset: 0; z-index: 10; cursor: none;
+    }
+
+    /* top shimmer line on hover */
+    .proj-stage::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 11;
+      background: linear-gradient(90deg, transparent, rgba(242,179,109,0.60), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .55s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .proj-stage:hover::after { transform: scaleX(1); }
+
+    /* background transitions smoothly between projects */
+    .proj-stage {
+      transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        opacity .45s ease,
+        filter .45s ease,
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .6s ease;
+    }
+
+    .proj-stage-media {
+      position: absolute; inset: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 28px;
+    }
+    .proj-stage-media img {
+      width: 100%; height: 100%;
+      object-fit: contain; object-position: center center; display: block;
+      filter: none;
+      transition: opacity .55s ease, transform .9s cubic-bezier(.4,0,.2,1);
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      border-radius: 10px;
+      box-shadow: 0 28px 72px rgba(0,0,0,0.52), 0 8px 24px rgba(0,0,0,0.38);
+    }
+    .proj-stage-media img.flash {
+      opacity: 0;
+      transform: scale(.96) translateY(10px);
+    }
+    .proj-stage:hover .proj-stage-media img {
+      transform: scale(1.02) translateY(-3px);
+      box-shadow: 0 36px 88px rgba(0,0,0,0.62), 0 12px 32px rgba(0,0,0,0.44);
+    }
+
+    /* per-project accent glow behind the image */
+    .proj-stage-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 50%, rgba(var(--proj-accent,242,179,109),0.10), transparent 68%),
+        radial-gradient(ellipse 45% 35% at 85% 15%, rgba(var(--proj-accent,242,179,109),0.06), transparent 60%);
+      pointer-events: none; z-index: 1;
+      animation: glowPulse 7s ease-in-out infinite;
+    }
+
+    /* hover — accent border glow using per-project color */
+    .proj-stage:hover {
+      border-color: rgba(var(--proj-accent,242,179,109),0.28);
+      box-shadow:
+        0 30px 90px rgba(5,10,18,0.52),
+        0 0 0 1px rgba(var(--proj-accent,242,179,109),0.14),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* copy panel */
+    .proj-copy {
+      padding: 32px 30px 28px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .proj-copy-top {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    }
+    .proj-index {
+      font-size: clamp(5rem, 8vw, 8rem); line-height: .82; font-weight: 800; letter-spacing: -.08em;
+      color: transparent; -webkit-text-stroke: 1.5px rgba(242,179,109,0.32); user-select: none;
+      transition: -webkit-text-stroke-color .35s ease;
+    }
+    .proj-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .proj-badge {
+      font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(242,245,249,0.82);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px; padding: 5px 9px;
+    }
+    .proj-copy h3 {
+      font-size: clamp(2rem,3.2vw,3rem); letter-spacing: -.05em; line-height: 1; color: var(--head);
+    }
+    .proj-copy p { font-size: .92rem; color: rgba(242,245,249,0.86); line-height: 1.85; }
+    .proj-highlights { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .proj-highlights li {
+      position: relative; padding-left: 16px;
+      font-size: .82rem; line-height: 1.7; color: rgba(242,245,249,0.82);
+      transition: color .25s ease, transform .25s ease;
+    }
+    .proj-highlights li::before {
+      content: '→'; position: absolute; left: 0;
+      color: rgba(242,179,109,0.95); font-size: .72rem;
+      transition: transform .22s ease;
+    }
+    .proj-highlights li:hover { color: var(--head); transform: translateX(3px); }
+    .proj-highlights li:hover::before { transform: translateX(2px); }
+    .proj-footer {
+      margin-top: auto; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .proj-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .78rem; font-weight: 700; color: var(--head);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px; padding: 10px 15px; cursor: none; font-family: inherit;
+      box-shadow: 0 10px 24px rgba(5,10,18,0.22);
+      transition: transform var(--tf), background var(--tf), border-color var(--tf), box-shadow var(--tf);
+    }
+    .proj-cta:hover {
+      transform: translateY(-2px);
+      border-color: rgba(242,179,109,0.28);
+      background: rgba(242,179,109,0.10);
+      box-shadow: 0 16px 32px rgba(5,10,18,0.28);
+    }
+
+    /* transition states */
+    .proj-cinema.transitioning .proj-copy {
+      transform: translateX(-8px) scale(.99); opacity: .8; filter: blur(.6px);
+    }
+    .proj-cinema.transitioning .proj-stage {
+      transform: translateX(8px) scale(.995); opacity: .88; filter: saturate(.96);
+    }
+    .proj-cinema.transitioning .proj-copy h3,
+    .proj-cinema.transitioning .proj-copy p,
+    .proj-cinema.transitioning .proj-highlights,
+    .proj-cinema.transitioning .proj-tags {
+      transform: translateY(8px); opacity: .65;
+    }
+
+    /* scroll driver */
+    .proj-scroll { position: relative; z-index: 1; height: calc(var(--project-count) * 100vh); }
+    .proj-step { height: 100vh; }
+
+    /* progress dots */
+    .proj-shell {
+      display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; margin-top: 14px;
+    }
+    .proj-dot {
+      height: 5px; border-radius: 999px;
+      background: rgba(168,183,200,0.14); overflow: hidden; position: relative;
+    }
+    .proj-dot::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0); transform-origin: left; transition: transform .38s ease;
+    }
+    .proj-dot.active::after { transform: scaleX(1); }
+    .proj-dot.active { background: rgba(242,179,109,0.24); }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      background-color: #050914;
+      background-image:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #040814 0%, #09101d 100%);
+    }
+    .exp-wrap { margin-top:54px; padding-left:28px; position:relative; }
+    .exp-wrap::before {
+      content:''; position:absolute; left:0; top:6px; bottom:6px; width:1px;
+      background:linear-gradient(180deg,var(--ink2) 0%,rgba(82,43,91,0.05) 100%);
+    }
+    .exp-item { padding-bottom:46px; position:relative; }
+    .exp-item:last-child { padding-bottom:0; }
+    .exp-dot {
+      position:absolute; left:-33px; top:5px;
+      width:11px; height:11px; border-radius:50%;
+      background:var(--ink0); border:2px solid var(--ink2);
+      box-shadow:0 0 0 3px rgba(82,43,91,0.10),0 0 14px rgba(82,43,91,0.22);
+      transition:border-color var(--tf),box-shadow var(--tf);
+    }
+    .exp-item:hover .exp-dot { border-color:var(--accent); box-shadow:0 0 0 3px rgba(242,179,109,0.10),0 0 12px rgba(242,179,109,0.22); }
+    .exp-period { font-size:.62rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.13em; margin-bottom:7px; }
+    .exp-title { font-size:1.04rem; font-weight:700; color:var(--head); margin-bottom:3px; letter-spacing:-.02em; }
+    .exp-co { font-size:.79rem; color:var(--sub); font-weight:500; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+    .exp-badge {
+      font-size:.58rem; font-weight:600; color:var(--muted);
+      background:rgba(133,79,108,0.13); border:1px solid rgba(133,79,108,0.2);
+      border-radius:5px; padding:2px 7px;
+    }
+    .exp-badge.now { color:var(--head); background:rgba(242,179,109,0.08); border-color:rgba(242,179,109,0.16); }
+    .exp-list { list-style:none; display:flex; flex-direction:column; gap:6px; }
+    .exp-list li { font-size:.81rem; font-weight:400; color:var(--body); line-height:1.74; padding-left:13px; position:relative; }
+    .exp-list li::before { content:'–'; position:absolute; left:0; color:var(--ink3); }
+    .exp-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background-color: #050914;
+      background-image:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #040814 0%, #09101d 100%);
+    }
+    #contact .s-label { color: var(--sub); }
+    #contact .s-label::before { background: var(--accent); }
+    #contact .s-h { color: var(--head); }
+    #contact .s-p { color: var(--body); }
+    #contact { background: #f5f7fa; }
+    #contact .s-h { color: #08111d; }
+    #contact .s-p { color: #4a5568; }
+    .contact-head { text-align:center; margin-bottom:64px; }
+    .contact-head .s-label { justify-content:center; }
+    .contact-head .s-p { margin:12px auto 0; max-width: 44ch; }
+
+    /* two-column layout */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: start;
+    }
+
+    /* left info column */
+    .cg-info { padding-top: 8px; }
+    .cg-title {
+      font-size: 2rem; font-weight: 800; color: #08111d;
+      letter-spacing: -.05em; line-height: 1.15; margin: 16px 0 12px;
+    }
+    .cg-title span { color: #c8923a; }
+    .cg-body { font-size: .86rem; color: #4a5568; line-height: 1.9; margin-bottom: 32px; max-width: 36ch; }
+
+    /* availability badge */
+    .contact-avail {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: #2e7d52; padding: 5px 13px;
+      background: rgba(46,125,82,0.08); border: 1px solid rgba(46,125,82,0.22);
+      border-radius: 100px; margin-bottom: 20px;
+    }
+    .contact-avail-dot { width:5px; height:5px; border-radius:50%; background:#3daa6a; box-shadow:0 0 6px rgba(61,170,106,0.5); animation:pulse 2.5s ease infinite; }
+
+    /* contact info items */
+    .clinks { display:flex; flex-direction:column; gap:8px; }
+    .clink {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      text-decoration: none; color: #08111d;
+      transition: border-color var(--tf), background var(--tf), transform var(--tf), box-shadow var(--tf); cursor: none;
+      box-shadow: 0 1px 3px rgba(15,27,42,0.06);
+    }
+    .clink:hover {
+      border-color: rgba(200,146,58,0.35);
+      background: rgba(200,146,58,0.04);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200,146,58,0.12);
+    }
+    .clink-ico {
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      background: #f5f0e8; border: 1px solid rgba(200,146,58,0.20);
+      display: flex; align-items: center; justify-content: center; color: #c8923a;
+    }
+    .clink-ico svg { display:block; }
+    .clink-k { font-size: .56rem; color: #8a9ab0; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 2px; }
+    .clink-v { font-weight: 600; color: #1a2535; font-size: .8rem; }
+
+    /* right form card */
+    .cg-form {
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 8px 40px rgba(15,27,42,0.08);
+      overflow: hidden;
+    }
+    .cg-form-inner { padding: 40px; }
+    .cg-form-title {
+      font-size: 1.15rem; font-weight: 700; color: #08111d;
+      letter-spacing: -.03em; margin-bottom: 28px;
+      padding-bottom: 20px; border-bottom: 1px solid #eef0f4;
+    }
+    .fg { margin-bottom:14px; }
+    .fl { display:block; font-size:.62rem; font-weight:700; color:#6b7d94; margin-bottom:6px; text-transform:uppercase; letter-spacing:.1em; }
+    .fi, .ft {
+      width:100%; background:#f8fafc;
+      border:1px solid #e2e8f0; border-radius:10px;
+      padding:11px 14px; font-size:.83rem; color:#08111d;
+      font-family:inherit; outline:none; resize:none;
+      transition:border-color var(--tf),background var(--tf),box-shadow var(--tf);
+    }
+    .fi::placeholder,.ft::placeholder { color:#a0b0c4; }
+    .fi:focus,.ft:focus {
+      border-color: #c8923a;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(200,146,58,0.12);
+    }
+    .ft { min-height:120px; }
+    .fg2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .cg-send-btn {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 24px; border-radius: 10px; border: none; cursor: none;
+      background: #08111d; color: #ffffff;
+      font-family: inherit; font-size: .84rem; font-weight: 700; letter-spacing: .02em;
+      transition: background var(--tf), transform var(--tf), box-shadow var(--tf);
+      margin-top: 4px;
+    }
+    .cg-send-btn:hover { background: #1a2535; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(8,17,29,0.18); }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: #050914;
+      background-image:
+        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #040814 0%, #09101d 100%);
+      border-top: 1px solid rgba(173,187,206,0.08);
+      padding: 26px 0; position: relative; z-index: 1;
+    }
+    .foot-w {
+      max-width:1160px; margin:0 auto; padding:0 36px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .foot-copy { font-size:.72rem; color:var(--sub); }
+    .foot-copy b { color:var(--body); }
+    .foot-soc { display:flex; gap:6px; }
+    .foot-ico {
+      width:28px; height:28px; border-radius:7px;
+      border:1px solid var(--glass-bord2);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--muted); text-decoration:none;
+      transition:all var(--tf); cursor:none;
+    }
+    .foot-ico:hover { color:var(--head); border-color:var(--glass-bord2); background:rgba(242,179,109,0.05); }
+
+    /* ══ MODALS ══ */
+    .modal-bg {
+      position:fixed; inset:0; z-index:1000;
+      background:rgba(5,10,18,0.80);
+      backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+      display:flex; align-items:center; justify-content:center; padding:24px;
+      opacity:0; pointer-events:none; transition:opacity .32s ease;
+    }
+    .modal-bg.open { opacity:1; pointer-events:all; }
+    .modal {
+      background:rgba(8,14,24,0.96);
+      border:1px solid var(--glass-border);
+      border-radius:22px; width:100%; max-width:840px; max-height:90vh;
+      overflow-y:auto;
+      box-shadow:0 40px 120px rgba(5,10,18,0.82),0 0 0 1px rgba(242,179,109,0.14);
+      transform:translateY(28px) scale(.97);
+      transition:transform .36s cubic-bezier(.4,0,.2,1);
+      backdrop-filter:var(--blur);
+    }
+    .modal-bg.open .modal { transform:none; }
+    .modal::-webkit-scrollbar { width:3px; }
+    .modal::-webkit-scrollbar-thumb { background:var(--ink2); }
+    .modal-top {
+      display:flex; justify-content:flex-end; padding:16px 22px 0;
+      position:sticky; top:0; z-index:10;
+      background:rgba(8,14,24,0.96); backdrop-filter:var(--blur);
+    }
+    .modal-x {
+      width:30px; height:30px; border-radius:8px;
+      border:1px solid var(--glass-border); background:var(--glass);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; color:var(--ink3); font-size:.88rem;
+      transition:all var(--tf);
+    }
+    .modal-x:hover { background:rgba(242,179,109,0.07); color:var(--head); border-color:var(--glass-bord2); }
+    .modal-hero { padding:0 34px 22px; }
+    .modal-badge { font-size:.57rem; font-weight:700; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); margin-bottom:8px; }
+    .modal-title { font-size:2rem; font-weight:800; letter-spacing:-.05em; color:var(--head); margin-bottom:7px; }
+    .modal-sub { font-size:.83rem; font-weight:400; color:var(--body); margin-bottom:14px; line-height:1.65; }
+    .modal-meta { display:flex; flex-wrap:wrap; gap:14px; font-size:.71rem; color:var(--sub); }
+    .modal-img {
+      margin:0 34px; border-radius:var(--r); overflow:hidden;
+      border:1px solid var(--glass-border); background:rgba(7,12,21,0.96);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .modal-img img { width:100%; height:auto; max-height:480px; object-fit:contain; display:block; filter:none; }
+    .modal-img-ph { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem; }
+    .modal-stats {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+      background:var(--glass-border); margin:22px 34px;
+      border:1px solid var(--glass-border); border-radius:var(--r); overflow:hidden;
+    }
+    .mstat { background:rgba(8,14,24,0.92); padding:14px 16px; }
+    .mstat-n { font-size:1.32rem; font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--head); margin-bottom:3px; }
+    .mstat-l { font-size:.62rem; color:var(--sub); line-height:1.38; font-weight:500; }
+    .modal-body { padding:0 34px 34px; }
+    .modal-sec { margin-bottom:22px; }
+    .modal-sec h4 { font-size:.86rem; font-weight:700; color:var(--head); margin-bottom:11px; padding-bottom:8px; border-bottom:1px solid var(--glass-border); }
+    .modal-sec p { font-size:.82rem; font-weight:400; color:var(--body); line-height:1.84; }
+    .modal-sec ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+    .modal-sec li { font-size:.8rem; font-weight:400; color:var(--body); padding-left:14px; position:relative; line-height:1.7; }
+    .modal-sec li::before { content:'→'; position:absolute; left:0; color:var(--ink3); font-size:.68rem; top:2px; }
+    .modal-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .modal-tag {
+      font-size:.65rem; font-weight:600; color:var(--sub);
+      background:rgba(12,20,32,0.86); border:1px solid rgba(168,183,200,0.12);
+      border-radius:6px; padding:3px 9px;
+    }
+    .modal-actions { display:flex; gap:9px; margin-top:26px; flex-wrap:wrap; }
+    .modal-live {
+      display:inline-flex; align-items:center; gap:7px;
+      padding:10px 22px; border-radius:var(--r);
+      font-size:.78rem; font-weight:700; color:var(--ink0);
+      background:var(--head);
+      text-decoration:none; border:none; cursor:pointer; font-family:inherit;
+      transition:opacity var(--tf),transform var(--tf);
+    }
+    .modal-live:hover { opacity:.86; transform:translateY(-1px); }
+    .modal-close-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:10px 19px; border-radius:var(--r);
+      font-size:.78rem; font-weight:600; color:var(--sub);
+      background:transparent; border:1px solid var(--glass-border);
+      cursor:pointer; transition:border-color var(--tf),background var(--tf); font-family:inherit;
+    }
+    .modal-close-btn:hover { border-color:var(--glass-bord2); background:rgba(242,179,109,0.04); }
+
+    /* ── Lang toggle ── */
+    .lang-toggle {
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+      color: var(--sub); background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 5px 10px; cursor: none; font-family: inherit;
+      transition: color var(--tf), border-color var(--tf), background var(--tf);
+    }
+    .lang-toggle:hover { color: var(--head); border-color: var(--glass-bord2); background: rgba(229,165,92,0.07); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .sk-layout { grid-template-columns:1fr; }
+      .sk-grid { grid-template-columns:repeat(2,1fr); }
+      .sk-overview { min-height:auto; }
+      .proj-sticky { grid-template-columns:1fr; gap:16px; }
+      .proj-stage { min-height:420px; }
+      .proj-shell { grid-template-columns:repeat(5,1fr); }
+      .modal-stats { grid-template-columns:repeat(2,1fr); }
+      .contact-grid { grid-template-columns:1fr; gap: 32px; }
+      .cg-form-inner { padding: 28px; }
+    }
+    @media(max-width:768px){
+      .wrap { padding:0 20px; }
+      .nav-w { padding:0 20px; }
+      .nav-links { display:none; }
+      section { padding:84px 0; }
+      body { background-attachment:scroll; }
+      .nav-r .avail { display:none; }
+      .btn-cta { padding:8px 15px; }
+      #hero { min-height:100vh; }
+      .hero-inner { padding:40px 0 80px; }
+      .hero-first, .hero-last { font-size:clamp(3.2rem,15vw,5.5rem); }
+      .hero-underline { width:160px; }
+      .about-grid { grid-template-columns:1fr; gap:32px; }
+      .sk-layout { grid-template-columns:1fr; }
+      .sk-overview { padding:22px; }
+      .sk-metrics { grid-template-columns:1fr; }
+      .sk-grid { grid-template-columns:1fr; }
+      .sk-grid .sk-card:first-child { grid-column:auto; }
+      .fact-grid { grid-template-columns:1fr; }
+      .proj-hdr { flex-direction:column; align-items:flex-start; }
+      .proj-hdr .s-p { text-align:left; max-width:100%; }
+      .proj-sticky { top:62px; padding:12px 0 20px; }
+      .proj-stage { min-height:360px; border-radius:22px; }
+      .proj-copy { padding:20px; border-radius:22px; }
+      .proj-copy-top { align-items:flex-end; }
+      .proj-index { font-size:3.2rem; }
+      .proj-shell { grid-template-columns:repeat(5,1fr); width:100%; }
+      .proj-cta { width:100%; justify-content:center; }
+      .modal-img,.modal-hero,.modal-body { padding-left:20px; padding-right:20px; }
+      .modal-stats { margin-left:20px; margin-right:20px; grid-template-columns:1fr 1fr; }
+      .fg2 { grid-template-columns:1fr; }
+      body { cursor:auto; }
+      #cur,#cur-r { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="prog"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="nav-w">
+    <a href="#hero" class="nav-logo">
+      <div class="logo-sq">MN</div>
+      <div>
+        <div class="logo-name" data-i18n="nav.name">محمد النملة</div>
+        <span class="logo-role" data-i18n="nav.role">مطوّر خلفيات</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">عنّي</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">المشاريع</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">المهارات</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">الخبرة</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">تواصل</a></li>
+    </ul>
+    <div class="nav-r">
+      <div class="avail"><span class="adot"></span><span data-i18n="nav.available">متاح للعمل</span></div>
+      <button class="lang-toggle" id="lang-toggle" aria-label="Switch language" onclick="toggleLang()">EN</button>
+      <a href="mailto:moh.alnamla@gmail.com" class="btn-cta">
+        <span data-i18n="nav.hire">توظيف</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-glow hero-glow-a"></div>
+  <div class="hero-glow hero-glow-b"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="ey-line"></span>
+        <span data-i18n="hero.eyebrow">فلسطين · مطوّر خلفيات</span>
+        <span class="ey-line" style="transform:scaleX(-1)"></span>
+      </div>
+      <div class="hero-name-wrap">
+        <span class="hero-first">Mohammed</span>
+        <span class="hero-last">Al-Namla</span>
+      </div>
+      <div class="hero-underline"></div>
+      <p class="hero-role-line" data-i18n-html="hero.tagline">أبني أنظمة <strong>قابلة للتوسع</strong></p>
+      <div class="hero-soc">
+        <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="soc" aria-label="GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="mailto:moh.alnamla@gmail.com" class="soc" aria-label="Email">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="tel:+970599473743" class="soc" aria-label="Phone">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.82a19.79 19.79 0 01-3.07-8.67 2 2 0 012-2.18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </a>
+        <a href="Mohammed_Al_Namla_CV.pdf" download class="soc" aria-label="Download CV">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span data-i18n="hero.scroll">تمرير</span>
+    <div class="hero-scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about" class="theme-light">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv-l">
+        <div class="s-label" data-i18n="about.label">عنّي</div>
+        <h2 class="s-h" data-i18n="about.heading">مطوّر يفكّر بمنطق الأنظمة</h2>
+        <p class="about-p" style="margin-top:22px;" data-i18n-html="about.p1">أنا <strong>مطوّر خلفيات</strong> متخصص في بناء واجهات برمجية عالية الأداء، وأنظمة SaaS متعددة المستأجرين، وحلول الوقت الفعلي — خريج تقنية المعلومات من الجامعة الإسلامية بغزة.</p>
+        <p class="about-p" data-i18n="about.p2">عملت على منصات حجز، أنظمة إدارة جامعية، إدارة مشاريع، بنية ISP، ونقاط بيع للمطاعم — كل مشروع يتطلب أمانًا وأداءً ودقةً في التصميم.</p>
+        <p class="about-p" data-i18n-html="about.p3">أتعامل مع كل مشروع بعقلية <strong>الإنتاج أولاً</strong>: تصميم قاعدة البيانات قبل الكود، الأمان افتراضيًا، والأداء هدف قابل للقياس.</p>
+        <div class="fact-grid">
+          <div class="fact-cell"><div class="fc-k" data-i18n="about.factLocationK">الموقع</div><div class="fc-v" data-i18n="about.factLocationV">فلسطين 🇵🇸</div></div>
+          <div class="fact-cell"><div class="fc-k" data-i18n="about.factRoleK">الدور الحالي</div><div class="fc-v">Laravel Dev · Approved Tech</div></div>
+          <div class="fact-cell"><div class="fc-k" data-i18n="about.factEduK">التعليم</div><div class="fc-v" data-i18n="about.factEduV">بكالوريوس تقنية المعلومات · IUG</div></div>
+          <div class="fact-cell"><div class="fc-k" data-i18n="about.factStatusK">الحالة</div><div class="fc-v hi" data-i18n="about.factStatusV">متاح للعمل ✦</div></div>
+        </div>
+      </div>
+      <div class="rv-r d2">
+        <div class="about-card">
+          <div class="ac-name" data-i18n="about.cardName">محمد النملة</div>
+          <div class="ac-role" data-i18n="about.cardRole">مطوّر خلفيات · فلسطين</div>
+          <div class="chips">
+            <span class="chip">PHP 8+</span><span class="chip">Laravel</span>
+            <span class="chip">MySQL</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Redis</span><span class="chip">Supabase</span>
+            <span class="chip">REST APIs</span><span class="chip">WebSockets</span>
+            <span class="chip">PHPUnit</span><span class="chip">GitHub Actions</span>
+            <span class="chip">RBAC</span><span class="chip">Multi-Tenant</span>
+            <span class="chip">Vue 3</span><span class="chip">Nuxt 4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects" class="theme-dark">
+  <div class="wrap">
+    <div class="proj-hdr rv">
+      <div>
+        <div class="s-label" data-i18n="projects.label">المشاريع</div>
+        <h2 class="s-h" data-i18n="projects.heading">مشاريع مختارة</h2>
+      </div>
+      <p class="s-p" style="max-width:260px;margin-top:0;font-size:.8rem;" data-i18n="projects.sub">بعض من الأعمال التي شاركت في بنائها — انقر على أي مشروع لعرض التفاصيل.</p>
+    </div>
+  </div>
+  <div class="proj-cinema" id="proj-cinema">
+    <div class="proj-sticky">
+      <div class="proj-copy">
+        <div class="proj-copy-top">
+          <div class="proj-index" id="proj-index">01</div>
+          <div class="proj-badges" id="proj-badges">
+            <span class="proj-badge">Live</span>
+            <span class="proj-badge">Full-Stack</span>
+          </div>
+        </div>
+        <h3 id="proj-copy-title">Sufra</h3>
+        <p id="proj-copy-desc">Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.</p>
+        <ul class="proj-highlights" id="proj-highlights">
+          <li>5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.</li>
+          <li>Offline-first POS using IndexedDB outbox sync for unstable connections.</li>
+          <li>Redis cache busting and VAPID push notifications for live menu operations.</li>
+        </ul>
+        <div class="proj-tags" id="proj-tags">
+          <span class="ptag">Nuxt 4</span>
+          <span class="ptag">Supabase</span>
+          <span class="ptag">Rust / Tauri</span>
+          <span class="ptag">Redis</span>
+          <span class="ptag">PWA</span>
+        </div>
+        <div class="proj-footer">
+          <button class="proj-cta" id="proj-open" type="button"><span data-i18n="projects.openBtn">عرض التفاصيل</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <div class="proj-shell" id="proj-shell" aria-hidden="true">
+            <div class="proj-dot active"></div>
+            <div class="proj-dot"></div>
+            <div class="proj-dot"></div>
+            <div class="proj-dot"></div>
+            <div class="proj-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-stage" id="proj-stage">
+        <div class="proj-stage-glow"></div>
+        <div class="proj-stage-media">
+          <img id="proj-stage-image" src="images/Sufra.png" alt="Sufra project preview" />
+        </div>
+        <div class="proj-stage-click" id="proj-stage-click" role="button" tabindex="0" aria-label="عرض تفاصيل المشروع"></div>
+      </div>
+    </div>
+    <div class="proj-scroll" aria-hidden="true">
+      <div class="proj-step" data-project="sufra"></div>
+      <div class="proj-step" data-project="bfm"></div>
+      <div class="proj-step" data-project="uop"></div>
+      <div class="proj-step" data-project="taskat"></div>
+      <div class="proj-step" data-project="netspeed"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills" class="theme-light">
+  <div class="wrap">
+    <div class="sk-head rv">
+      <div class="s-label" data-i18n="skills.label">المهارات</div>
+      <h2 class="s-h" data-i18n="skills.heading">التقنيات التي أعمل بها</h2>
+      <p class="s-p" data-i18n="skills.sub">مجموعة عملية لبناء أنظمة إنتاجية — من تصميم الخلفية والقواعد إلى النشر والاختبار.</p>
+    </div>
+    <div class="sk-layout">
+      <div class="sk-overview rv-l">
+        <div class="sk-over-eyebrow" data-i18n="skills.overEyebrow">نظرة على الأدوات</div>
+        <h3 class="sk-over-title" data-i18n="skills.overTitle">أدوات للشحن، لا لجمع الشعارات</h3>
+        <p class="sk-over-text" data-i18n="skills.overText">أفضّل الأدوات التي تحسّن سرعة التسليم وسهولة الصيانة وموثوقية الإنتاج. الخلفية هي تخصصي الأساسي، والواجهة الأمامية تدعم ذلك عند الحاجة.</p>
+        <div class="sk-metrics">
+          <div class="sk-metric"><span>PHP</span><label data-i18n="skills.m1">اللغة الأساسية</label></div>
+          <div class="sk-metric"><span>Laravel</span><label data-i18n="skills.m2">الإطار الرئيسي</label></div>
+          <div class="sk-metric"><span>MySQL</span><label data-i18n="skills.m3">قاعدة البيانات</label></div>
+        </div>
+      </div>
+      <div class="sk-grid">
+        <div class="sk-card rv d1"><div class="sk-ico">⚙️</div><div class="sk-title" data-i18n="skills.card1">الخلفية</div><div class="sk-chips"><span class="sk-chip">PHP 8+</span><span class="sk-chip">Laravel</span><span class="sk-chip">REST APIs</span><span class="sk-chip">Sanctum</span><span class="sk-chip">Reverb</span><span class="sk-chip">Queues</span><span class="sk-chip">Rust</span><span class="sk-chip">Axum</span></div></div>
+        <div class="sk-card rv d2"><div class="sk-ico">🗄️</div><div class="sk-title" data-i18n="skills.card2">قواعد البيانات والتخزين</div><div class="sk-chips"><span class="sk-chip">MySQL</span><span class="sk-chip">PostgreSQL</span><span class="sk-chip">Supabase</span><span class="sk-chip">Redis</span><span class="sk-chip">Upstash</span><span class="sk-chip">AWS S3</span><span class="sk-chip">IndexedDB</span></div></div>
+        <div class="sk-card rv d3"><div class="sk-ico">🛠️</div><div class="sk-title" data-i18n="skills.card3">DevOps والأدوات</div><div class="sk-chips"><span class="sk-chip">Git</span><span class="sk-chip">GitHub Actions</span><span class="sk-chip">PHPUnit</span><span class="sk-chip">Docker</span><span class="sk-chip">Vercel</span><span class="sk-chip">AWS Amplify</span></div></div>
+        <div class="sk-card rv d4"><div class="sk-ico">🎨</div><div class="sk-title" data-i18n="skills.card4">الواجهة الأمامية</div><div class="sk-chips"><span class="sk-chip">Vue 3</span><span class="sk-chip">Nuxt 4</span><span class="sk-chip">TypeScript</span><span class="sk-chip">Tailwind CSS</span><span class="sk-chip">Pinia</span><span class="sk-chip">Zod</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience" class="theme-dark">
+  <div class="wrap">
+    <div class="rv">
+      <div class="s-label" data-i18n="exp.label">المسيرة</div>
+      <h2 class="s-h" data-i18n="exp.heading">الخبرة</h2>
+      <p class="s-p" data-i18n="exp.sub">مسيرتي المهنية في تطوير البرمجيات</p>
+    </div>
+    <div class="exp-wrap">
+      <div class="exp-item rv d1">
+        <div class="exp-dot"></div>
+        <div class="exp-period" data-i18n="exp.job1Period">أكتوبر 2023 — حتى الآن</div>
+        <div class="exp-title" data-i18n="exp.job1Title">مطوّر خلفيات Laravel</div>
+        <div class="exp-co">Approved Tech <span class="exp-badge now" data-i18n="exp.badgeCurrent">حالي</span></div>
+        <ul class="exp-list">
+          <li data-i18n="exp.job1l1">تصميم وبناء خلفيات آمنة وقابلة للتوسع لمنصات SaaS وERP وحجوزات لعملاء مؤسسيين متعددين.</li>
+          <li data-i18n="exp.job1l2">هندسة مخططات قواعد بيانات معقدة وتحسين REST APIs عالية الحمل — تخفيضات ملموسة في زمن الاستجابة وصلت للإنتاج.</li>
+          <li data-i18n="exp.job1l3">تطبيق نظام RBAC دقيق في بيئات متعددة المستأجرين لثلاث مستويات مستخدمين.</li>
+          <li data-i18n="exp.job1l4">سبرنتات Agile، مراجعات كود منظمة، تغطية PHPUnit، CI/CD عبر GitHub Actions.</li>
+        </ul>
+        <div class="exp-tags"><span class="sk-chip">PHP</span><span class="sk-chip">Laravel</span><span class="sk-chip">MySQL</span><span class="sk-chip">Redis</span><span class="sk-chip">Vue 3</span><span class="sk-chip">Nuxt 4</span><span class="sk-chip">PHPUnit</span></div>
+      </div>
+      <div class="exp-item rv d2">
+        <div class="exp-dot"></div>
+        <div class="exp-period" data-i18n="exp.job2Period">يونيو 2023 — أغسطس 2023</div>
+        <div class="exp-title" data-i18n="exp.job2Title">مطوّر خلفيات — تدريب</div>
+        <div class="exp-co">Approved Tech <span class="exp-badge" data-i18n="exp.badgeIntern">تدريب</span></div>
+        <ul class="exp-list">
+          <li data-i18n="exp.job2l1">برنامج مكثّف لمدة 3 أشهر يغطي سير عمل الويب الحديث ودورة حياة التطوير الكاملة في كود إنتاجي.</li>
+          <li data-i18n="exp.job2l2">بناء ميزات Laravel مع مطورين متمرسين وتعلم أنماط المعمارية وثقافة مراجعة الكود.</li>
+        </ul>
+        <div class="exp-tags"><span class="sk-chip">PHP</span><span class="sk-chip">Laravel</span><span class="sk-chip">MySQL</span></div>
+      </div>
+      <div class="exp-item rv d3">
+        <div class="exp-dot"></div>
+        <div class="exp-period">2020 — 2025</div>
+        <div class="exp-title" data-i18n="exp.job3Title">بكالوريوس تقنية المعلومات — تطوير الويب</div>
+        <div class="exp-co" data-i18n="exp.job3Co">الجامعة الإسلامية بغزة <span class="exp-badge" data-i18n="exp.badgeEdu">تعليم</span></div>
+        <ul class="exp-list">
+          <li data-i18n="exp.job3l1">تقنيات الويب المتقدمة، أنظمة قواعد البيانات، الخوارزميات، ومبادئ هندسة البرمجيات.</li>
+          <li data-i18n="exp.job3l2">أساس أكاديمي متين في OOP وهياكل البيانات وتطوير الخلفية.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="theme-light">
+  <div class="wrap">
+    <div class="contact-head rv">
+      <div class="s-label" data-i18n="contact.label">تواصل</div>
+      <h2 class="s-h" data-i18n="contact.heading">تواصل معي</h2>
+      <p class="s-p" data-i18n="contact.sub">منفتح على الفرص الجديدة والتعاونات والمشاريع المثيرة.</p>
+    </div>
+    <div class="contact-grid rv d1">
+      <!-- Left: info -->
+      <div class="cg-info">
+        <div class="contact-avail">
+          <span class="contact-avail-dot"></span>
+          <span data-i18n="nav.available">متاح للعمل</span>
+        </div>
+        <h3 class="cg-title" data-i18n="contact.leftHeading">لنعمل <span>معاً</span></h3>
+        <p class="cg-body" data-i18n="contact.leftP">سواء كان منتج SaaS، أو API عالي الحمل، أو نظاماً يحتاج معمارية مدروسة — أودّ أن أسمع عنه.</p>
+        <div class="clinks">
+          <a href="mailto:moh.alnamla@gmail.com" class="clink">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="clink-k" data-i18n="contact.emailK">البريد الإلكتروني</div><div class="clink-v">moh.alnamla@gmail.com</div></div>
+          </a>
+          <a href="tel:+970599473743" class="clink">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.82a19.79 19.79 0 01-3.07-8.67 2 2 0 012-2.18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><div class="clink-k" data-i18n="contact.phoneK">الهاتف</div><div class="clink-v">+970 599 473 743</div></div>
+          </a>
+          <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="clink">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
+            <div><div class="clink-k">GitHub</div><div class="clink-v">github.com/Mohammed-Al-Namla</div></div>
+          </a>
+          <div class="clink" style="cursor:default;">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="clink-k" data-i18n="contact.locationK">الموقع</div><div class="clink-v" data-i18n="contact.locationV">فلسطين 🇵🇸</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: form -->
+      <div class="cg-form">
+        <div class="cg-form-inner">
+          <h3 class="cg-form-title" data-i18n="contact.formHeading">أرسل رسالة</h3>
+          <form onsubmit="handleForm(event)">
+            <div class="fg2">
+              <div class="fg"><label class="fl" data-i18n="contact.formName">الاسم</label><input id="fn" class="fi" type="text" data-i18n-ph="contact.formNamePh" placeholder="اسمك" /></div>
+              <div class="fg"><label class="fl" data-i18n="contact.formEmail">البريد الإلكتروني</label><input id="fe" class="fi" type="email" placeholder="your@email.com" /></div>
+            </div>
+            <div class="fg"><label class="fl" data-i18n="contact.formSubject">الموضوع</label><input id="fs" class="fi" type="text" data-i18n-ph="contact.formSubjectPh" placeholder="استفسار عن مشروع" /></div>
+            <div class="fg"><label class="fl" data-i18n="contact.formMessage">الرسالة</label><textarea id="fm" class="ft" data-i18n-ph="contact.formMessagePh" placeholder="أخبرني عن مشروعك..."></textarea></div>
+            <button type="submit" class="cg-send-btn" id="form-submit-btn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span data-i18n="contact.formSend">إرسال</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="foot-w">
+    <p class="foot-copy" data-i18n-html="footer.copy">© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸</p>
+    <div class="foot-soc">
+      <a href="mailto:moh.alnamla@gmail.com" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════ MODALS ══════ -->
+
+<!-- SUFRA -->
+<div class="modal-bg" id="modal-sufra">
+  <div class="modal">
+    <div class="modal-top"><button class="modal-x" onclick="closeModal('sufra')">✕</button></div>
+    <div class="modal-hero">
+      <div class="modal-badge" data-i18n="m.sufra.badge">01 · مطوّر خلفيات · في الإنتاج</div>
+      <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
+      <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust</div>
+      <div class="modal-meta"><span data-i18n="m.sufra.date">📅 أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">🏢 مشروع شخصي</span><span>🌐 sufra.live</span></div>
+    </div>
+    <div class="modal-img"><img src="images/Sufra.png" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-n">5</div><div class="mstat-l" data-i18n="m.sufra.s1">مشاريع فرعية في المونوريبو</div></div>
+      <div class="mstat"><div class="mstat-n">PWA</div><div class="mstat-l" data-i18n="m.sufra.s2">نقطة بيع أوف لاين</div></div>
+      <div class="mstat"><div class="mstat-n">Rust</div><div class="mstat-l" data-i18n="m.sufra.s3">جسر طباعة أصلي</div></div>
+      <div class="mstat"><div class="mstat-n">Redis</div><div class="mstat-l" data-i18n="m.sufra.s4">طبقة كاش للقائمة</div></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-sufra" data-i18n-modal="sufra"></div>
+      <div class="modal-actions"><a href="https://www.sufra.live" target="_blank" rel="noopener" class="modal-live" data-i18n="m.sufra.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('sufra')" data-i18n="m.close">← إغلاق</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKFORME -->
+<div class="modal-bg" id="modal-bfm">
+  <div class="modal">
+    <div class="modal-top"><button class="modal-x" onclick="closeModal('bfm')">✕</button></div>
+    <div class="modal-hero">
+      <div class="modal-badge" data-i18n="m.bfm.badge">02 · مطوّر خلفيات · في الإنتاج</div>
+      <div class="modal-title">BookForMe</div>
+      <div class="modal-sub" data-i18n="m.bfm.sub">SaaS حجوزات وتجارة متعدد المستأجرين — صالونات · عيادات · منتجعات</div>
+      <div class="modal-meta"><span data-i18n="m.bfm.date">📅 مارس 2024 – حتى الآن</span><span>🏢 Approved Tech</span><span>🌐 bookforme.ps</span></div>
+    </div>
+    <div class="modal-img"><img src="images/BFM.png" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-n">3</div><div class="mstat-l" data-i18n="m.bfm.s1">بوابات منفصلة</div></div>
+      <div class="mstat"><div class="mstat-n">5+</div><div class="mstat-l" data-i18n="m.bfm.s2">عملات</div></div>
+      <div class="mstat"><div class="mstat-n">6</div><div class="mstat-l" data-i18n="m.bfm.s3">مستودعات</div></div>
+      <div class="mstat"><div class="mstat-n">Live</div><div class="mstat-l" data-i18n="m.bfm.s4">في الإنتاج</div></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-bfm" data-i18n-modal="bfm"></div>
+      <div class="modal-actions"><a href="https://www.bookforme.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.bfm.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('bfm')" data-i18n="m.close">← إغلاق</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- UOP -->
+<div class="modal-bg" id="modal-uop">
+  <div class="modal">
+    <div class="modal-top"><button class="modal-x" onclick="closeModal('uop')">✕</button></div>
+    <div class="modal-hero">
+      <div class="modal-badge" data-i18n="m.uop.badge">03 · مطوّر خلفيات · Staging</div>
+      <div class="modal-title" data-i18n="m.uop.title">لوحة تحكم UOP</div>
+      <div class="modal-sub" data-i18n="m.uop.sub">Headless CMS وموقع عام — جامعة فلسطين</div>
+      <div class="modal-meta"><span data-i18n="m.uop.date">📅 أكتوبر 2024 – أبريل 2025</span><span>🏢 Approved Tech</span><span>🌐 w-staging.up.edu.ps</span></div>
+    </div>
+    <div class="modal-img"><img src="images/UOP.png" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-n">15+</div><div class="mstat-l" data-i18n="m.uop.s1">نوع محتوى</div></div>
+      <div class="mstat"><div class="mstat-n">3</div><div class="mstat-l" data-i18n="m.uop.s2">مستودعات</div></div>
+      <div class="mstat"><div class="mstat-n">OA3</div><div class="mstat-l" data-i18n="m.uop.s3">توثيق OpenAPI 3.0</div></div>
+      <div class="mstat"><div class="mstat-n" data-i18n="m.uop.s4n">ع+EN</div><div class="mstat-l" data-i18n="m.uop.s4">ثنائي اللغة</div></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-uop" data-i18n-modal="uop"></div>
+      <div class="modal-actions"><a href="https://w-staging.up.edu.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.uop.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('uop')" data-i18n="m.close">← إغلاق</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- TASKAT -->
+<div class="modal-bg" id="modal-taskat">
+  <div class="modal">
+    <div class="modal-top"><button class="modal-x" onclick="closeModal('taskat')">✕</button></div>
+    <div class="modal-hero">
+      <div class="modal-badge" data-i18n="m.taskat.badge">04 · مطوّر خلفيات · منصة خاصة</div>
+      <div class="modal-title" data-i18n="m.taskat.title">تسكات</div>
+      <div class="modal-sub" data-i18n="m.taskat.sub">إدارة مشاريع Agile وتعاون فريق في الوقت الفعلي</div>
+      <div class="modal-meta"><span data-i18n="m.taskat.date">📅 فبراير 2025 – مارس 2025</span><span>🏢 Approved Tech</span><span data-i18n="m.taskat.access">🔒 خاص</span></div>
+    </div>
+    <div class="modal-img"><img src="images/Taskat.png" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-n">Agile</div><div class="mstat-l" data-i18n="m.taskat.s1">محرك سبرنت كامل</div></div>
+      <div class="mstat"><div class="mstat-n">Live</div><div class="mstat-l" data-i18n="m.taskat.s2">دردشة فورية</div></div>
+      <div class="mstat"><div class="mstat-n">RBAC</div><div class="mstat-l" data-i18n="m.taskat.s3">أدوار ديناميكية لكل مشروع</div></div>
+      <div class="mstat"><div class="mstat-n">SaaS</div><div class="mstat-l" data-i18n="m.taskat.s4">متعدد المستأجرين</div></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-taskat" data-i18n-modal="taskat"></div>
+      <div class="modal-actions"><button class="modal-close-btn" onclick="closeModal('taskat')" data-i18n="m.close">← إغلاق</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- NETSPEED -->
+<div class="modal-bg" id="modal-netspeed">
+  <div class="modal">
+    <div class="modal-top"><button class="modal-x" onclick="closeModal('netspeed')">✕</button></div>
+    <div class="modal-hero">
+      <div class="modal-badge" data-i18n="m.netspeed.badge">05 · مطوّر خلفيات · في الإنتاج</div>
+      <div class="modal-title">NetSpeed</div>
+      <div class="modal-sub" data-i18n="m.netspeed.sub">إدارة عمليات ISP وبطاقات الإنترنت — points.red-radius.com</div>
+      <div class="modal-meta"><span data-i18n="m.netspeed.date">📅 يناير 2025</span><span>🏢 Approved Tech</span><span>🌐 points.red-radius.com</span></div>
+    </div>
+    <div class="modal-img"><img src="images/NetSpeed.png" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
+    <div class="modal-stats">
+      <div class="mstat"><div class="mstat-n">10K+</div><div class="mstat-l" data-i18n="m.netspeed.s1">مستخدم متزامن</div></div>
+      <div class="mstat"><div class="mstat-n">&lt;200ms</div><div class="mstat-l" data-i18n="m.netspeed.s2">زمن استجابة API</div></div>
+      <div class="mstat"><div class="mstat-n">60%</div><div class="mstat-l" data-i18n="m.netspeed.s3">تقليل حمل قاعدة البيانات</div></div>
+      <div class="mstat"><div class="mstat-n">HW API</div><div class="mstat-l" data-i18n="m.netspeed.s4">مصادقة Hotspot</div></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-body-netspeed" data-i18n-modal="netspeed"></div>
+      <div class="modal-actions"><a href="https://points.red-radius.com" target="_blank" rel="noopener" class="modal-live" data-i18n="m.netspeed.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('netspeed')" data-i18n="m.close">← إغلاق</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Cursor ── */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,.chip,.sk-chip,.proj-cta,.proj-stage-action,.proj-dot,.clink,.modal-x,.soc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ── Scroll / nav / progress ── */
+const prog=document.getElementById('prog'),nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  prog.style.transform=`scaleX(${window.scrollY/(document.documentElement.scrollHeight-innerHeight)})`;
+  nav.classList.toggle('up',window.scrollY>20);
+},{passive:true});
+
+/* ── Reveal on scroll ── */
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');}),{threshold:.06});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s').forEach(el=>io.observe(el));
+
+/* ── Magnetic buttons ── */
+document.querySelectorAll('.btn-cta,.modal-live').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.12}px) translateY(-1px)`;
+  });
+  btn.addEventListener('mouseleave',()=>btn.style.transform='');
+});
+
+/* ── Modals ── */
+function openModal(id){
+  const bg=document.getElementById('modal-'+id);
+  if(!bg)return;
+  bg.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(id){
+  const bg=document.getElementById('modal-'+id);
+  if(!bg)return;
+  bg.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.modal-bg').forEach(bg=>{
+  bg.addEventListener('click',e=>{
+    if(e.target===bg){bg.classList.remove('open');document.body.style.overflow='';}
+  });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-bg.open').forEach(bg=>{bg.classList.remove('open');document.body.style.overflow='';});
+});
+
+/* ── Cinematic projects ── */
+/* shared visual config keyed by project slug */
+const projVisual = {
+  sufra:    { index:'01', image:'images/Sufra.png',    modal:'sufra',    bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0d1f12 0%, #060e0a 60%, #040c08 100%)', accent:'72,185,110',   tint:'rgba(72,185,110,0.04)' },
+  bfm:      { index:'02', image:'images/BFM.png',      modal:'bfm',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a0e1f 0%, #0e0812 60%, #080510 100%)', accent:'160,100,210',  tint:'rgba(160,100,210,0.045)' },
+  uop:      { index:'03', image:'images/UOP.png',      modal:'uop',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0a1520 0%, #060e18 60%, #040a12 100%)', accent:'80,140,220',   tint:'rgba(80,140,220,0.04)' },
+  taskat:   { index:'04', image:'images/Taskat.png',   modal:'taskat',   bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0f0f1f 0%, #0a0a18 60%, #060610 100%)', accent:'100,100,230',  tint:'rgba(100,100,230,0.04)' },
+  netspeed: { index:'05', image:'images/NetSpeed.png', modal:'netspeed', bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a1000 0%, #120b00 60%, #0a0700 100%)', accent:'242,179,109',  tint:'rgba(242,179,109,0.04)' }
+};
+
+/* per-language copy */
+const projCopy = {
+  ar: {
+    sufra:    { title:'سُفرة',          copy:'SaaS إنتاجي للمطاعم، مبني كنظام متعدد الواجهات يعالج طلبات العملاء وعمليات الموظفين والطباعة الفعلية من نفس الخلفية.', points:['مونوريبو من 5 أجزاء: لوحة تحكم، قائمة، إدارة، جسر طباعة، وخلفية مشتركة.','نقطة بيع أوف لاين مع IndexedDB outbox sync للاتصالات غير المستقرة.','Cache busting بـ Redis وإشعارات VAPID push لعمليات القائمة الحية.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مطوّر خلفيات'] },
+    bfm:      { title:'BookForMe',      copy:'منصة حجوزات وتجارة مقسمة على بوابات متخصصة لإبقاء العمليات والـ onboarding وحجز العملاء والملفات العامة كل منها في مكانه.', points:['3 بوابات و6 مستودعات ومعمارية service/transformer مشتركة.','Laravel Reverb يحافظ على تزامن التقويمات بدون تحديث الصفحة.','تدفقات CRM ومخزون مبنية للشركات ذات الفرق الكبيرة.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','خلفيات'] },
+    uop:      { title:'لوحة تحكم UOP', copy:'منصة محتوى يستطيع فيها الموظفون غير التقنيين نشر الصفحات فورًا بينما يظل API والموقع في تزامن.', points:['التوجيه الديناميكي بـ slug يعني أن الصفحات الجديدة لا تحتاج تغييرات في الكود.','كل نوع محتوى له طبقة ومخطط بيانات مخصص.','المحتوى بالعربية والإنجليزية يُعاد حسب منطق locale في API.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
+    taskat:   { title:'تسكات',          copy:'مبنية لإبقاء الفرق في حركة داخل workspace متعدد المستأجرين، مع دردشة حية وتغييرات قابلة للتدقيق وصلاحيات على مستوى المشروع.', points:['الأدوار المخصصة تُعرَّف لكل مشروع وليس فقط عالميًا.','التحديثات الفورية تشمل الدردشة والردود والعناصر المثبتة.','تفاعلات Kanban المتفائلة تجعل الواجهة تبدو فورية.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['خاص','Realtime'] },
+    netspeed: { title:'NetSpeed',       copy:'منصة إدارة عالية الحركة مصممة لآلاف المستخدمين المتزامنين مع كاش Redis ومصادقة مدمجة مع الأجهزة.', points:['طبقة كاش Redis خفضت حمل قاعدة البيانات بحوالي 60 بالمئة.','مصادقة hotspot مدمجة مع الراوترات تخدم الجلسات لحظيًا.','الدعم والإصلاحات وتتبع المعدات كلها في تدفق واحد.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ مستخدم'] }
+  },
+  en: {
+    sufra:    { title:'Sufra',          copy:'Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.', points:['5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.','Offline-first POS using IndexedDB outbox sync for unstable connections.','Redis cache busting and VAPID push notifications for live menu operations.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Backend'] },
+    bfm:      { title:'BookForMe',      copy:'Booking and commerce platform split into specialist portals so operations, onboarding, customer booking, and public profiles all stay cleanly separated.', points:['3 portals, 6 repositories, and a shared service/transformer architecture.','Laravel Reverb keeps calendars in sync without page refreshes.','CRM and inventory flows built for staff-heavy businesses.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend'] },
+    uop:      { title:'UOP Dashboard',  copy:'A content platform where non-technical staff can publish pages instantly while the API and website stay in lockstep.', points:['Dynamic slug routing means new pages need no code changes.','Every content type has a dedicated layer and schema.','Arabic and English content returned by locale-aware API logic.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
+    taskat:   { title:'Taskat',         copy:'Built to keep teams moving inside one multi-tenant workspace, with live chat, auditable changes, and project-level permissions.', points:['Custom roles are defined per project, not just globally.','Real-time updates cover chat, reactions, and pinned items.','Optimistic Kanban interactions keep the UI feeling immediate.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Private','Realtime'] },
+    netspeed: { title:'NetSpeed',       copy:'High-traffic management platform engineered for thousands of concurrent users with Redis caching and hardware-integrated authentication.', points:['Redis cache layer reduced database load by around 60 percent.','Router-integrated hotspot auth serves sessions in real time.','Support, repairs, and equipment tracking all live in one flow.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ Users'] }
+  }
+};
+
+const projectState = {
+  current: 'sufra',
+  timer: null,
+  /* kept for backwards compat — actual text comes from projCopy[currentLang] */
+  data: projCopy.ar
+};
+
+const projImage      = document.getElementById('proj-stage-image');
+const projStageEl    = document.getElementById('proj-stage');
+const projSectionEl  = document.getElementById('projects');
+const projIndex      = document.getElementById('proj-index');
+const projBadges     = document.getElementById('proj-badges');
+const projCopyTitle  = document.getElementById('proj-copy-title');
+const projCopyDesc   = document.getElementById('proj-copy-desc');
+const projHighlights = document.getElementById('proj-highlights');
+const projTags       = document.getElementById('proj-tags');
+const projOpen       = document.getElementById('proj-open');
+const projStageClick = document.getElementById('proj-stage-click');
+const projCinema     = document.getElementById('proj-cinema');
+const projDots       = [...document.querySelectorAll('.proj-dot')];
+const projSteps      = [...document.querySelectorAll('.proj-step')];
+
+function renderProject(key){
+  const v = projVisual[key];
+  const p = projCopy[currentLang]?.[key] || projCopy.ar[key];
+  if(!v || !p || projectState.current === key) return;
+  projectState.current = key;
+  window.clearTimeout(projectState.timer);
+  projCinema.classList.add('transitioning');
+  projImage.classList.add('flash');
+  projectState.timer = window.setTimeout(()=>{
+    projImage.src             = v.image;
+    projImage.alt             = p.title + ' project preview';
+    projIndex.textContent     = v.index;
+    projCopyTitle.textContent = p.title;
+    projCopyDesc.textContent  = p.copy;
+    projBadges.innerHTML      = p.badges.map(b=>`<span class="proj-badge">${b}</span>`).join('');
+    projHighlights.innerHTML  = p.points.map(pt=>`<li>${pt}</li>`).join('');
+    projTags.innerHTML        = p.tags.map(t=>`<span class="ptag">${t}</span>`).join('');
+    projDots.forEach((dot,i)=>dot.classList.toggle('active', i === (+v.index - 1)));
+    projStageEl.style.background = v.bg;
+    projStageEl.style.setProperty('--proj-accent', v.accent);
+    projSectionEl.style.setProperty('--proj-tint', v.tint);
+    projOpen.onclick         = ()=>openModal(v.modal);
+    projStageClick.onclick   = ()=>openModal(v.modal);
+    projStageClick.onkeydown = e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(v.modal);}};
+    window.setTimeout(()=>projImage.classList.remove('flash'), 380);
+    window.setTimeout(()=>projCinema.classList.remove('transitioning'), 260);
+  }, 170);
+}
+
+function updateCinemaMotion(){
+  if(!projCinema) return;
+  const rect    = projCinema.getBoundingClientRect();
+  const vh      = window.innerHeight;
+  const total   = rect.height - vh;
+  const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+  const progress = total > 0 ? scrolled / total : 0;
+  projImage.style.setProperty('--proj-y', `${((progress - 0.5) * -24).toFixed(2)}px`);
+}
+
+const projObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) renderProject(entry.target.dataset.project);
+  });
+},{ threshold: .6 });
+projSteps.forEach(step=>projObserver.observe(step));
+window.addEventListener('scroll',()=>requestAnimationFrame(updateCinemaMotion),{passive:true});
+updateCinemaMotion();
+/* init without guard so first project always renders */
+projectState.current = '';
+const _initV = projVisual['sufra'];
+if(projStageEl && _initV){
+  projStageEl.style.background = _initV.bg;
+  projStageEl.style.setProperty('--proj-accent', _initV.accent);
+  projSectionEl.style.setProperty('--proj-tint', _initV.tint);
+}
+
+/* ── Form ── */
+function handleForm(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('button[type=submit]');
+  const sendingMsg = currentLang==='ar' ? 'جاري فتح البريد…' : 'Opening mail…';
+  btn.querySelector('[data-i18n]').textContent = sendingMsg;
+  const n=document.getElementById('fn').value,
+        s=document.getElementById('fs').value||'Portfolio Inquiry',
+        m=document.getElementById('fm').value;
+  window.location.href=`mailto:moh.alnamla@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent('Hi Mohammed,\n\n'+m+'\n\n— '+n)}`;
+  setTimeout(()=>{
+    const span=btn.querySelector('[data-i18n]');
+    if(span) span.textContent = i18n[currentLang]['contact.formSend'];
+  },1500);
+}
+
+/* ── i18n ── */
+let currentLang = localStorage.getItem('lang') || 'ar';
+
+const i18n = {
+  ar: {
+    'nav.name': 'محمد النملة',
+    'nav.role': 'مطوّر خلفيات',
+    'nav.about': 'عنّي',
+    'nav.projects': 'المشاريع',
+    'nav.skills': 'المهارات',
+    'nav.experience': 'الخبرة',
+    'nav.contact': 'تواصل',
+    'nav.available': 'متاح للعمل',
+    'nav.hire': 'توظيف',
+    'hero.eyebrow': 'فلسطين · مطوّر خلفيات',
+    'hero.tagline': 'أبني أنظمة <strong>قابلة للتوسع</strong>',
+    'hero.scroll': 'تمرير',
+    'about.label': 'عنّي',
+    'about.heading': 'مطوّر يفكّر بمنطق الأنظمة',
+    'about.p1': 'أنا <strong>مطوّر خلفيات</strong> متخصص في بناء واجهات برمجية عالية الأداء، وأنظمة SaaS متعددة المستأجرين، وحلول الوقت الفعلي — خريج تقنية المعلومات من الجامعة الإسلامية بغزة.',
+    'about.p2': 'عملت على منصات حجز، أنظمة إدارة جامعية، إدارة مشاريع، بنية ISP، ونقاط بيع للمطاعم — كل مشروع يتطلب أمانًا وأداءً ودقةً في التصميم.',
+    'about.p3': 'أتعامل مع كل مشروع بعقلية <strong>الإنتاج أولاً</strong>: تصميم قاعدة البيانات قبل الكود، الأمان افتراضيًا، والأداء هدف قابل للقياس.',
+    'about.factLocationK': 'الموقع',
+    'about.factLocationV': 'فلسطين 🇵🇸',
+    'about.factRoleK': 'الدور الحالي',
+    'about.factEduK': 'التعليم',
+    'about.factEduV': 'بكالوريوس تقنية المعلومات · IUG',
+    'about.factStatusK': 'الحالة',
+    'about.factStatusV': 'متاح للعمل ✦',
+    'about.cardName': 'محمد النملة',
+    'about.cardRole': 'مطوّر خلفيات · فلسطين',
+    'projects.label': 'المشاريع',
+    'projects.heading': 'مشاريع مختارة',
+    'projects.sub': 'بعض من الأعمال التي شاركت في بنائها — انقر على أي مشروع لعرض التفاصيل.',
+    'projects.openBtn': 'عرض التفاصيل',
+    'skills.label': 'المهارات',
+    'skills.heading': 'التقنيات التي أعمل بها',
+    'skills.sub': 'مجموعة عملية لبناء أنظمة إنتاجية — من تصميم الخلفية والقواعد إلى النشر والاختبار.',
+    'skills.overEyebrow': 'نظرة على الأدوات',
+    'skills.overTitle': 'أدوات للشحن، لا لجمع الشعارات',
+    'skills.overText': 'أفضّل الأدوات التي تحسّن سرعة التسليم وسهولة الصيانة وموثوقية الإنتاج. الخلفية هي تخصصي الأساسي، والواجهة الأمامية تدعم ذلك عند الحاجة.',
+    'skills.m1': 'اللغة الأساسية',
+    'skills.m2': 'الإطار الرئيسي',
+    'skills.m3': 'قاعدة البيانات',
+    'skills.card1': 'الخلفية',
+    'skills.card2': 'قواعد البيانات والتخزين',
+    'skills.card3': 'DevOps والأدوات',
+    'skills.card4': 'الواجهة الأمامية',
+    'exp.label': 'المسيرة',
+    'exp.heading': 'الخبرة',
+    'exp.sub': 'مسيرتي المهنية في تطوير البرمجيات',
+    'exp.job1Period': 'أكتوبر 2023 — حتى الآن',
+    'exp.job1Title': 'مطوّر خلفيات Laravel',
+    'exp.badgeCurrent': 'حالي',
+    'exp.job1l1': 'تصميم وبناء خلفيات آمنة وقابلة للتوسع لمنصات SaaS وERP وحجوزات لعملاء مؤسسيين متعددين.',
+    'exp.job1l2': 'هندسة مخططات قواعد بيانات معقدة وتحسين REST APIs عالية الحمل — تخفيضات ملموسة في زمن الاستجابة وصلت للإنتاج.',
+    'exp.job1l3': 'تطبيق نظام RBAC دقيق في بيئات متعددة المستأجرين لثلاث مستويات مستخدمين.',
+    'exp.job1l4': 'سبرنتات Agile، مراجعات كود منظمة، تغطية PHPUnit، CI/CD عبر GitHub Actions.',
+    'exp.job2Period': 'يونيو 2023 — أغسطس 2023',
+    'exp.job2Title': 'مطوّر خلفيات — تدريب',
+    'exp.badgeIntern': 'تدريب',
+    'exp.job2l1': 'برنامج مكثّف لمدة 3 أشهر يغطي سير عمل الويب الحديث ودورة حياة التطوير الكاملة في كود إنتاجي.',
+    'exp.job2l2': 'بناء ميزات Laravel مع مطورين متمرسين وتعلم أنماط المعمارية وثقافة مراجعة الكود.',
+    'exp.job3Title': 'بكالوريوس تقنية المعلومات — تطوير الويب',
+    'exp.job3Co': 'الجامعة الإسلامية بغزة',
+    'exp.badgeEdu': 'تعليم',
+    'exp.job3l1': 'تقنيات الويب المتقدمة، أنظمة قواعد البيانات، الخوارزميات، ومبادئ هندسة البرمجيات.',
+    'exp.job3l2': 'أساس أكاديمي متين في OOP وهياكل البيانات وتطوير الخلفية.',
+    'contact.label': 'تواصل',
+    'contact.heading': 'تواصل معي',
+    'contact.sub': 'منفتح على الفرص الجديدة والتعاونات والمشاريع المثيرة.',
+    'contact.leftHeading': 'لنعمل معاً',
+    'contact.leftP': 'سواء كان منتج SaaS، أو API عالي الحمل، أو نظاماً يحتاج معمارية مدروسة — أودّ أن أسمع عنه.',
+    'contact.emailK': 'البريد الإلكتروني',
+    'contact.phoneK': 'الهاتف',
+    'contact.locationK': 'الموقع',
+    'contact.locationV': 'فلسطين 🇵🇸',
+    'contact.formHeading': 'أرسل رسالة',
+    'contact.formName': 'الاسم',
+    'contact.formNamePh': 'اسمك',
+    'contact.formEmail': 'البريد الإلكتروني',
+    'contact.formSubject': 'الموضوع',
+    'contact.formSubjectPh': 'استفسار عن مشروع',
+    'contact.formMessage': 'الرسالة',
+    'contact.formMessagePh': 'أخبرني عن مشروعك...',
+    'contact.formSend': 'إرسال',
+    'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
+    'm.close': '← إغلاق',
+    'm.sufra.badge': '01 · مطوّر خلفيات · في الإنتاج',
+    'm.sufra.title': 'سُفرة',
+    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust',
+    'm.sufra.date': '📅 أبريل 2025 – حتى الآن',
+    'm.sufra.org': '🏢 مشروع شخصي',
+    'm.sufra.s1': 'مشاريع فرعية في المونوريبو',
+    'm.sufra.s2': 'نقطة بيع أوف لاين',
+    'm.sufra.s3': 'جسر طباعة أصلي',
+    'm.sufra.s4': 'طبقة كاش للقائمة',
+    'm.sufra.live': '🌐 عرض الموقع',
+    'm.bfm.badge': '02 · مطوّر خلفيات · في الإنتاج',
+    'm.bfm.sub': 'SaaS حجوزات وتجارة متعدد المستأجرين — صالونات · عيادات · منتجعات',
+    'm.bfm.date': '📅 مارس 2024 – حتى الآن',
+    'm.bfm.s1': 'بوابات منفصلة',
+    'm.bfm.s2': 'عملات',
+    'm.bfm.s3': 'مستودعات',
+    'm.bfm.s4': 'في الإنتاج',
+    'm.bfm.live': '🌐 عرض الموقع',
+    'm.uop.badge': '03 · مطوّر خلفيات · Staging',
+    'm.uop.title': 'لوحة تحكم UOP',
+    'm.uop.sub': 'Headless CMS وموقع عام — جامعة فلسطين',
+    'm.uop.date': '📅 أكتوبر 2024 – أبريل 2025',
+    'm.uop.s1': 'نوع محتوى',
+    'm.uop.s2': 'مستودعات',
+    'm.uop.s3': 'توثيق OpenAPI 3.0',
+    'm.uop.s4n': 'ع+EN',
+    'm.uop.s4': 'ثنائي اللغة',
+    'm.uop.live': '🌐 عرض الموقع',
+    'm.taskat.badge': '04 · مطوّر خلفيات · منصة خاصة',
+    'm.taskat.title': 'تسكات',
+    'm.taskat.sub': 'إدارة مشاريع Agile وتعاون فريق في الوقت الفعلي',
+    'm.taskat.date': '📅 فبراير 2025 – مارس 2025',
+    'm.taskat.access': '🔒 خاص',
+    'm.taskat.s1': 'محرك سبرنت كامل',
+    'm.taskat.s2': 'دردشة فورية',
+    'm.taskat.s3': 'أدوار ديناميكية لكل مشروع',
+    'm.taskat.s4': 'متعدد المستأجرين',
+    'm.netspeed.badge': '05 · مطوّر خلفيات · في الإنتاج',
+    'm.netspeed.sub': 'إدارة عمليات ISP وبطاقات الإنترنت — points.red-radius.com',
+    'm.netspeed.date': '📅 يناير 2025',
+    'm.netspeed.s1': 'مستخدم متزامن',
+    'm.netspeed.s2': 'زمن استجابة API',
+    'm.netspeed.s3': 'تقليل حمل قاعدة البيانات',
+    'm.netspeed.s4': 'مصادقة Hotspot',
+    'm.netspeed.live': '🌐 عرض الموقع',
+  },
+  en: {
+    'nav.name': 'Mohammed Al-Namla',
+    'nav.role': 'Backend Developer',
+    'nav.about': 'About',
+    'nav.projects': 'Projects',
+    'nav.skills': 'Skills',
+    'nav.experience': 'Experience',
+    'nav.contact': 'Contact',
+    'nav.available': 'Available for work',
+    'nav.hire': 'Hire me',
+    'hero.eyebrow': 'Palestine · Backend Developer',
+    'hero.tagline': 'Building systems that <strong>scale</strong>',
+    'hero.scroll': 'Scroll',
+    'about.label': 'About',
+    'about.heading': 'A developer who thinks in systems',
+    'about.p1': 'I\'m a <strong>backend developer</strong> specialising in high-performance APIs, multi-tenant SaaS architectures, and real-time solutions — graduate in Information Technology from the Islamic University of Gaza.',
+    'about.p2': 'I\'ve worked on booking platforms, university CMS, project management, ISP infrastructure, and restaurant POS — every project demanding security, performance, and design precision.',
+    'about.p3': 'I approach every project with a <strong>production-first</strong> mindset: schema before code, security by default, and performance as a measurable goal.',
+    'about.factLocationK': 'Location',
+    'about.factLocationV': 'Palestine 🇵🇸',
+    'about.factRoleK': 'Current role',
+    'about.factEduK': 'Education',
+    'about.factEduV': 'B.Sc. Information Technology · IUG',
+    'about.factStatusK': 'Status',
+    'about.factStatusV': 'Available for work ✦',
+    'about.cardName': 'Mohammed Al-Namla',
+    'about.cardRole': 'Backend Developer · Palestine',
+    'projects.label': 'Projects',
+    'projects.heading': 'Selected Projects',
+    'projects.sub': 'A selection of work I\'ve built — click any project to see the details.',
+    'projects.openBtn': 'Open case study',
+    'skills.label': 'Skills',
+    'skills.heading': 'Technologies I work with',
+    'skills.sub': 'A practical set for shipping production systems — from backend and database design to deployment and testing.',
+    'skills.overEyebrow': 'Toolset overview',
+    'skills.overTitle': 'Tools for shipping, not for collecting logos',
+    'skills.overText': 'I favour tools that improve delivery speed, maintainability, and production reliability. Backend is my core speciality; frontend supports that when needed.',
+    'skills.m1': 'Primary language',
+    'skills.m2': 'Main framework',
+    'skills.m3': 'Database',
+    'skills.card1': 'Backend',
+    'skills.card2': 'Databases & Storage',
+    'skills.card3': 'DevOps & Tooling',
+    'skills.card4': 'Frontend',
+    'exp.label': 'Career',
+    'exp.heading': 'Experience',
+    'exp.sub': 'My professional journey in software development',
+    'exp.job1Period': 'Oct 2023 — Present',
+    'exp.job1Title': 'Laravel Backend Developer',
+    'exp.badgeCurrent': 'Current',
+    'exp.job1l1': 'Designing and building secure, scalable backends for SaaS, ERP, and booking platforms across multiple enterprise clients.',
+    'exp.job1l2': 'Engineering complex database schemas and optimising high-load REST APIs — measurable latency reductions shipped to production.',
+    'exp.job1l3': 'Implementing fine-grained RBAC in multi-tenant environments across three user tiers.',
+    'exp.job1l4': 'Agile sprints, structured code reviews, PHPUnit coverage, CI/CD via GitHub Actions.',
+    'exp.job2Period': 'Jun 2023 — Aug 2023',
+    'exp.job2Title': 'Backend Developer — Internship',
+    'exp.badgeIntern': 'Internship',
+    'exp.job2l1': 'Intensive 3-month programme covering modern web workflows and the full development lifecycle in production-grade code.',
+    'exp.job2l2': 'Building Laravel features alongside senior developers, learning architecture patterns and code-review culture.',
+    'exp.job3Title': 'B.Sc. Information Technology — Web Development',
+    'exp.job3Co': 'Islamic University of Gaza',
+    'exp.badgeEdu': 'Education',
+    'exp.job3l1': 'Advanced web technologies, database systems, algorithms, and software engineering principles.',
+    'exp.job3l2': 'Strong academic foundation in OOP, data structures, and backend development.',
+    'contact.label': 'Contact',
+    'contact.heading': 'Get in touch',
+    'contact.sub': 'Open to new opportunities, collaborations, and interesting projects.',
+    'contact.leftHeading': "Let's work together",
+    'contact.leftP': "Whether it's a challenging SaaS product, a high-scale API, or a complex system that needs careful architecture — I'd love to hear about it.",
+    'contact.emailK': 'Email',
+    'contact.phoneK': 'Phone',
+    'contact.locationK': 'Location',
+    'contact.locationV': 'Palestine 🇵🇸',
+    'contact.formHeading': 'Send a message',
+    'contact.formName': 'Name',
+    'contact.formNamePh': 'Your name',
+    'contact.formEmail': 'Email',
+    'contact.formSubject': 'Subject',
+    'contact.formSubjectPh': 'Project inquiry',
+    'contact.formMessage': 'Message',
+    'contact.formMessagePh': 'Tell me about your project...',
+    'contact.formSend': 'Send Message',
+    'footer.copy': '© 2025 <b>Mohammed Al-Namla</b> · Palestine 🇵🇸',
+    'm.close': '← Close',
+    'm.sufra.badge': '01 · Backend Developer · Live in Production',
+    'm.sufra.title': 'Sufra',
+    'm.sufra.sub': 'Multi-tenant restaurant SaaS — QR Menus · Offline POS · Kitchen Display · Rust Print Bridge',
+    'm.sufra.date': '📅 Apr 2025 – Present',
+    'm.sufra.org': '🏢 Personal Project',
+    'm.sufra.s1': 'Sub-projects in monorepo',
+    'm.sufra.s2': 'Offline-first POS',
+    'm.sufra.s3': 'Native print bridge',
+    'm.sufra.s4': 'Menu cache layer',
+    'm.sufra.live': '🌐 View Live Site',
+    'm.bfm.badge': '02 · Backend Developer · Production Live',
+    'm.bfm.sub': 'Multi-tenant booking & commerce SaaS — Salons · Clinics · Spas',
+    'm.bfm.date': '📅 Mar 2024 – Present',
+    'm.bfm.s1': 'Distinct portals',
+    'm.bfm.s2': 'Currencies',
+    'm.bfm.s3': 'Repositories',
+    'm.bfm.s4': 'Production',
+    'm.bfm.live': '🌐 View Live Site',
+    'm.uop.badge': '03 · Backend Developer · Staging Live',
+    'm.uop.title': 'UOP Dashboard',
+    'm.uop.sub': 'Headless CMS & public website — University of Palestine',
+    'm.uop.date': '📅 Oct 2024 – Apr 2025',
+    'm.uop.s1': 'Content types',
+    'm.uop.s2': 'Repositories',
+    'm.uop.s3': 'OpenAPI 3.0 docs',
+    'm.uop.s4n': 'AR+EN',
+    'm.uop.s4': 'Multilingual',
+    'm.uop.live': '🌐 View Staging',
+    'm.taskat.badge': '04 · Backend Developer · Private Platform',
+    'm.taskat.title': 'Taskat',
+    'm.taskat.sub': 'Agile project management & real-time team collaboration',
+    'm.taskat.date': '📅 Feb 2025 – Mar 2025',
+    'm.taskat.access': '🔒 Private',
+    'm.taskat.s1': 'Full sprint engine',
+    'm.taskat.s2': 'Real-time chat',
+    'm.taskat.s3': 'Dynamic roles per project',
+    'm.taskat.s4': 'Multi-tenant',
+    'm.netspeed.badge': '05 · Backend Developer · Production Live',
+    'm.netspeed.sub': 'ISP operations & internet card management — points.red-radius.com',
+    'm.netspeed.date': '📅 Jan 2025',
+    'm.netspeed.s1': 'Concurrent users',
+    'm.netspeed.s2': 'API response time',
+    'm.netspeed.s3': 'DB load reduced',
+    'm.netspeed.s4': 'Hotspot auth',
+    'm.netspeed.live': '🌐 View Live',
+  }
+};
+
+/* Modal body HTML per lang */
+const modalBodies = {
+  sufra: {
+    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>SaaS متعدد المستأجرين لأصحاب المطاعم — إدارة القوائم الرقمية، استقبال الطلبات عبر QR، تشغيل نقطة بيع تعمل بدون إنترنت، عرض الطلبات على شاشة المطبخ، وطباعة إيصالات ESC/POS عبر تطبيق سطح مكتب Rust.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>مونوريبو من 5 مشاريع: لوحة تحكم (Nuxt 4 SPA)، قائمة عملاء (Nuxt 4 SSR)، إدارة (Nuxt 4)، جسر طباعة (Tauri/Rust)، خلفية Supabase مشتركة.</li><li>نقطة بيع أوف لاين مع Dexie (IndexedDB) outbox — تزامن تلقائي عند عودة الاتصال.</li><li>تطبيق Rust/Tauri يعرض Axum HTTP محلي على port 9177 للطباعة الصامتة مع WebUSB كبديل.</li><li>طبقة كاش Redis (Upstash) مع cache busting إجباري بعد كل تعديل على القائمة.</li><li>تحقق WhatsApp OTP لاستعلام الطلبات — رموز 6 أرقام مع rate limiting في Postgres RPC.</li><li>إشعارات VAPID: Postgres trigger ← مسار الإرسال ← service worker.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Redis</span><span class="modal-tag">Dexie</span><span class="modal-tag">PWA</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span><span class="modal-tag">VAPID Push</span></div></div>`,
+    en: `<div class="modal-sec"><h4>Overview</h4><p>Production-grade multi-tenant SaaS enabling restaurant owners to manage digital menus, take orders via QR-code, run an offline-capable POS, display orders on kitchen screens, and print ESC/POS receipts via a native Rust desktop bridge.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>5-project monorepo: dashboard (Nuxt 4 SPA), customer menu (Nuxt 4 SSR), admin (Nuxt 4), printer bridge (Tauri/Rust), shared Supabase backend.</li><li>Offline-first POS with Dexie (IndexedDB) outbox — mutations sync automatically when connectivity returns.</li><li>Rust/Tauri desktop app exposes a local Axum HTTP server on port 9177 for silent ESC/POS printing with WebUSB fallback.</li><li>Redis (Upstash) cache layer with mandatory cache busting after every menu mutation.</li><li>WhatsApp OTP order-lookup flow — 6-digit codes verified via rate-limited Postgres RPC.</li><li>VAPID web push notifications: Postgres trigger → dashboard dispatch route → service worker.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Redis</span><span class="modal-tag">Dexie</span><span class="modal-tag">PWA</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span><span class="modal-tag">VAPID Push</span></div></div>`
+  },
+  bfm: {
+    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>SaaS متعدد المستأجرين يمكّن الشركات الخدمية من إدارة الحجوزات والعملاء والمخزون والتسويق. موزع على 6 مستودعات: سوبر آدمن، وكيل onboarding، تطبيق حجز العملاء، API الشركاء، لوحة الشركاء، وصفحات المتاجر العامة.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>بوابة دفع متعددة العملات — 5+ عملات مع response envelopes موحدة وتراجع عند الفشل.</li><li>Laravel Reverb (WebSockets) لتحديثات التقويم الفوري — تغييرات الحجز تظهر فورًا للموظفين.</li><li>محرك توفر معقد: مواعيد قابلة للحجز لكل موظف ولكل خدمة عبر ساعات العمل والأوقات المحجوبة.</li><li>CRM كامل: ملفات العملاء، تاريخ الحجوزات، ملاحظات، مستندات، بطاقات هدايا، حظر/رفع الحظر، استيراد/تصدير CSV.</li><li>مخزون: أوامر الشراء، جرد المخزون، إدارة الموردين، توليد SKU.</li><li>نمط Repository + Service + Transformer — controllers نحيفة، كل طبقة قابلة للاختبار بشكل مستقل.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+    en: `<div class="modal-sec"><h4>Overview</h4><p>Multi-tenant SaaS enabling service businesses to manage online bookings, clients, inventory, and marketing. Split across 6 repositories: super-admin, onboarding agent, customer booking app, partner API, partner dashboard, and public store profiles.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Multi-currency payment gateway — 5+ currencies with consistent response envelopes and rollback on failure.</li><li>Laravel Reverb (WebSockets) for live calendar updates — booking changes appear instantly for staff without refresh.</li><li>Complex availability engine: bookable slots per employee per service across working hours, blocked times, and existing bookings.</li><li>Full CRM: client profiles, booking history, notes, documents, gift cards, block/unblock, CSV import/export.</li><li>Inventory: stock orders, stock takes, supplier management, SKU generation for products.</li><li>Repository + Service + Transformer pattern — controllers thin, every layer independently testable.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`
+  },
+  uop: {
+    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة رقمية شاملة لجامعة فلسطين — CMS إداري، JSON API بدون رأس، وموقع عام. الموظفون غير التقنيين يديرون المحتوى وينشرونه فورًا دون تدخل مطور.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>نظام صفحات ديناميكي: أي صفحة تُنشأ في CMS تُخدَّم تلقائيًا عبر <code>[...slug].vue</code> — لا تغييرات في الكود لصفحات جديدة.</li><li>Repository + Service + Transformer — كل نوع محتوى له طبقة مخصصة قابلة للاختبار بشكل مستقل.</li><li>توثيق OpenAPI 3.0 كامل مع schemas للطلبات والردود ومتطلبات المصادقة.</li><li>ثنائي اللغة: API يُعيد اللغة الصحيحة بناءً على Accept-Language header.</li><li>عزل الكليات: مسودات كلية لا تؤثر على محتوى كلية أخرى منشور.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span></div></div>`,
+    en: `<div class="modal-sec"><h4>Overview</h4><p>Comprehensive digital platform for the University of Palestine — admin CMS, headless JSON API, and public website. Non-technical staff manage all content and publish it instantly without developer involvement.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Dynamic page system: any CMS-created page automatically served via <code>[...slug].vue</code> catch-all — no code changes for new pages.</li><li>Repository + Service + Transformer — every content type has a dedicated layer, independently testable.</li><li>Full OpenAPI 3.0 documentation with request/response schemas and authentication requirements.</li><li>Multilingual: API returns correct locale based on Accept-Language header.</li><li>Faculty isolation: drafts in one faculty cannot affect another's published content.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span></div></div>`
+  },
+  taskat: {
+    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة إدارة مشاريع Agile متكاملة تجمع تتبع المهام بأسلوب Jira والتواصل الجماعي بأسلوب Slack تحت اشتراك واحد متعدد المستأجرين.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>نظام صلاحيات ديناميكي — المدراء يعرّفون أدوارًا مخصصة لكل مشروع بأي تركيبة من الصلاحيات.</li><li>دردشة فورية عبر Laravel broadcasting — الرسائل والردود وحالة التثبيت تتحدث لحظيًا بدون polling.</li><li>سجل تدقيق للمشكلات — كل تغيير في أي حقل يُضاف لجدول التاريخ لسجل تغييرات لا يمكن تعديله.</li><li>محرك سبرنت — إغلاق السبرنت ينقل المهام غير المحلولة تلقائيًا للـ backlog ويولد ملخصًا.</li><li>Kanban مع واجهة optimistic — اللوحة تعيد الرسم دون انتظار رد الخادم.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+    en: `<div class="modal-sec"><h4>Overview</h4><p>Full-featured agile project management platform combining Jira-style task tracking and Slack-style team communication under a single multi-tenant subscription.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Dynamic permission system — admins define custom roles per project with any combination of abilities.</li><li>Real-time chat via Laravel broadcasting — messages, reactions, and pin status update live without polling.</li><li>Issue audit trail — every field change appended to history table for a complete immutable changelog.</li><li>Sprint engine — completing a sprint auto-moves unresolved issues to backlog and generates a summary.</li><li>Kanban with optimistic UI — board re-renders without waiting for server response.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`
+  },
+  netspeed: {
+    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة إدارة ISP ("جمّعها") تتعامل مع بطاقات الإنترنت المدفوعة مسبقًا، حسابات المستخدمين، الدعم الفني، العمليات الميدانية، ونظام نقاط ولاء — مصممة لـ 10,000+ مستخدم متزامن بزمن استجابة أقل من 200ms.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>طبقة كاش Redis — استعلامات كثيرة القراءة محفوظة في الكاش، تقليل حمل قاعدة البيانات بـ ~60% والقضاء على الاختناقات في أوقات الذروة.</li><li>API hotspot مدمج مع الأجهزة — الراوترات الفعلية تستدعي هذا الـ endpoint للمصادقة على جلسات الإنترنت لحظيًا.</li><li>نظام نقاط الولاء — المستخدمون يكسبون نقاطًا من استبدال البطاقات ويستردونها بهدايا مع تتبع التنفيذ الكامل.</li><li>تذاكر الدعم، العمليات الميدانية (إصلاحات، تركيبات، إدارة مناطق)، وتتبع عهدة المعدات.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">SMS API</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`,
+    en: `<div class="modal-sec"><h4>Overview</h4><p>Full-stack ISP management platform ("Jamme3ha") handling prepaid internet cards, user accounts, technical support, field operations, and a points-based loyalty system — engineered for 10,000+ concurrent users at sub-200ms response time.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Redis cache layer — frequently-read queries cached, reducing DB load by ~60% and eliminating peak-hour bottlenecks.</li><li>Hardware-integrated hotspot API — physical routers call this endpoint to authenticate internet sessions in real time.</li><li>Points loyalty system — users earn points from card redemptions and redeem for gifts with full fulfillment tracking.</li><li>Support ticketing, field operations (repairs, installations, area management), and equipment custody tracking.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">SMS API</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`
+  }
+};
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  const html = document.documentElement;
+  html.lang = lang;
+  html.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  document.title = lang === 'ar'
+    ? 'محمد النملة — مطوّر خلفيات'
+    : 'Mohammed Al-Namla — Backend Developer';
+  const t = i18n[lang];
+  /* plain text nodes */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  /* innerHTML nodes (contain <strong> etc.) */
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  /* placeholder attributes */
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  /* modal body blocks */
+  document.querySelectorAll('[data-i18n-modal]').forEach(el => {
+    const key = el.dataset.i18nModal;
+    if (modalBodies[key] && modalBodies[key][lang]) el.innerHTML = modalBodies[key][lang];
+  });
+  /* cinematic projects re-render with new language */
+  const prevKey = projectState.current;
+  projectState.current = '';
+  renderProject(prevKey || 'sufra');
+  /* toggle button label */
+  document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'EN' : 'ع';
+  /* proj open btn — update the data-i18n span inside it */
+  const openBtnSpan = document.querySelector('#proj-open [data-i18n]');
+  if (openBtnSpan) openBtnSpan.textContent = t['projects.openBtn'] || (lang === 'ar' ? 'عرض التفاصيل' : 'Open case study');
+  /* fix proj-highlights arrow direction for LTR */
+  document.querySelectorAll('.proj-highlights li').forEach(li => {
+    li.style.paddingLeft  = lang === 'en' ? '16px' : '';
+    li.style.paddingRight = lang === 'ar' ? '16px' : '';
+  });
+}
+
+function toggleLang() {
+  applyLang(currentLang === 'ar' ? 'en' : 'ar');
+}
+
+/* init */
+applyLang(currentLang);
+</script>
+</body>
+</html>
