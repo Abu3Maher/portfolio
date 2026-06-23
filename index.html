@@ -562,21 +562,26 @@
       z-index: 2;
     }
 
-    /* each card is absolutely stacked, transitions via clip-path */
+    /* each card is absolutely stacked, transitions via opacity + subtle lift */
     .proj-card {
       position: absolute; inset: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      clip-path: inset(0 100% 0 0);
-      transition: clip-path .72s cubic-bezier(.77,0,.18,1);
-      will-change: clip-path;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity .52s ease, transform .52s cubic-bezier(.4,0,.2,1);
+      will-change: opacity, transform;
     }
     .proj-card.active {
-      clip-path: inset(0 0% 0 0);
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
     .proj-card.exit {
-      clip-path: inset(0 0 0 100%);
-      transition: clip-path .62s cubic-bezier(.77,0,.18,1);
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: opacity .32s ease, transform .32s ease;
     }
 
     /* LEFT: text panel */
@@ -594,7 +599,7 @@
     }
     .pc-text-inner { position: relative; z-index: 1; }
 
-    /* ghost number — gold stroke, same as old subtitle color */
+    /* ghost number */
     .pc-num {
       font-size: clamp(7rem,12vw,14rem); font-weight: 800; letter-spacing: -.08em;
       line-height: .82; color: transparent;
