@@ -535,219 +535,147 @@
       transition: background 1.8s cubic-bezier(.4,0,.2,1);
       pointer-events: none; z-index: 0;
     }
-    .proj-hdr { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:46px; position:relative; z-index:1; }
-    .proj-cinema { position:relative; margin-top:14px; --project-count:5; z-index:1; }
+    .proj-hdr { text-align:center; margin-bottom:64px; }
+    .proj-hdr .s-label { justify-content:center; }
 
     .ptag {
       font-size:.6rem; font-weight:600; letter-spacing:.05em;
-      color:var(--muted); background:rgba(82,43,91,0.22); border:1px solid rgba(82,43,91,0.32);
+      color:rgba(242,245,249,0.7); background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);
       border-radius:5px; padding:3px 8px;
     }
 
-    /* cinematic wrapper */
+    /* ── NEW: scroll-pinned full-bleed cards ── */
+    .proj-cinema {
+      position: relative; --project-count: 5;
+    }
+    .proj-scroll {
+      position: relative; z-index: 1;
+      height: calc(var(--project-count) * 100vh);
+    }
+    .proj-step { height: 100vh; }
+
+    /* sticky viewport that pins while scroll driver runs */
     .proj-sticky {
-      position: sticky;
-      top: 62px;
-      min-height: calc(100vh - 62px);
-      display: grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 18px;
-      align-items: stretch;
-      padding: 14px 0 20px;
+      position: sticky; top: 0;
+      height: 100vh;
+      overflow: hidden;
       z-index: 2;
     }
-    .proj-stage,
-    .proj-copy {
-      position: relative;
-      background: linear-gradient(180deg, rgba(12,18,29,0.96) 0%, rgba(7,12,21,0.92) 100%);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 30px;
+
+    /* each card is absolutely stacked, transitions via clip-path */
+    .proj-card {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path .72s cubic-bezier(.77,0,.18,1);
+      will-change: clip-path;
+    }
+    .proj-card.active {
+      clip-path: inset(0 0% 0 0);
+    }
+    .proj-card.exit {
+      clip-path: inset(0 0 0 100%);
+      transition: clip-path .62s cubic-bezier(.77,0,.18,1);
+    }
+
+    /* LEFT: text panel */
+    .pc-text {
+      position: relative; z-index: 2;
+      background: #07111e;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(40px,6vw,80px) clamp(36px,5vw,64px);
       overflow: hidden;
-      backdrop-filter: var(--blur);
-      box-shadow:
-        0 30px 90px rgba(5,10,18,0.42),
-        inset 0 1px 0 rgba(255,255,255,0.03);
-      transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .45s ease, filter .45s ease, border-color .35s ease;
-      will-change: transform, opacity, filter;
     }
-    .proj-copy::before,
-    .proj-stage::before {
+    .pc-text::before {
       content: '';
-      position: absolute; inset: 0;
-      pointer-events: none; z-index: 0;
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 70% at 0% 50%, rgba(var(--proj-accent,242,179,109),.08) 0%, transparent 65%);
     }
-    .proj-copy::before {
-      background:
-        radial-gradient(circle at 100% 0%, rgba(242,179,109,0.10) 0%, transparent 34%),
-        radial-gradient(circle at 0% 100%, rgba(138,167,200,0.08) 0%, transparent 30%);
-      opacity: .9;
-    }
-    .proj-stage::before {
-      background:
-        radial-gradient(circle at 50% 0%, rgba(242,179,109,0.05) 0%, transparent 50%);
-      z-index: 4;
-    }
-    .proj-stage { min-height: clamp(420px, 62vh, 700px); cursor: none; }
+    .pc-text-inner { position: relative; z-index: 1; }
 
-    /* entire stage is clickable */
-    .proj-stage-click {
-      position: absolute; inset: 0; z-index: 10; cursor: none;
+    /* ghost number */
+    .pc-num {
+      font-size: clamp(7rem,12vw,14rem); font-weight: 800; letter-spacing: -.08em;
+      line-height: .82; color: transparent;
+      -webkit-text-stroke: 1.5px rgba(var(--proj-accent,242,179,109),.18);
+      user-select: none; margin-bottom: -0.15em;
+      transition: -webkit-text-stroke-color .4s ease;
     }
-
-    /* top shimmer line on hover */
-    .proj-stage::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 11;
-      background: linear-gradient(90deg, transparent, rgba(242,179,109,0.60), transparent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .55s cubic-bezier(.4,0,.2,1);
-      pointer-events: none;
-    }
-    .proj-stage:hover::after { transform: scaleX(1); }
-
-    /* background transitions smoothly between projects */
-    .proj-stage {
-      transition:
-        transform .45s cubic-bezier(.2,.8,.2,1),
-        opacity .45s ease,
-        filter .45s ease,
-        border-color .3s ease,
-        box-shadow .3s ease,
-        background .6s ease;
-    }
-
-    .proj-stage-media {
-      position: absolute; inset: 0; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      padding: 28px;
-    }
-    .proj-stage-media img {
-      width: 100%; height: 100%;
-      object-fit: contain; object-position: center center; display: block;
-      filter: none;
-      transition: opacity .55s ease, transform .9s cubic-bezier(.4,0,.2,1);
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      border-radius: 10px;
-      box-shadow: 0 28px 72px rgba(0,0,0,0.52), 0 8px 24px rgba(0,0,0,0.38);
-    }
-    .proj-stage-media img.flash {
-      opacity: 0;
-      transform: scale(.96) translateY(10px);
-    }
-    .proj-stage:hover .proj-stage-media img {
-      transform: scale(1.02) translateY(-3px);
-      box-shadow: 0 36px 88px rgba(0,0,0,0.62), 0 12px 32px rgba(0,0,0,0.44);
-    }
-
-    /* per-project accent glow behind the image */
-    .proj-stage-glow {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 50% 50%, rgba(var(--proj-accent,242,179,109),0.10), transparent 68%),
-        radial-gradient(ellipse 45% 35% at 85% 15%, rgba(var(--proj-accent,242,179,109),0.06), transparent 60%);
-      pointer-events: none; z-index: 1;
-      animation: glowPulse 7s ease-in-out infinite;
-    }
-
-    /* hover — accent border glow using per-project color */
-    .proj-stage:hover {
-      border-color: rgba(var(--proj-accent,242,179,109),0.28);
-      box-shadow:
-        0 30px 90px rgba(5,10,18,0.52),
-        0 0 0 1px rgba(var(--proj-accent,242,179,109),0.14),
-        inset 0 1px 0 rgba(255,255,255,0.04);
-    }
-
-    /* copy panel */
-    .proj-copy {
-      padding: 32px 30px 28px;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .proj-copy-top {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
-    }
-    .proj-index {
-      font-size: clamp(5rem, 8vw, 8rem); line-height: .82; font-weight: 800; letter-spacing: -.08em;
-      color: transparent; -webkit-text-stroke: 1.5px rgba(242,179,109,0.32); user-select: none;
-      transition: -webkit-text-stroke-color .35s ease;
-    }
-    .proj-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
     .proj-badge {
       font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(242,245,249,0.82);
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 999px; padding: 5px 9px;
+      color: rgba(var(--proj-accent,242,179,109),1);
+      background: rgba(var(--proj-accent,242,179,109),.1);
+      border: 1px solid rgba(var(--proj-accent,242,179,109),.22);
+      border-radius: 999px; padding: 4px 10px;
     }
-    .proj-copy h3 {
-      font-size: clamp(2rem,3.2vw,3rem); letter-spacing: -.05em; line-height: 1; color: var(--head);
+    .pc-title {
+      font-size: clamp(2.4rem,4.5vw,4rem); font-weight: 800;
+      letter-spacing: -.05em; line-height: 1; color: #f2f5f9;
+      margin-bottom: 14px;
     }
-    .proj-copy p { font-size: .92rem; color: rgba(242,245,249,0.86); line-height: 1.85; }
-    .proj-highlights { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .proj-highlights li {
-      position: relative; padding-left: 16px;
-      font-size: .82rem; line-height: 1.7; color: rgba(242,245,249,0.82);
-      transition: color .25s ease, transform .25s ease;
-    }
-    .proj-highlights li::before {
-      content: '→'; position: absolute; left: 0;
-      color: rgba(242,179,109,0.95); font-size: .72rem;
-      transition: transform .22s ease;
-    }
-    .proj-highlights li:hover { color: var(--head); transform: translateX(3px); }
-    .proj-highlights li:hover::before { transform: translateX(2px); }
-    .proj-footer {
-      margin-top: auto; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px; flex-wrap: wrap;
-    }
+    .pc-footer { display: flex; align-items: center; gap: 16px; }
     .proj-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: .78rem; font-weight: 700; color: var(--head);
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 999px; padding: 10px 15px; cursor: none; font-family: inherit;
-      box-shadow: 0 10px 24px rgba(5,10,18,0.22);
-      transition: transform var(--tf), background var(--tf), border-color var(--tf), box-shadow var(--tf);
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: .8rem; font-weight: 700; color: #08111d;
+      background: #f2f5f9;
+      border: none; border-radius: 999px; padding: 11px 20px; cursor: none; font-family: inherit;
+      transition: transform var(--tf), background var(--tf), box-shadow var(--tf);
+      box-shadow: 0 6px 20px rgba(0,0,0,.24);
     }
     .proj-cta:hover {
       transform: translateY(-2px);
-      border-color: rgba(242,179,109,0.28);
-      background: rgba(242,179,109,0.10);
-      box-shadow: 0 16px 32px rgba(5,10,18,0.28);
+      background: rgba(var(--proj-accent,242,179,109),1);
+      box-shadow: 0 14px 32px rgba(0,0,0,.32);
+    }
+    /* progress counter */
+    .pc-counter {
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+      color: rgba(242,245,249,.36);
     }
 
-    /* transition states */
-    .proj-cinema.transitioning .proj-copy {
-      transform: translateX(-8px) scale(.99); opacity: .8; filter: blur(.6px);
+    /* RIGHT: image panel */
+    .pc-image {
+      position: relative; overflow: hidden; background: #04080f;
     }
-    .proj-cinema.transitioning .proj-stage {
-      transform: translateX(8px) scale(.995); opacity: .88; filter: saturate(.96);
+    .pc-image img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      transition: opacity .55s ease, transform .9s cubic-bezier(.4,0,.2,1);
+      transform: scale(1.04);
     }
-    .proj-cinema.transitioning .proj-copy h3,
-    .proj-cinema.transitioning .proj-copy p,
-    .proj-cinema.transitioning .proj-highlights,
-    .proj-cinema.transitioning .proj-tags {
-      transform: translateY(8px); opacity: .65;
+    .proj-card.active .pc-image img {
+      transform: scale(1);
+    }
+    /* vertical gradient mask — bleeds into text panel */
+    .pc-image::before {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background:
+        linear-gradient(to right, #07111e 0%, transparent 18%),
+        linear-gradient(to top, rgba(4,8,15,.7) 0%, transparent 40%);
+    }
+    /* accent tint overlay */
+    .pc-image::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: rgba(var(--proj-accent,242,179,109),.06);
+      mix-blend-mode: screen;
     }
 
-    /* scroll driver */
-    .proj-scroll { position: relative; z-index: 1; height: calc(var(--project-count) * 100vh); }
-    .proj-step { height: 100vh; }
-
-    /* progress dots */
-    .proj-shell {
-      display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; margin-top: 14px;
+    /* dots nav — floating on sticky panel */
+    .proj-dots-nav {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 10px; z-index: 10;
     }
     .proj-dot {
-      height: 5px; border-radius: 999px;
-      background: rgba(168,183,200,0.14); overflow: hidden; position: relative;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,.18); border: none;
+      transition: background .3s ease, transform .3s ease, width .35s ease;
     }
-    .proj-dot::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      transform: scaleX(0); transform-origin: left; transition: transform .38s ease;
+    .proj-dot.active {
+      background: rgba(var(--proj-accent,242,179,109),.9);
+      transform: scale(1.25); width: 22px; border-radius: 999px;
     }
-    .proj-dot.active::after { transform: scaleX(1); }
-    .proj-dot.active { background: rgba(242,179,109,0.24); }
 
     /* ── EXPERIENCE ── */
     #experience {
@@ -1023,9 +951,9 @@
       .sk-layout { grid-template-columns:1fr; }
       .sk-grid { grid-template-columns:repeat(2,1fr); }
       .sk-overview { min-height:auto; }
-      .proj-sticky { grid-template-columns:1fr; gap:16px; }
-      .proj-stage { min-height:420px; }
-      .proj-shell { grid-template-columns:repeat(5,1fr); }
+      .proj-card { grid-template-columns:1fr; }
+      .pc-image { min-height:45vh; }
+      .pc-text { padding: 28px 24px; }
       .modal-stats { grid-template-columns:repeat(2,1fr); }
       .contact-grid { grid-template-columns:1fr; gap: 32px; }
       .cg-form-inner { padding: 28px; }
@@ -1049,14 +977,12 @@
       .sk-grid { grid-template-columns:1fr; }
       .sk-grid .sk-card:first-child { grid-column:auto; }
       .fact-grid { grid-template-columns:1fr; }
-      .proj-hdr { flex-direction:column; align-items:flex-start; }
-      .proj-hdr .s-p { text-align:left; max-width:100%; }
-      .proj-sticky { top:62px; padding:12px 0 20px; }
-      .proj-stage { min-height:360px; border-radius:22px; }
-      .proj-copy { padding:20px; border-radius:22px; }
-      .proj-copy-top { align-items:flex-end; }
-      .proj-index { font-size:3.2rem; }
-      .proj-shell { grid-template-columns:repeat(5,1fr); width:100%; }
+      .proj-card { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .pc-image { min-height: 50vw; order: -1; }
+      .pc-image::before { background: linear-gradient(to bottom, rgba(4,8,15,.5) 0%, transparent 40%), linear-gradient(to top, #07111e 0%, transparent 25%); }
+      .pc-text { padding: 24px 20px 80px; }
+      .pc-num { font-size: 5rem; }
+      .pc-title { font-size: 2.2rem; }
       .proj-cta { width:100%; justify-content:center; }
       .modal-img,.modal-hero,.modal-body { padding-left:20px; padding-right:20px; }
       .modal-stats { margin-left:20px; margin-right:20px; grid-template-columns:1fr 1fr; }
@@ -1182,58 +1108,109 @@
 <section id="projects" class="theme-dark">
   <div class="wrap">
     <div class="proj-hdr rv">
-      <div>
-        <div class="s-label" data-i18n="projects.label">المشاريع</div>
-        <h2 class="s-h" data-i18n="projects.heading">مشاريع مختارة</h2>
-      </div>
-      <p class="s-p" style="max-width:260px;margin-top:0;font-size:.8rem;" data-i18n="projects.sub">بعض من الأعمال التي شاركت في بنائها — انقر على أي مشروع لعرض التفاصيل.</p>
+      <div class="s-label" data-i18n="projects.label">المشاريع</div>
+      <h2 class="s-h" data-i18n="projects.heading">مشاريع مختارة</h2>
+      <p class="s-p" data-i18n="projects.sub">بعض من الأعمال التي شاركت في بنائها — انقر على أي مشروع لعرض التفاصيل.</p>
     </div>
   </div>
   <div class="proj-cinema" id="proj-cinema">
-    <div class="proj-sticky">
-      <div class="proj-copy">
-        <div class="proj-copy-top">
-          <div class="proj-index" id="proj-index">01</div>
-          <div class="proj-badges" id="proj-badges">
-            <span class="proj-badge">Live</span>
-            <span class="proj-badge">Full-Stack</span>
+    <div class="proj-sticky" id="proj-sticky">
+      <!-- Cards: number · name · subtitle · button only -->
+      <div class="proj-card active" id="proj-card-sufra">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">01</div>
+            <h3 class="pc-title" id="pc-title-sufra">Sufra</h3>
+            <p class="pc-subtitle" id="pc-sub-sufra"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('sufra')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">01 / 05</span>
+            </div>
           </div>
         </div>
-        <h3 id="proj-copy-title">Sufra</h3>
-        <p id="proj-copy-desc">Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.</p>
-        <ul class="proj-highlights" id="proj-highlights">
-          <li>5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.</li>
-          <li>Offline-first POS using IndexedDB outbox sync for unstable connections.</li>
-          <li>Redis cache busting and VAPID push notifications for live menu operations.</li>
-        </ul>
-        <div class="proj-tags" id="proj-tags">
-          <span class="ptag">Nuxt 4</span>
-          <span class="ptag">Supabase</span>
-          <span class="ptag">Rust / Tauri</span>
-          <span class="ptag">Redis</span>
-          <span class="ptag">PWA</span>
-        </div>
-        <div class="proj-footer">
-          <button class="proj-cta" id="proj-open" type="button"><span data-i18n="projects.openBtn">عرض التفاصيل</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-          <div class="proj-shell" id="proj-shell" aria-hidden="true">
-            <div class="proj-dot active"></div>
-            <div class="proj-dot"></div>
-            <div class="proj-dot"></div>
-            <div class="proj-dot"></div>
-            <div class="proj-dot"></div>
-          </div>
-        </div>
+        <div class="pc-image"><img src="images/Sufra.png" alt="Sufra" /></div>
       </div>
-      <div class="proj-stage" id="proj-stage">
-        <div class="proj-stage-glow"></div>
-        <div class="proj-stage-media">
-          <img id="proj-stage-image" src="images/Sufra.png" alt="Sufra project preview" />
+      <div class="proj-card" id="proj-card-bfm">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">02</div>
+            <h3 class="pc-title" id="pc-title-bfm">BookForMe</h3>
+            <p class="pc-subtitle" id="pc-sub-bfm"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('bfm')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">02 / 05</span>
+            </div>
+          </div>
         </div>
-        <div class="proj-stage-click" id="proj-stage-click" role="button" tabindex="0" aria-label="عرض تفاصيل المشروع"></div>
+        <div class="pc-image"><img src="images/BFM.png" alt="BookForMe" /></div>
+      </div>
+      <div class="proj-card" id="proj-card-uop">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">03</div>
+            <h3 class="pc-title" id="pc-title-uop">UoP System</h3>
+            <p class="pc-subtitle" id="pc-sub-uop"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('uop')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">03 / 05</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-image"><img src="images/UoP.png" alt="UoP System" /></div>
+      </div>
+      <div class="proj-card" id="proj-card-taskat">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">04</div>
+            <h3 class="pc-title" id="pc-title-taskat">Taskat</h3>
+            <p class="pc-subtitle" id="pc-sub-taskat"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('taskat')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">04 / 05</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-image"><img src="images/Taskat.png" alt="Taskat" /></div>
+      </div>
+      <div class="proj-card" id="proj-card-netspeed">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">05</div>
+            <h3 class="pc-title" id="pc-title-netspeed">NetSpeed</h3>
+            <p class="pc-subtitle" id="pc-sub-netspeed"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('netspeed')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">05 / 05</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-image"><img src="images/NetSpeed.png" alt="NetSpeed" /></div>
+      </div>
+      <!-- floating dot nav -->
+      <div class="proj-dots-nav" aria-hidden="true">
+        <div class="proj-dot active" data-idx="0"></div>
+        <div class="proj-dot" data-idx="1"></div>
+        <div class="proj-dot" data-idx="2"></div>
+        <div class="proj-dot" data-idx="3"></div>
+        <div class="proj-dot" data-idx="4"></div>
       </div>
     </div>
+    <!-- scroll driver -->
     <div class="proj-scroll" aria-hidden="true">
       <div class="proj-step" data-project="sufra"></div>
       <div class="proj-step" data-project="bfm"></div>
@@ -1582,18 +1559,18 @@ const projVisual = {
 /* per-language copy */
 const projCopy = {
   ar: {
-    sufra:    { title:'سُفرة',          copy:'SaaS إنتاجي للمطاعم، مبني كنظام متعدد الواجهات يعالج طلبات العملاء وعمليات الموظفين والطباعة الفعلية من نفس الخلفية.', points:['مونوريبو من 5 أجزاء: لوحة تحكم، قائمة، إدارة، جسر طباعة، وخلفية مشتركة.','نقطة بيع أوف لاين مع IndexedDB outbox sync للاتصالات غير المستقرة.','Cache busting بـ Redis وإشعارات VAPID push لعمليات القائمة الحية.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مطوّر خلفيات'] },
-    bfm:      { title:'BookForMe',      copy:'منصة حجوزات وتجارة مقسمة على بوابات متخصصة لإبقاء العمليات والـ onboarding وحجز العملاء والملفات العامة كل منها في مكانه.', points:['3 بوابات و6 مستودعات ومعمارية service/transformer مشتركة.','Laravel Reverb يحافظ على تزامن التقويمات بدون تحديث الصفحة.','تدفقات CRM ومخزون مبنية للشركات ذات الفرق الكبيرة.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','خلفيات'] },
-    uop:      { title:'لوحة تحكم UOP', copy:'منصة محتوى يستطيع فيها الموظفون غير التقنيين نشر الصفحات فورًا بينما يظل API والموقع في تزامن.', points:['التوجيه الديناميكي بـ slug يعني أن الصفحات الجديدة لا تحتاج تغييرات في الكود.','كل نوع محتوى له طبقة ومخطط بيانات مخصص.','المحتوى بالعربية والإنجليزية يُعاد حسب منطق locale في API.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
-    taskat:   { title:'تسكات',          copy:'مبنية لإبقاء الفرق في حركة داخل workspace متعدد المستأجرين، مع دردشة حية وتغييرات قابلة للتدقيق وصلاحيات على مستوى المشروع.', points:['الأدوار المخصصة تُعرَّف لكل مشروع وليس فقط عالميًا.','التحديثات الفورية تشمل الدردشة والردود والعناصر المثبتة.','تفاعلات Kanban المتفائلة تجعل الواجهة تبدو فورية.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['خاص','Realtime'] },
-    netspeed: { title:'NetSpeed',       copy:'منصة إدارة عالية الحركة مصممة لآلاف المستخدمين المتزامنين مع كاش Redis ومصادقة مدمجة مع الأجهزة.', points:['طبقة كاش Redis خفضت حمل قاعدة البيانات بحوالي 60 بالمئة.','مصادقة hotspot مدمجة مع الراوترات تخدم الجلسات لحظيًا.','الدعم والإصلاحات وتتبع المعدات كلها في تدفق واحد.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ مستخدم'] }
+    sufra:    { title:'سُفرة', sub:'SaaS متكامل لإدارة المطاعم — من الطلبات والمبيعات إلى التقارير والأداء', copy:'SaaS إنتاجي للمطاعم، مبني كنظام متعدد الواجهات يعالج طلبات العملاء وعمليات الموظفين والطباعة الفعلية من نفس الخلفية.', points:['مونوريبو من 5 أجزاء: لوحة تحكم، قائمة، إدارة، جسر طباعة، وخلفية مشتركة.','نقطة بيع أوف لاين مع IndexedDB outbox sync للاتصالات غير المستقرة.','Cache busting بـ Redis وإشعارات VAPID push لعمليات القائمة الحية.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مطوّر خلفيات'] },
+    bfm:      { title:'BookForMe', sub:'منصة SaaS متعددة المستأجرين للحجز والتجارة — صالونات وعيادات ومنتجعات', copy:'منصة حجوزات وتجارة مقسمة على بوابات متخصصة لإبقاء العمليات والـ onboarding وحجز العملاء والملفات العامة كل منها في مكانه.', points:['3 بوابات و6 مستودعات ومعمارية service/transformer مشتركة.','Laravel Reverb يحافظ على تزامن التقويمات بدون تحديث الصفحة.','تدفقات CRM ومخزون مبنية للشركات ذات الفرق الكبيرة.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','خلفيات'] },
+    uop:      { title:'لوحة تحكم UOP', sub:'نظام CMS جامعي يُمكّن الموظفين من نشر المحتوى فورًا دون الحاجة لمطوّر', copy:'منصة محتوى يستطيع فيها الموظفون غير التقنيين نشر الصفحات فورًا بينما يظل API والموقع في تزامن.', points:['التوجيه الديناميكي بـ slug يعني أن الصفحات الجديدة لا تحتاج تغييرات في الكود.','كل نوع محتوى له طبقة ومخطط بيانات مخصص.','المحتوى بالعربية والإنجليزية يُعاد حسب منطق locale في API.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
+    taskat:   { title:'تسكات', sub:'منصة إدارة مشاريع متعددة المستأجرين مع دردشة حية وكانبان وصلاحيات متقدمة', copy:'مبنية لإبقاء الفرق في حركة داخل workspace متعدد المستأجرين، مع دردشة حية وتغييرات قابلة للتدقيق وصلاحيات على مستوى المشروع.', points:['الأدوار المخصصة تُعرَّف لكل مشروع وليس فقط عالميًا.','التحديثات الفورية تشمل الدردشة والردود والعناصر المثبتة.','تفاعلات Kanban المتفائلة تجعل الواجهة تبدو فورية.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['خاص','Realtime'] },
+    netspeed: { title:'NetSpeed', sub:'منصة ISP لإدارة آلاف المشتركين مع كاش Redis ومصادقة hotspot مدمجة', copy:'منصة إدارة عالية الحركة مصممة لآلاف المستخدمين المتزامنين مع كاش Redis ومصادقة مدمجة مع الأجهزة.', points:['طبقة كاش Redis خفضت حمل قاعدة البيانات بحوالي 60 بالمئة.','مصادقة hotspot مدمجة مع الراوترات تخدم الجلسات لحظيًا.','الدعم والإصلاحات وتتبع المعدات كلها في تدفق واحد.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ مستخدم'] }
   },
   en: {
-    sufra:    { title:'Sufra',          copy:'Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.', points:['5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.','Offline-first POS using IndexedDB outbox sync for unstable connections.','Redis cache busting and VAPID push notifications for live menu operations.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Backend'] },
-    bfm:      { title:'BookForMe',      copy:'Booking and commerce platform split into specialist portals so operations, onboarding, customer booking, and public profiles all stay cleanly separated.', points:['3 portals, 6 repositories, and a shared service/transformer architecture.','Laravel Reverb keeps calendars in sync without page refreshes.','CRM and inventory flows built for staff-heavy businesses.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend'] },
-    uop:      { title:'UOP Dashboard',  copy:'A content platform where non-technical staff can publish pages instantly while the API and website stay in lockstep.', points:['Dynamic slug routing means new pages need no code changes.','Every content type has a dedicated layer and schema.','Arabic and English content returned by locale-aware API logic.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
-    taskat:   { title:'Taskat',         copy:'Built to keep teams moving inside one multi-tenant workspace, with live chat, auditable changes, and project-level permissions.', points:['Custom roles are defined per project, not just globally.','Real-time updates cover chat, reactions, and pinned items.','Optimistic Kanban interactions keep the UI feeling immediate.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Private','Realtime'] },
-    netspeed: { title:'NetSpeed',       copy:'High-traffic management platform engineered for thousands of concurrent users with Redis caching and hardware-integrated authentication.', points:['Redis cache layer reduced database load by around 60 percent.','Router-integrated hotspot auth serves sessions in real time.','Support, repairs, and equipment tracking all live in one flow.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ Users'] }
+    sufra:    { title:'Sufra', sub:'Restaurant SaaS — ordering, POS, kitchen display, and print bridge in one system', copy:'Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.', points:['5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.','Offline-first POS using IndexedDB outbox sync for unstable connections.','Redis cache busting and VAPID push notifications for live menu operations.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Backend'] },
+    bfm:      { title:'BookForMe', sub:'Multi-tenant booking SaaS for salons, clinics, and spas across 3 specialist portals', copy:'Booking and commerce platform split into specialist portals so operations, onboarding, customer booking, and public profiles all stay cleanly separated.', points:['3 portals, 6 repositories, and a shared service/transformer architecture.','Laravel Reverb keeps calendars in sync without page refreshes.','CRM and inventory flows built for staff-heavy businesses.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend'] },
+    uop:      { title:'UOP Dashboard', sub:'University CMS that lets non-technical staff publish pages without touching code', copy:'A content platform where non-technical staff can publish pages instantly while the API and website stay in lockstep.', points:['Dynamic slug routing means new pages need no code changes.','Every content type has a dedicated layer and schema.','Arabic and English content returned by locale-aware API logic.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
+    taskat:   { title:'Taskat', sub:'Multi-tenant project management with live chat, Kanban, and per-project role control', copy:'Built to keep teams moving inside one multi-tenant workspace, with live chat, auditable changes, and project-level permissions.', points:['Custom roles are defined per project, not just globally.','Real-time updates cover chat, reactions, and pinned items.','Optimistic Kanban interactions keep the UI feeling immediate.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Private','Realtime'] },
+    netspeed: { title:'NetSpeed', sub:'ISP management platform serving 10K+ subscribers with Redis caching and hotspot auth', copy:'High-traffic management platform engineered for thousands of concurrent users with Redis caching and hardware-integrated authentication.', points:['Redis cache layer reduced database load by around 60 percent.','Router-integrated hotspot auth serves sessions in real time.','Support, repairs, and equipment tracking all live in one flow.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ Users'] }
   }
 };
 
@@ -1604,76 +1581,56 @@ const projectState = {
   data: projCopy.ar
 };
 
-const projImage      = document.getElementById('proj-stage-image');
-const projStageEl    = document.getElementById('proj-stage');
-const projSectionEl  = document.getElementById('projects');
-const projIndex      = document.getElementById('proj-index');
-const projBadges     = document.getElementById('proj-badges');
-const projCopyTitle  = document.getElementById('proj-copy-title');
-const projCopyDesc   = document.getElementById('proj-copy-desc');
-const projHighlights = document.getElementById('proj-highlights');
-const projTags       = document.getElementById('proj-tags');
-const projOpen       = document.getElementById('proj-open');
-const projStageClick = document.getElementById('proj-stage-click');
-const projCinema     = document.getElementById('proj-cinema');
-const projDots       = [...document.querySelectorAll('.proj-dot')];
-const projSteps      = [...document.querySelectorAll('.proj-step')];
+const projCinema  = document.getElementById('proj-cinema');
+const projDots    = [...document.querySelectorAll('.proj-dot')];
+const projSteps   = [...document.querySelectorAll('.proj-step')];
+const projKeys    = ['sufra','bfm','uop','taskat','netspeed'];
 
-function renderProject(key){
-  const v = projVisual[key];
-  const p = projCopy[currentLang]?.[key] || projCopy.ar[key];
-  if(!v || !p || projectState.current === key) return;
-  projectState.current = key;
-  window.clearTimeout(projectState.timer);
-  projCinema.classList.add('transitioning');
-  projImage.classList.add('flash');
-  projectState.timer = window.setTimeout(()=>{
-    projImage.src             = v.image;
-    projImage.alt             = p.title + ' project preview';
-    projIndex.textContent     = v.index;
-    projCopyTitle.textContent = p.title;
-    projCopyDesc.textContent  = p.copy;
-    projBadges.innerHTML      = p.badges.map(b=>`<span class="proj-badge">${b}</span>`).join('');
-    projHighlights.innerHTML  = p.points.map(pt=>`<li>${pt}</li>`).join('');
-    projTags.innerHTML        = p.tags.map(t=>`<span class="ptag">${t}</span>`).join('');
-    projDots.forEach((dot,i)=>dot.classList.toggle('active', i === (+v.index - 1)));
-    projStageEl.style.background = v.bg;
-    projStageEl.style.setProperty('--proj-accent', v.accent);
-    projSectionEl.style.setProperty('--proj-tint', v.tint);
-    projOpen.onclick         = ()=>openModal(v.modal);
-    projStageClick.onclick   = ()=>openModal(v.modal);
-    projStageClick.onkeydown = e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(v.modal);}};
-    window.setTimeout(()=>projImage.classList.remove('flash'), 380);
-    window.setTimeout(()=>projCinema.classList.remove('transitioning'), 260);
-  }, 170);
+/* populate each card's text from projCopy */
+function populateCards(lang){
+  projKeys.forEach(key=>{
+    const p = projCopy[lang]?.[key] || projCopy.ar[key];
+    if(!p) return;
+    const title = document.getElementById(`pc-title-${key}`);
+    const sub   = document.getElementById(`pc-sub-${key}`);
+    if(title) title.textContent = p.title;
+    if(sub)   sub.textContent   = p.sub || '';
+  });
 }
 
-function updateCinemaMotion(){
-  if(!projCinema) return;
-  const rect    = projCinema.getBoundingClientRect();
-  const vh      = window.innerHeight;
-  const total   = rect.height - vh;
-  const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
-  const progress = total > 0 ? scrolled / total : 0;
-  projImage.style.setProperty('--proj-y', `${((progress - 0.5) * -24).toFixed(2)}px`);
+function activateCard(key){
+  if(projectState.current === key) return;
+  const prevKey = projectState.current;
+  projectState.current = key;
+  const idx = projKeys.indexOf(key);
+  /* transition: old card exits left, new card enters from right */
+  projKeys.forEach((k,i)=>{
+    const card = document.getElementById(`proj-card-${k}`);
+    if(!card) return;
+    if(k === key){
+      card.classList.remove('exit');
+      card.classList.add('active');
+    } else if(k === prevKey){
+      card.classList.remove('active');
+      card.classList.add('exit');
+      setTimeout(()=>card.classList.remove('exit'), 700);
+    } else {
+      card.classList.remove('active','exit');
+    }
+  });
+  /* dots */
+  projDots.forEach((dot,i)=>dot.classList.toggle('active', i === idx));
 }
 
 const projObserver = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
-    if(entry.isIntersecting) renderProject(entry.target.dataset.project);
+    if(entry.isIntersecting) activateCard(entry.target.dataset.project);
   });
-},{ threshold: .6 });
+},{ threshold: .55 });
 projSteps.forEach(step=>projObserver.observe(step));
-window.addEventListener('scroll',()=>requestAnimationFrame(updateCinemaMotion),{passive:true});
-updateCinemaMotion();
-/* init without guard so first project always renders */
+
+/* cards and first activation handled by applyLang init below */
 projectState.current = '';
-const _initV = projVisual['sufra'];
-if(projStageEl && _initV){
-  projStageEl.style.background = _initV.bg;
-  projStageEl.style.setProperty('--proj-accent', _initV.accent);
-  projSectionEl.style.setProperty('--proj-tint', _initV.tint);
-}
 
 /* ── Form ── */
 function handleForm(e){
@@ -2012,18 +1969,12 @@ function applyLang(lang) {
     if (modalBodies[key] && modalBodies[key][lang]) el.innerHTML = modalBodies[key][lang];
   });
   /* cinematic projects re-render with new language */
-  const prevKey = projectState.current;
-  projectState.current = '';
-  renderProject(prevKey || 'sufra');
+  populateCards(lang);
   /* toggle button label */
   document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'EN' : 'ع';
-  /* proj open btn — update the data-i18n span inside it */
-  const openBtnSpan = document.querySelector('#proj-open [data-i18n]');
-  if (openBtnSpan) openBtnSpan.textContent = t['projects.openBtn'] || (lang === 'ar' ? 'عرض التفاصيل' : 'Open case study');
-  /* fix proj-highlights arrow direction for LTR */
-  document.querySelectorAll('.proj-highlights li').forEach(li => {
-    li.style.paddingLeft  = lang === 'en' ? '16px' : '';
-    li.style.paddingRight = lang === 'ar' ? '16px' : '';
+  /* proj open btns */
+  document.querySelectorAll('.proj-cta [data-i18n]').forEach(span => {
+    span.textContent = t['projects.openBtn'] || (lang === 'ar' ? 'عرض التفاصيل' : 'Open case study');
   });
 }
 
@@ -2033,6 +1984,8 @@ function toggleLang() {
 
 /* init */
 applyLang(currentLang);
+projectState.current = '';
+activateCard('sufra');
 </script>
 </body>
 </html>
