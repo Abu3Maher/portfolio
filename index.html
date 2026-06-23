@@ -859,89 +859,151 @@
     /* ══ MODALS ══ */
     .modal-bg {
       position:fixed; inset:0; z-index:1000;
-      background:rgba(5,10,18,0.80);
-      backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
-      display:flex; align-items:center; justify-content:center; padding:24px;
-      opacity:0; pointer-events:none; transition:opacity .32s ease;
+      background:rgba(4,8,16,0.88);
+      backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px);
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      opacity:0; pointer-events:none; transition:opacity .3s ease;
     }
     .modal-bg.open { opacity:1; pointer-events:all; }
     .modal {
-      background:rgba(8,14,24,0.96);
-      border:1px solid var(--glass-border);
-      border-radius:22px; width:100%; max-width:840px; max-height:90vh;
-      overflow-y:auto;
-      box-shadow:0 40px 120px rgba(5,10,18,0.82),0 0 0 1px rgba(242,179,109,0.14);
-      transform:translateY(28px) scale(.97);
-      transition:transform .36s cubic-bezier(.4,0,.2,1);
-      backdrop-filter:var(--blur);
+      background:#07111e;
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:24px; width:100%; max-width:900px; max-height:92vh;
+      overflow-y:auto; overflow-x:hidden;
+      box-shadow:0 48px 140px rgba(2,5,12,0.9);
+      transform:translateY(32px) scale(.97);
+      transition:transform .38s cubic-bezier(.4,0,.2,1);
+      position:relative;
     }
     .modal-bg.open .modal { transform:none; }
     .modal::-webkit-scrollbar { width:3px; }
-    .modal::-webkit-scrollbar-thumb { background:var(--ink2); }
+    .modal::-webkit-scrollbar-thumb { background:rgba(242,179,109,0.25); }
+
+    /* close button — absolute over the hero image */
     .modal-top {
-      display:flex; justify-content:flex-end; padding:16px 22px 0;
-      position:sticky; top:0; z-index:10;
-      background:rgba(8,14,24,0.96); backdrop-filter:var(--blur);
+      position:absolute; top:0; inset-inline-end:0; z-index:20;
+      display:flex; justify-content:flex-end; padding:16px 20px;
     }
     .modal-x {
-      width:30px; height:30px; border-radius:8px;
-      border:1px solid var(--glass-border); background:var(--glass);
+      width:32px; height:32px; border-radius:10px;
+      border:1px solid rgba(255,255,255,0.15); background:rgba(7,17,30,0.7);
+      backdrop-filter:blur(8px);
       display:flex; align-items:center; justify-content:center;
-      cursor:pointer; color:var(--ink3); font-size:.88rem;
+      cursor:pointer; color:rgba(242,245,249,0.7); font-size:.82rem;
       transition:all var(--tf);
     }
-    .modal-x:hover { background:rgba(242,179,109,0.07); color:var(--head); border-color:var(--glass-bord2); }
-    .modal-hero { padding:0 34px 22px; }
-    .modal-badge { font-size:.57rem; font-weight:700; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); margin-bottom:8px; }
-    .modal-title { font-size:2rem; font-weight:800; letter-spacing:-.05em; color:var(--head); margin-bottom:7px; }
-    .modal-sub { font-size:.83rem; font-weight:400; color:var(--body); margin-bottom:14px; line-height:1.65; }
-    .modal-meta { display:flex; flex-wrap:wrap; gap:14px; font-size:.71rem; color:var(--sub); }
+    .modal-x:hover { background:rgba(242,179,109,0.15); color:#f2f5f9; border-color:rgba(242,179,109,0.4); }
+
+    /* full-bleed hero image */
     .modal-img {
-      margin:0 34px; border-radius:var(--r); overflow:hidden;
-      border:1px solid var(--glass-border); background:rgba(7,12,21,0.96);
-      display:flex; align-items:center; justify-content:center;
+      height: 320px; overflow:hidden; position:relative;
+      background:#04080f;
     }
-    .modal-img img { width:100%; height:auto; max-height:480px; object-fit:contain; display:block; filter:none; }
-    .modal-img-ph { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem; }
+    .modal-img img {
+      width:100%; height:100%; object-fit:cover; object-position:center top;
+      display:block;
+    }
+    /* subtle shadow so text below reads cleanly */
+    .modal-img::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 70%, #07111e 100%);
+      pointer-events:none;
+    }
+    .modal-img-ph { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem; }
+
+    /* hero text */
+    .modal-hero {
+      padding: 0 40px 28px;
+      margin-top: -20px;
+      position: relative; z-index: 2;
+    }
+    .modal-badge {
+      display:inline-flex; align-items:center;
+      font-size:.58rem; font-weight:600; text-transform:uppercase; letter-spacing:.14em;
+      color:rgba(242,245,249,.45);
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+      border-radius:999px; padding:4px 12px; margin-bottom:14px;
+    }
+    .modal-title {
+      font-size:clamp(1.9rem,4vw,2.8rem); font-weight:800;
+      letter-spacing:-.05em; color:#f2f5f9; line-height:1; margin-bottom:10px;
+    }
+    .modal-sub {
+      font-size:.85rem; font-weight:400; color:rgba(242,245,249,.55);
+      line-height:1.7; margin-bottom:18px; max-width:60ch;
+    }
+    .modal-meta {
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .modal-meta span {
+      font-size:.68rem; color:rgba(242,245,249,.4);
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+      border-radius:6px; padding:4px 10px;
+    }
+
+    /* divider line */
+    .modal-divider {
+      height:1px; background:rgba(255,255,255,.06); margin:0 40px 28px;
+    }
+
+    /* stats row — 4 neutral cards, gold only on number */
     .modal-stats {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-      background:var(--glass-border); margin:22px 34px;
-      border:1px solid var(--glass-border); border-radius:var(--r); overflow:hidden;
+      display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+      margin: 0 40px 32px;
     }
-    .mstat { background:rgba(8,14,24,0.92); padding:14px 16px; }
-    .mstat-n { font-size:1.32rem; font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--head); margin-bottom:3px; }
-    .mstat-l { font-size:.62rem; color:var(--sub); line-height:1.38; font-weight:500; }
-    .modal-body { padding:0 34px 34px; }
-    .modal-sec { margin-bottom:22px; }
-    .modal-sec h4 { font-size:.86rem; font-weight:700; color:var(--head); margin-bottom:11px; padding-bottom:8px; border-bottom:1px solid var(--glass-border); }
-    .modal-sec p { font-size:.82rem; font-weight:400; color:var(--body); line-height:1.84; }
-    .modal-sec ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
-    .modal-sec li { font-size:.8rem; font-weight:400; color:var(--body); padding-left:14px; position:relative; line-height:1.7; }
-    .modal-sec li::before { content:'→'; position:absolute; left:0; color:var(--ink3); font-size:.68rem; top:2px; }
+    .mstat {
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:14px; padding:16px 18px;
+    }
+    .mstat-n {
+      font-size:1.4rem; font-weight:800; letter-spacing:-.04em;
+      line-height:1; color:rgba(242,179,109,.9); margin-bottom:5px;
+    }
+    .mstat-l { font-size:.62rem; color:rgba(242,245,249,.45); line-height:1.45; font-weight:500; }
+
+    /* body content */
+    .modal-body { padding:0 40px 40px; }
+    .modal-sec { margin-bottom:28px; }
+    .modal-sec h4 {
+      font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.14em;
+      color:rgba(242,245,249,.38); margin-bottom:12px;
+      padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .modal-sec p { font-size:.84rem; color:rgba(242,245,249,.68); line-height:1.9; }
+    .modal-sec ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .modal-sec li {
+      font-size:.82rem; color:rgba(242,245,249,.68);
+      padding-inline-start:18px; position:relative; line-height:1.75;
+    }
+    .modal-sec li::before {
+      content:'–'; position:absolute; inset-inline-start:0;
+      color:rgba(242,245,249,.3); font-size:.8rem; top:1px;
+    }
     .modal-tags { display:flex; flex-wrap:wrap; gap:6px; }
     .modal-tag {
-      font-size:.65rem; font-weight:600; color:var(--sub);
-      background:rgba(12,20,32,0.86); border:1px solid rgba(168,183,200,0.12);
-      border-radius:6px; padding:3px 9px;
+      font-size:.64rem; font-weight:600; color:rgba(242,245,249,.5);
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+      border-radius:6px; padding:4px 10px;
     }
-    .modal-actions { display:flex; gap:9px; margin-top:26px; flex-wrap:wrap; }
+    .modal-actions { display:flex; gap:10px; margin-top:32px; flex-wrap:wrap; align-items:center; }
     .modal-live {
-      display:inline-flex; align-items:center; gap:7px;
-      padding:10px 22px; border-radius:var(--r);
-      font-size:.78rem; font-weight:700; color:var(--ink0);
-      background:var(--head);
-      text-decoration:none; border:none; cursor:pointer; font-family:inherit;
-      transition:opacity var(--tf),transform var(--tf);
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 24px; border-radius:10px;
+      font-size:.8rem; font-weight:700; color:#f2f5f9;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+      text-decoration:none; cursor:pointer; font-family:inherit;
+      transition:background var(--tf), border-color var(--tf), transform var(--tf);
     }
-    .modal-live:hover { opacity:.86; transform:translateY(-1px); }
+    .modal-live:hover { background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.2); transform:translateY(-1px); }
     .modal-close-btn {
       display:inline-flex; align-items:center; gap:6px;
-      padding:10px 19px; border-radius:var(--r);
-      font-size:.78rem; font-weight:600; color:var(--sub);
-      background:transparent; border:1px solid var(--glass-border);
-      cursor:pointer; transition:border-color var(--tf),background var(--tf); font-family:inherit;
+      padding:11px 20px; border-radius:10px;
+      font-size:.78rem; font-weight:600; color:rgba(242,245,249,.4);
+      background:transparent; border:1px solid rgba(255,255,255,.07);
+      cursor:pointer; transition:all var(--tf); font-family:inherit;
     }
-    .modal-close-btn:hover { border-color:var(--glass-bord2); background:rgba(242,179,109,0.04); }
+    .modal-close-btn:hover { border-color:rgba(255,255,255,.14); color:rgba(242,245,249,.75); }
 
     /* ── Lang toggle ── */
     .lang-toggle {
@@ -990,8 +1052,11 @@
       .pc-num { font-size: 5rem; }
       .pc-title { font-size: 2.2rem; }
       .proj-cta { width:100%; justify-content:center; }
-      .modal-img,.modal-hero,.modal-body { padding-left:20px; padding-right:20px; }
-      .modal-stats { margin-left:20px; margin-right:20px; grid-template-columns:1fr 1fr; }
+      .modal-img { height:200px; margin:0; }
+      .modal-hero { padding:0 20px 22px; margin-top:-24px; }
+      .modal-body { padding:0 20px 32px; }
+      .modal-stats { margin:0 20px 24px; grid-template-columns:1fr 1fr; }
+      .modal-divider { margin:0 20px 20px; }
       .fg2 { grid-template-columns:1fr; }
       body { cursor:auto; }
       #cur,#cur-r { display:none; }
@@ -1378,13 +1443,14 @@
 <div class="modal-bg" id="modal-sufra">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('sufra')">✕</button></div>
+    <div class="modal-img"><img src="images/Sufra.png" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.sufra.badge">01 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
       <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust</div>
       <div class="modal-meta"><span data-i18n="m.sufra.date">📅 أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">🏢 مشروع شخصي</span><span>🌐 sufra.live</span></div>
     </div>
-    <div class="modal-img"><img src="images/Sufra.png" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
+    <div class="modal-divider"></div>
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-n">5</div><div class="mstat-l" data-i18n="m.sufra.s1">مشاريع فرعية في المونوريبو</div></div>
       <div class="mstat"><div class="mstat-n">PWA</div><div class="mstat-l" data-i18n="m.sufra.s2">نقطة بيع أوف لاين</div></div>
@@ -1393,7 +1459,7 @@
     </div>
     <div class="modal-body">
       <div id="modal-body-sufra" data-i18n-modal="sufra"></div>
-      <div class="modal-actions"><a href="https://www.sufra.live" target="_blank" rel="noopener" class="modal-live" data-i18n="m.sufra.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('sufra')" data-i18n="m.close">← إغلاق</button></div>
+      <div class="modal-actions"><a href="https://www.sufra.live" target="_blank" rel="noopener" class="modal-live" data-i18n="m.sufra.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('sufra')" data-i18n="m.close">إغلاق →</button></div>
     </div>
   </div>
 </div>
@@ -1402,13 +1468,14 @@
 <div class="modal-bg" id="modal-bfm">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('bfm')">✕</button></div>
+    <div class="modal-img"><img src="images/BFM.png" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.bfm.badge">02 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">BookForMe</div>
       <div class="modal-sub" data-i18n="m.bfm.sub">SaaS حجوزات وتجارة متعدد المستأجرين — صالونات · عيادات · منتجعات</div>
       <div class="modal-meta"><span data-i18n="m.bfm.date">📅 مارس 2024 – حتى الآن</span><span>🏢 Approved Tech</span><span>🌐 bookforme.ps</span></div>
     </div>
-    <div class="modal-img"><img src="images/BFM.png" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
+    <div class="modal-divider"></div>
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-n">3</div><div class="mstat-l" data-i18n="m.bfm.s1">بوابات منفصلة</div></div>
       <div class="mstat"><div class="mstat-n">5+</div><div class="mstat-l" data-i18n="m.bfm.s2">عملات</div></div>
@@ -1417,7 +1484,7 @@
     </div>
     <div class="modal-body">
       <div id="modal-body-bfm" data-i18n-modal="bfm"></div>
-      <div class="modal-actions"><a href="https://www.bookforme.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.bfm.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('bfm')" data-i18n="m.close">← إغلاق</button></div>
+      <div class="modal-actions"><a href="https://www.bookforme.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.bfm.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('bfm')" data-i18n="m.close">إغلاق →</button></div>
     </div>
   </div>
 </div>
@@ -1426,13 +1493,14 @@
 <div class="modal-bg" id="modal-uop">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('uop')">✕</button></div>
+    <div class="modal-img"><img src="images/UOP.png" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.uop.badge">03 · مطوّر خلفيات · Staging</div>
       <div class="modal-title" data-i18n="m.uop.title">لوحة تحكم UOP</div>
       <div class="modal-sub" data-i18n="m.uop.sub">Headless CMS وموقع عام — جامعة فلسطين</div>
       <div class="modal-meta"><span data-i18n="m.uop.date">📅 أكتوبر 2024 – أبريل 2025</span><span>🏢 Approved Tech</span><span>🌐 w-staging.up.edu.ps</span></div>
     </div>
-    <div class="modal-img"><img src="images/UOP.png" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
+    <div class="modal-divider"></div>
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-n">15+</div><div class="mstat-l" data-i18n="m.uop.s1">نوع محتوى</div></div>
       <div class="mstat"><div class="mstat-n">3</div><div class="mstat-l" data-i18n="m.uop.s2">مستودعات</div></div>
@@ -1441,7 +1509,7 @@
     </div>
     <div class="modal-body">
       <div id="modal-body-uop" data-i18n-modal="uop"></div>
-      <div class="modal-actions"><a href="https://w-staging.up.edu.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.uop.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('uop')" data-i18n="m.close">← إغلاق</button></div>
+      <div class="modal-actions"><a href="https://w-staging.up.edu.ps" target="_blank" rel="noopener" class="modal-live" data-i18n="m.uop.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('uop')" data-i18n="m.close">إغلاق →</button></div>
     </div>
   </div>
 </div>
@@ -1450,13 +1518,14 @@
 <div class="modal-bg" id="modal-taskat">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('taskat')">✕</button></div>
+    <div class="modal-img"><img src="images/Taskat.png" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.taskat.badge">04 · مطوّر خلفيات · منصة خاصة</div>
       <div class="modal-title" data-i18n="m.taskat.title">تسكات</div>
       <div class="modal-sub" data-i18n="m.taskat.sub">إدارة مشاريع Agile وتعاون فريق في الوقت الفعلي</div>
       <div class="modal-meta"><span data-i18n="m.taskat.date">📅 فبراير 2025 – مارس 2025</span><span>🏢 Approved Tech</span><span data-i18n="m.taskat.access">🔒 خاص</span></div>
     </div>
-    <div class="modal-img"><img src="images/Taskat.png" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
+    <div class="modal-divider"></div>
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-n">Agile</div><div class="mstat-l" data-i18n="m.taskat.s1">محرك سبرنت كامل</div></div>
       <div class="mstat"><div class="mstat-n">Live</div><div class="mstat-l" data-i18n="m.taskat.s2">دردشة فورية</div></div>
@@ -1465,7 +1534,7 @@
     </div>
     <div class="modal-body">
       <div id="modal-body-taskat" data-i18n-modal="taskat"></div>
-      <div class="modal-actions"><button class="modal-close-btn" onclick="closeModal('taskat')" data-i18n="m.close">← إغلاق</button></div>
+      <div class="modal-actions"><button class="modal-close-btn" onclick="closeModal('taskat')" data-i18n="m.close">إغلاق →</button></div>
     </div>
   </div>
 </div>
@@ -1474,13 +1543,14 @@
 <div class="modal-bg" id="modal-netspeed">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('netspeed')">✕</button></div>
+    <div class="modal-img"><img src="images/NetSpeed.png" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.netspeed.badge">05 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">NetSpeed</div>
       <div class="modal-sub" data-i18n="m.netspeed.sub">إدارة عمليات ISP وبطاقات الإنترنت — points.red-radius.com</div>
       <div class="modal-meta"><span data-i18n="m.netspeed.date">📅 يناير 2025</span><span>🏢 Approved Tech</span><span>🌐 points.red-radius.com</span></div>
     </div>
-    <div class="modal-img"><img src="images/NetSpeed.png" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
+    <div class="modal-divider"></div>
     <div class="modal-stats">
       <div class="mstat"><div class="mstat-n">10K+</div><div class="mstat-l" data-i18n="m.netspeed.s1">مستخدم متزامن</div></div>
       <div class="mstat"><div class="mstat-n">&lt;200ms</div><div class="mstat-l" data-i18n="m.netspeed.s2">زمن استجابة API</div></div>
@@ -1489,7 +1559,7 @@
     </div>
     <div class="modal-body">
       <div id="modal-body-netspeed" data-i18n-modal="netspeed"></div>
-      <div class="modal-actions"><a href="https://points.red-radius.com" target="_blank" rel="noopener" class="modal-live" data-i18n="m.netspeed.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('netspeed')" data-i18n="m.close">← إغلاق</button></div>
+      <div class="modal-actions"><a href="https://points.red-radius.com" target="_blank" rel="noopener" class="modal-live" data-i18n="m.netspeed.live">🌐 عرض الموقع</a><button class="modal-close-btn" onclick="closeModal('netspeed')" data-i18n="m.close">إغلاق →</button></div>
     </div>
   </div>
 </div>
@@ -1741,7 +1811,7 @@ const i18n = {
     'contact.formMessagePh': 'أخبرني عن مشروعك...',
     'contact.formSend': 'إرسال',
     'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
-    'm.close': '← إغلاق',
+    'm.close': 'إغلاق →',
     'm.sufra.badge': '01 · مطوّر خلفيات · في الإنتاج',
     'm.sufra.title': 'سُفرة',
     'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust',
