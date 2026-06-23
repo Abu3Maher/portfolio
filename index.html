@@ -221,22 +221,7 @@
     section.theme-light .ac-role          { color: #516278; }
     section.theme-light .chip             { color: #2d3e52; background: #ffffff; border-color: rgba(15,27,42,0.12); }
     section.theme-light .chip:hover       { color: #08111d; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.22); }
-    section.theme-light .exp-wrap::before { background: linear-gradient(180deg, #b07d42 0%, rgba(15,27,42,0.06) 100%); }
-    section.theme-light .exp-dot          { background: #fff; border-color: #b07d42; box-shadow: 0 0 0 3px rgba(229,165,92,0.12), 0 0 12px rgba(229,165,92,0.18); }
-    section.theme-light .exp-item:hover .exp-dot { border-color: #08111d; box-shadow: 0 0 0 3px rgba(8,17,29,0.08), 0 0 10px rgba(8,17,29,0.14); }
-    section.theme-light .exp-period       { color: #6b7d94; }
-    section.theme-light .exp-title        { color: #08111d; }
-    section.theme-light .exp-co           { color: #516278; }
-    section.theme-light .exp-badge        { color: #6b7d94; background: #ffffff; border-color: rgba(15,27,42,0.10); }
-    section.theme-light .exp-badge.now    { color: #b07d42; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.20); }
-    section.theme-light .exp-list li      { color: #2d3e52; }
-    section.theme-light .exp-list li::before { color: #b07d42; }
-    section.theme-light .sk-chip          { color: #2d3e52; background: #ffffff; border-color: rgba(15,27,42,0.10); }
-    section.theme-light .sk-chip:hover    { color: #08111d; background: rgba(229,165,92,0.08); border-color: rgba(229,165,92,0.20); }
     section.theme-light .about-grid { align-items: start; }
-    section.theme-light .exp-wrap { margin-top: 36px; }
-    section.theme-light .exp-wrap::before { left: 0; }
-    section.theme-light .exp-dot { left: -33px; }
     section.theme-light .fl               { color: #516278; }
     section.theme-light .fi:focus,
     section.theme-light .ft:focus         { border-color: rgba(229,165,92,0.34); background: #fff; }
@@ -691,40 +676,144 @@
 
     /* ── EXPERIENCE ── */
     #experience {
-      background-color: #050914;
-      background-image:
-        radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
-        radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
-        linear-gradient(180deg, #040814 0%, #09101d 100%);
+      background: #060d18;
     }
-    .exp-wrap { margin-top:54px; padding-left:28px; position:relative; }
-    .exp-wrap::before {
-      content:''; position:absolute; left:0; top:6px; bottom:6px; width:1px;
-      background:linear-gradient(180deg,var(--ink2) 0%,rgba(82,43,91,0.05) 100%);
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      margin-top: 64px;
+      position: relative;
     }
-    .exp-item { padding-bottom:46px; position:relative; }
-    .exp-item:last-child { padding-bottom:0; }
-    .exp-dot {
-      position:absolute; left:-33px; top:5px;
-      width:11px; height:11px; border-radius:50%;
-      background:var(--ink0); border:2px solid var(--ink2);
-      box-shadow:0 0 0 3px rgba(82,43,91,0.10),0 0 14px rgba(82,43,91,0.22);
-      transition:border-color var(--tf),box-shadow var(--tf);
+    /* vertical rule between columns */
+    .exp-grid::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 220px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,0.06);
     }
-    .exp-item:hover .exp-dot { border-color:var(--accent); box-shadow:0 0 0 3px rgba(242,179,109,0.10),0 0 12px rgba(242,179,109,0.22); }
-    .exp-period { font-size:.62rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.13em; margin-bottom:7px; }
-    .exp-title { font-size:1.04rem; font-weight:700; color:var(--head); margin-bottom:3px; letter-spacing:-.02em; }
-    .exp-co { font-size:.79rem; color:var(--sub); font-weight:500; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+    /* left column — timeline labels */
+    .exp-timeline { display: flex; flex-direction: column; }
+    .exp-tl-item {
+      padding: 0 32px 0 0;
+      padding-inline-end: 32px;
+      padding-inline-start: 0;
+      position: relative;
+      flex: 1;
+    }
+    [dir="rtl"] .exp-tl-item { padding-inline-end: 0; padding-inline-start: 32px; }
+    .exp-tl-dot {
+      position: absolute;
+      inset-inline-end: -5px;
+      top: 6px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      transition: background var(--tf), border-color var(--tf);
+      z-index: 1;
+    }
+    .exp-tl-dot.active {
+      background: rgba(242,179,109,0.9);
+      border-color: rgba(242,179,109,1);
+      box-shadow: 0 0 0 4px rgba(242,179,109,0.12);
+    }
+    .exp-tl-period {
+      font-size: .62rem; font-weight: 600;
+      color: rgba(242,245,249,0.35);
+      text-transform: uppercase; letter-spacing: .12em;
+      line-height: 1.4;
+    }
+    /* spacer between timeline items */
+    .exp-tl-gap { flex: 1; min-height: 40px; }
+    /* right column — cards */
+    .exp-cards { display: flex; flex-direction: column; gap: 0; }
+    .exp-card {
+      padding: 36px 0 36px 48px;
+      padding-inline-start: 48px;
+      padding-inline-end: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background var(--tf);
+    }
+    [dir="rtl"] .exp-card { padding-inline-start: 0; padding-inline-end: 48px; }
+    .exp-card:last-child { border-bottom: none; }
+    .exp-card:hover { background: rgba(255,255,255,0.016); }
+    .exp-card-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 16px;
+      margin-bottom: 6px;
+    }
+    .exp-role {
+      font-size: 1.05rem; font-weight: 700;
+      color: rgba(242,245,249,0.95);
+      letter-spacing: -.03em; line-height: 1.2;
+    }
     .exp-badge {
-      font-size:.58rem; font-weight:600; color:var(--muted);
-      background:rgba(133,79,108,0.13); border:1px solid rgba(133,79,108,0.2);
-      border-radius:5px; padding:2px 7px;
+      font-size: .58rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      border-radius: 5px; padding: 3px 9px;
+      white-space: nowrap; flex-shrink: 0;
+      color: rgba(242,245,249,0.45);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
-    .exp-badge.now { color:var(--head); background:rgba(242,179,109,0.08); border-color:rgba(242,179,109,0.16); }
-    .exp-list { list-style:none; display:flex; flex-direction:column; gap:6px; }
-    .exp-list li { font-size:.81rem; font-weight:400; color:var(--body); line-height:1.74; padding-left:13px; position:relative; }
-    .exp-list li::before { content:'–'; position:absolute; left:0; color:var(--ink3); }
-    .exp-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+    .exp-badge.now {
+      color: rgba(242,179,109,0.9);
+      background: rgba(242,179,109,0.07);
+      border-color: rgba(242,179,109,0.18);
+    }
+    .exp-co {
+      font-size: .8rem; font-weight: 500;
+      color: rgba(242,245,249,0.4);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .exp-co-link {
+      color: rgba(242,245,249,0.65);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--tf);
+    }
+    .exp-co-link:hover { color: rgba(242,179,109,0.9); }
+    .exp-co-loc { color: rgba(242,245,249,0.3); }
+    .exp-co-sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(242,245,249,0.2); display: inline-block; flex-shrink: 0;
+    }
+    .exp-period-mobile {
+      display: none;
+      font-size: .62rem; font-weight: 600;
+      color: rgba(242,245,249,0.3);
+      text-transform: uppercase; letter-spacing: .12em;
+      margin-bottom: 18px;
+    }
+    .exp-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 18px; margin-bottom: 20px;
+    }
+    .exp-list li {
+      font-size: .83rem; font-weight: 400;
+      color: rgba(242,245,249,0.58);
+      line-height: 1.78;
+      padding-inline-start: 16px;
+      position: relative;
+    }
+    .exp-list li::before {
+      content: '–';
+      position: absolute; inset-inline-start: 0;
+      color: rgba(242,245,249,0.2);
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .exp-tag {
+      font-size: .65rem; font-weight: 500;
+      color: rgba(242,245,249,0.4);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 3px 9px;
+    }
 
     /* ── CONTACT ── */
     #contact {
@@ -1023,6 +1112,9 @@
     /* ── RESPONSIVE ── */
     @media(max-width:1024px){
       .sk-grid { grid-template-columns:repeat(2,1fr); }
+      .exp-grid { grid-template-columns: 160px 1fr; }
+      .exp-grid::before { inset-inline-start: 160px; }
+      .exp-card { padding-inline-start: 32px; }
       .proj-card { grid-template-columns:1fr; }
       .pc-image { min-height:45vh; }
       .pc-text { padding: 28px 24px; }
@@ -1046,6 +1138,12 @@
       .sk-grid { grid-template-columns:repeat(2,1fr); }
       .sk-intro { flex-direction:column; gap:24px; }
       .sk-core { justify-content:flex-start; gap:20px; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .exp-grid::before { display: none; }
+      .exp-timeline { display: none; }
+      .exp-card { padding-inline-start: 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .exp-card-top { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .exp-period-mobile { display: block; }
       .fact-grid { grid-template-columns:1fr; }
       .proj-card { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
       .pc-image { min-height: 50vw; order: -1; }
@@ -1364,40 +1462,83 @@
       <h2 class="s-h" data-i18n="exp.heading">الخبرة</h2>
       <p class="s-p" data-i18n="exp.sub">مسيرتي المهنية في تطوير البرمجيات</p>
     </div>
-    <div class="exp-wrap">
-      <div class="exp-item rv d1">
-        <div class="exp-dot"></div>
-        <div class="exp-period" data-i18n="exp.job1Period">أكتوبر 2023 — حتى الآن</div>
-        <div class="exp-title" data-i18n="exp.job1Title">مطوّر خلفيات Laravel</div>
-        <div class="exp-co">Approved Tech <span class="exp-badge now" data-i18n="exp.badgeCurrent">حالي</span></div>
-        <ul class="exp-list">
-          <li data-i18n="exp.job1l1">تصميم وبناء خلفيات آمنة وقابلة للتوسع لمنصات SaaS وERP وحجوزات لعملاء مؤسسيين متعددين.</li>
-          <li data-i18n="exp.job1l2">هندسة مخططات قواعد بيانات معقدة وتحسين REST APIs عالية الحمل — تخفيضات ملموسة في زمن الاستجابة وصلت للإنتاج.</li>
-          <li data-i18n="exp.job1l3">تطبيق نظام RBAC دقيق في بيئات متعددة المستأجرين لثلاث مستويات مستخدمين.</li>
-          <li data-i18n="exp.job1l4">سبرنتات Agile، مراجعات كود منظمة، تغطية PHPUnit، CI/CD عبر GitHub Actions.</li>
-        </ul>
-        <div class="exp-tags"><span class="sk-chip">PHP</span><span class="sk-chip">Laravel</span><span class="sk-chip">MySQL</span><span class="sk-chip">Redis</span><span class="sk-chip">Vue 3</span><span class="sk-chip">Nuxt 4</span><span class="sk-chip">PHPUnit</span></div>
+    <div class="exp-grid">
+      <!-- Left: timeline labels -->
+      <div class="exp-timeline">
+        <div class="exp-tl-item">
+          <div class="exp-tl-dot active"></div>
+          <div class="exp-tl-period" data-i18n="exp.job1Period">أكتوبر 2023 — حتى الآن</div>
+        </div>
+        <div class="exp-tl-item">
+          <div class="exp-tl-dot"></div>
+          <div class="exp-tl-period" data-i18n="exp.job2Period">يونيو — أغسطس 2023</div>
+        </div>
+        <div class="exp-tl-item">
+          <div class="exp-tl-dot"></div>
+          <div class="exp-tl-period">2020 — 2025</div>
+        </div>
       </div>
-      <div class="exp-item rv d2">
-        <div class="exp-dot"></div>
-        <div class="exp-period" data-i18n="exp.job2Period">يونيو 2023 — أغسطس 2023</div>
-        <div class="exp-title" data-i18n="exp.job2Title">مطوّر خلفيات — تدريب</div>
-        <div class="exp-co">Approved Tech <span class="exp-badge" data-i18n="exp.badgeIntern">تدريب</span></div>
-        <ul class="exp-list">
-          <li data-i18n="exp.job2l1">برنامج مكثّف لمدة 3 أشهر يغطي سير عمل الويب الحديث ودورة حياة التطوير الكاملة في كود إنتاجي.</li>
-          <li data-i18n="exp.job2l2">بناء ميزات Laravel مع مطورين متمرسين وتعلم أنماط المعمارية وثقافة مراجعة الكود.</li>
-        </ul>
-        <div class="exp-tags"><span class="sk-chip">PHP</span><span class="sk-chip">Laravel</span><span class="sk-chip">MySQL</span></div>
-      </div>
-      <div class="exp-item rv d3">
-        <div class="exp-dot"></div>
-        <div class="exp-period">2020 — 2025</div>
-        <div class="exp-title" data-i18n="exp.job3Title">بكالوريوس تقنية المعلومات — تطوير الويب</div>
-        <div class="exp-co" data-i18n="exp.job3Co">الجامعة الإسلامية بغزة <span class="exp-badge" data-i18n="exp.badgeEdu">تعليم</span></div>
-        <ul class="exp-list">
-          <li data-i18n="exp.job3l1">تقنيات الويب المتقدمة، أنظمة قواعد البيانات، الخوارزميات، ومبادئ هندسة البرمجيات.</li>
-          <li data-i18n="exp.job3l2">أساس أكاديمي متين في OOP وهياكل البيانات وتطوير الخلفية.</li>
-        </ul>
+      <!-- Right: cards -->
+      <div class="exp-cards">
+        <!-- Job 1 -->
+        <div class="exp-card rv d1">
+          <div class="exp-card-top">
+            <div class="exp-role" data-i18n="exp.job1Title">مطوّر خلفيات Laravel</div>
+            <span class="exp-badge now" data-i18n="exp.badgeCurrent">حالي</span>
+          </div>
+          <div class="exp-co">
+            <a href="https://www.approved.tech/" target="_blank" rel="noopener" class="exp-co-link">Approved Tech</a>
+            <span class="exp-co-sep"></span>
+            <span class="exp-co-loc" data-i18n="exp.job1Loc">الكويت · فلسطين</span>
+          </div>
+          <div class="exp-period-mobile" data-i18n="exp.job1Period">أكتوبر 2023 — حتى الآن</div>
+          <ul class="exp-list">
+            <li data-i18n="exp.job1l1">تصميم وبناء خلفيات آمنة وقابلة للتوسع لمنصات SaaS وERP وحجوزات لعملاء مؤسسيين متعددين.</li>
+            <li data-i18n="exp.job1l2">هندسة مخططات قواعد بيانات معقدة وتحسين REST APIs عالية الحمل — تخفيضات ملموسة في زمن الاستجابة وصلت للإنتاج.</li>
+            <li data-i18n="exp.job1l3">تطبيق نظام RBAC دقيق في بيئات متعددة المستأجرين لثلاث مستويات مستخدمين.</li>
+            <li data-i18n="exp.job1l4">سبرنتات Agile، مراجعات كود منظمة، تغطية PHPUnit، CI/CD عبر GitHub Actions.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">PHP</span><span class="exp-tag">Laravel</span><span class="exp-tag">MySQL</span><span class="exp-tag">Redis</span><span class="exp-tag">Vue 3</span><span class="exp-tag">Nuxt 4</span><span class="exp-tag">PHPUnit</span>
+          </div>
+        </div>
+        <!-- Job 2 -->
+        <div class="exp-card rv d2">
+          <div class="exp-card-top">
+            <div class="exp-role" data-i18n="exp.job2Title">مطوّر خلفيات — تدريب</div>
+            <span class="exp-badge" data-i18n="exp.badgeIntern">تدريب</span>
+          </div>
+          <div class="exp-co">
+            <a href="https://www.approved.tech/" target="_blank" rel="noopener" class="exp-co-link">Approved Tech</a>
+            <span class="exp-co-sep"></span>
+            <span class="exp-co-loc" data-i18n="exp.job1Loc">الكويت · فلسطين</span>
+          </div>
+          <div class="exp-period-mobile" data-i18n="exp.job2Period">يونيو — أغسطس 2023</div>
+          <ul class="exp-list">
+            <li data-i18n="exp.job2l1">برنامج مكثّف لمدة 3 أشهر يغطي سير عمل الويب الحديث ودورة حياة التطوير الكاملة في كود إنتاجي.</li>
+            <li data-i18n="exp.job2l2">بناء ميزات Laravel مع مطورين متمرسين وتعلم أنماط المعمارية وثقافة مراجعة الكود.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">PHP</span><span class="exp-tag">Laravel</span><span class="exp-tag">MySQL</span>
+          </div>
+        </div>
+        <!-- Education -->
+        <div class="exp-card rv d3">
+          <div class="exp-card-top">
+            <div class="exp-role" data-i18n="exp.job3Title">بكالوريوس تقنية المعلومات — تطوير الويب</div>
+            <span class="exp-badge" data-i18n="exp.badgeEdu">تعليم</span>
+          </div>
+          <div class="exp-co">
+            <a href="https://www.iugaza.edu.ps/" target="_blank" rel="noopener" class="exp-co-link" data-i18n="exp.job3Co">الجامعة الإسلامية بغزة</a>
+            <span class="exp-co-sep"></span>
+            <span class="exp-co-loc" data-i18n="exp.job3Loc">غزة، فلسطين</span>
+          </div>
+          <div class="exp-period-mobile">2020 — 2025</div>
+          <ul class="exp-list">
+            <li data-i18n="exp.job3l1">تقنيات الويب المتقدمة، أنظمة قواعد البيانات، الخوارزميات، ومبادئ هندسة البرمجيات.</li>
+            <li data-i18n="exp.job3l2">أساس أكاديمي متين في OOP وهياكل البيانات وتطوير الخلفية.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1825,6 +1966,8 @@ const i18n = {
     'exp.job3Title': 'بكالوريوس تقنية المعلومات — تطوير الويب',
     'exp.job3Co': 'الجامعة الإسلامية بغزة',
     'exp.badgeEdu': 'تعليم',
+    'exp.job1Loc': 'الكويت · فلسطين',
+    'exp.job3Loc': 'غزة، فلسطين',
     'exp.job3l1': 'تقنيات الويب المتقدمة، أنظمة قواعد البيانات، الخوارزميات، ومبادئ هندسة البرمجيات.',
     'exp.job3l2': 'أساس أكاديمي متين في OOP وهياكل البيانات وتطوير الخلفية.',
     'contact.label': 'تواصل',
@@ -1955,6 +2098,8 @@ const i18n = {
     'exp.job3Title': 'B.Sc. Information Technology — Web Development',
     'exp.job3Co': 'Islamic University of Gaza',
     'exp.badgeEdu': 'Education',
+    'exp.job1Loc': 'Kuwait · Palestine',
+    'exp.job3Loc': 'Gaza, Palestine',
     'exp.job3l1': 'Advanced web technologies, database systems, algorithms, and software engineering principles.',
     'exp.job3l2': 'Strong academic foundation in OOP, data structures, and backend development.',
     'contact.label': 'Contact',
