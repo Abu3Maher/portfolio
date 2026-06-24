@@ -73,8 +73,8 @@
     @keyframes orbC { to { transform: translate(-40px, 80px) scale(1.08); } }
 
     ::selection { background: rgba(242,179,109,0.18); color: var(--head); }
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-thumb { background: var(--ink2); border-radius: 3px; }
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
 
     /* ── Cursor ── */
     #cur {
@@ -570,8 +570,12 @@
       transition: background 1.8s cubic-bezier(.4,0,.2,1);
       pointer-events: none; z-index: 0;
     }
-    .proj-hdr { text-align:center; margin-bottom:64px; }
-    .proj-hdr .s-label { justify-content:center; }
+    .proj-hdr {
+      text-align: center; margin-bottom: 64px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .proj-hdr .s-label { justify-content: center; }
+    .proj-hdr .s-p { margin-left: auto; margin-right: auto; text-align: center; }
 
     .ptag {
       font-size:.6rem; font-weight:600; letter-spacing:.05em;
@@ -1145,58 +1149,151 @@
     .modal-close-btn:hover { border-color:rgba(255,255,255,.14); color:rgba(242,245,249,.75); }
 
     /* ── RESPONSIVE ── */
+    /* ══════════════════════════════════════════
+       RESPONSIVE — tablet 1024px
+    ══════════════════════════════════════════ */
     @media(max-width:1024px){
-      .sk-grid { grid-template-columns:repeat(2,1fr); }
+      .wrap { padding:0 28px; }
+      section { padding:96px 0; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+
+      /* Skills — 2 cols */
+      .sk-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+
+      /* Experience — narrower timeline */
       .exp-grid { grid-template-columns: 160px 1fr; }
       .exp-grid::before { inset-inline-start: 160px; }
       .exp-card { padding-inline-start: 32px; }
-      .proj-card { grid-template-columns:1fr; }
-      .pc-image { min-height:45vh; }
-      .pc-text { padding: 28px 24px; }
-      .modal-stats { grid-template-columns:repeat(2,1fr); }
-      .contact-grid { grid-template-columns:1fr; gap: 32px; }
+      [dir="rtl"] .exp-card { padding-inline-end: 32px; }
+
+      /* Projects */
+      .proj-card { grid-template-columns: 1fr; }
+      .pc-image { min-height: 44vh; order: -1; }
+      .pc-image::before {
+        background:
+          linear-gradient(to bottom, rgba(4,8,15,.55) 0%, transparent 36%),
+          linear-gradient(to top, #07111e 0%, transparent 28%);
+      }
+      .pc-text { padding: 32px 28px 72px; }
+      .pc-num { font-size: clamp(5rem,10vw,9rem); }
+
+      /* Modal */
+      .modal-stats { grid-template-columns: repeat(2,1fr); }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
       .cg-form-inner { padding: 28px; }
+      .cg-body { max-width: none; }
     }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — mobile 768px
+    ══════════════════════════════════════════ */
     @media(max-width:768px){
-      .wrap { padding:0 20px; }
-      .nav-w { padding:0 20px; }
+      /* Base */
+      .wrap { padding:0 18px; }
+      .nav-w { padding:0 18px; }
+      section { padding:72px 0; }
+      body { background-attachment: scroll; cursor: auto; }
+      #cur,#cur-r { display:none; }
+
+      /* Nav */
       .nav-pill { display:none; }
-      .nav-r .avail { display:none; }
-      .nav-r .nav-sep { display:none; }
       .nav-burger { display:flex; }
-      section { padding:84px 0; }
-      body { background-attachment:scroll; }
-      .btn-cta { padding:8px 15px; }
-      #hero { min-height:100vh; }
-      .hero-inner { padding:40px 0 80px; }
-      .hero-first, .hero-last { font-size:clamp(3.2rem,15vw,5.5rem); }
-      .hero-underline { width:160px; }
-      .about-grid { grid-template-columns:1fr; gap:32px; }
-      .sk-grid { grid-template-columns:repeat(2,1fr); }
-      .sk-intro { flex-direction:column; gap:24px; }
-      .sk-core { justify-content:flex-start; gap:20px; }
+
+      /* Hero */
+      #hero { min-height: 100svh; padding-top: 58px; }
+      .hero-inner { padding: 36px 18px 72px; }
+      .hero-first, .hero-last { font-size: clamp(3.4rem,14vw,6rem); }
+      .hero-underline { width: 140px; }
+      .hero-role-line { font-size: .78rem; }
+      .hero-soc { gap: 6px; }
+      .soc { width: 36px; height: 36px; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .fact-grid { grid-template-columns: 1fr 1fr; }
+      .rv-r { transform: translateY(24px); }
+
+      /* Skills */
+      .sk-intro { flex-direction: column; gap: 20px; }
+      .sk-intro-left { max-width: none; }
+      .sk-core { justify-content: flex-start; gap: 24px; }
+      .sk-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .sk-card { padding: 20px 16px 18px; border-radius: 14px; }
+
+      /* Experience */
       .exp-grid { grid-template-columns: 1fr; }
       .exp-grid::before { display: none; }
       .exp-timeline { display: none; }
-      .exp-card { padding-inline-start: 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-      .exp-card-top { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .exp-card { padding: 28px 0; padding-inline-start: 0; padding-inline-end: 0; }
+      .exp-card-top { flex-direction: column; gap: 6px; align-items: flex-start; }
       .exp-period-mobile { display: block; }
-      .fact-grid { grid-template-columns:1fr; }
-      .proj-card { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-      .pc-image { min-height: 50vw; order: -1; }
-      .pc-image::before { background: linear-gradient(to bottom, rgba(4,8,15,.5) 0%, transparent 40%), linear-gradient(to top, #07111e 0%, transparent 25%); }
-      .pc-text { padding: 24px 20px 80px; }
-      .pc-num { font-size: 5rem; }
-      .pc-title { font-size: 2.2rem; }
-      .proj-cta { width:100%; justify-content:center; }
-      .modal-img { height:200px; margin:0; }
-      .modal-hero { padding:0 20px 22px; margin-top:-24px; }
-      .modal-body { padding:0 20px 32px; }
-      .modal-stats { margin:0 20px 24px; grid-template-columns:1fr 1fr; }
-      .modal-divider { margin:0 20px 20px; }
-      .fg2 { grid-template-columns:1fr; }
-      body { cursor:auto; }
-      #cur,#cur-r { display:none; }
+      .exp-role { font-size: .94rem; }
+
+      /* Projects */
+      .proj-card { grid-template-columns: 1fr; }
+      .pc-image { min-height: 52vw; order: -1; }
+      .pc-image::before {
+        background:
+          linear-gradient(to bottom, rgba(4,8,15,.55) 0%, transparent 36%),
+          linear-gradient(to top, #07111e 0%, transparent 28%);
+      }
+      .pc-text { padding: 20px 18px 72px; }
+      .pc-num { font-size: 4.5rem; }
+      .pc-title { font-size: 2rem; }
+      .pc-subtitle { font-size: .82rem; }
+      .pc-footer { margin-top: 28px; flex-wrap: wrap; }
+      .proj-cta { width: 100%; justify-content: center; }
+
+      /* Modal */
+      .modal { border-radius: 18px; }
+      .modal-img { height: 200px; }
+      .modal-hero { padding: 0 18px 20px; margin-top: -18px; }
+      .modal-body { padding: 0 18px 28px; }
+      .modal-stats { margin: 0 18px 20px; grid-template-columns: 1fr 1fr; }
+      .modal-divider { margin: 0 18px 18px; }
+      .modal-title { font-size: clamp(1.5rem,6vw,2.2rem); }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+      .cg-form-inner { padding: 20px; }
+      .fg2 { grid-template-columns: 1fr; }
+      .cg-title { font-size: 1.6rem; }
+
+      /* Footer */
+      .foot-w { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — small phones 480px
+    ══════════════════════════════════════════ */
+    @media(max-width:480px){
+      .wrap { padding:0 14px; }
+      .nav-w { padding:0 14px; }
+
+      /* Hero */
+      .hero-first, .hero-last { font-size: clamp(2.8rem,16vw,5rem); }
+      .hero-underline { width: 110px; }
+
+      /* About */
+      .fact-grid { grid-template-columns: 1fr; }
+
+      /* Skills — single col */
+      .sk-grid { grid-template-columns: 1fr; }
+      .sk-core { gap: 16px; }
+      .sk-core-val { font-size: 1.2rem; }
+
+      /* Projects */
+      .pc-image { min-height: 56vw; }
+      .pc-num { font-size: 3.8rem; }
+      .pc-title { font-size: 1.8rem; }
+
+      /* Contact */
+      .clink { padding: 12px 14px; }
+      .cg-send-btn { font-size: .78rem; }
     }
   </style>
 </head>
