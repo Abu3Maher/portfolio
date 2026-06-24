@@ -972,6 +972,44 @@
       margin-top: 4px;
     }
     .cg-send-btn:hover { background: #1a2535; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(8,17,29,0.18); }
+    .cg-send-btn:disabled { opacity: .6; transform: none; cursor: not-allowed; }
+
+    /* field error */
+    .fi-err { display:block; font-size:.62rem; color:#e05555; margin-top:4px; min-height:14px; font-weight:500; }
+    .fi.invalid, .ft.invalid { border-color:#e05555; background:#fff8f8; box-shadow: 0 0 0 3px rgba(224,85,85,.10); }
+
+    /* ── success state ── */
+    .form-success-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 48px 24px; gap: 0;
+    }
+    .fs-icon-wrap { margin-bottom: 24px; }
+    .fs-icon { width: 72px; height: 72px; }
+    .fs-circle {
+      stroke-dasharray: 151; stroke-dashoffset: 151;
+      animation: drawCircle .6s ease forwards;
+    }
+    .fs-check {
+      stroke-dasharray: 36; stroke-dashoffset: 36;
+      animation: drawCheck .4s ease .5s forwards;
+    }
+    @keyframes drawCircle { to { stroke-dashoffset: 0; } }
+    @keyframes drawCheck  { to { stroke-dashoffset: 0; } }
+    .fs-title {
+      font-size: 1.3rem; font-weight: 800; color: #08111d;
+      letter-spacing: -.03em; margin-bottom: 10px;
+    }
+    .fs-msg {
+      font-size: .86rem; color: #4a5568; line-height: 1.75;
+      max-width: 32ch; margin-bottom: 28px;
+    }
+    .fs-back {
+      font-size: .76rem; font-weight: 600; color: #c8923a;
+      background: none; border: 1px solid rgba(200,146,58,.3);
+      border-radius: 999px; padding: 8px 20px; cursor: pointer;
+      font-family: inherit; transition: border-color var(--tf), background var(--tf);
+    }
+    .fs-back:hover { border-color: #c8923a; background: rgba(200,146,58,.06); }
 
     /* ── FOOTER ── */
     footer {
@@ -1358,7 +1396,7 @@
       <div class="hero-underline"></div>
       <p class="hero-role-line" data-i18n-html="hero.tagline">أبني أنظمة <strong>قابلة للتوسع</strong></p>
       <div class="hero-soc">
-        <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="soc" aria-label="GitHub">
+        <a href="https://github.com/Abu3Maher" target="_blank" rel="noopener" class="soc" aria-label="GitHub">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
         <a href="mailto:moh.alnamla@gmail.com" class="soc" aria-label="Email">
@@ -1442,7 +1480,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/Sufra.png" alt="Sufra" /></div>
+        <div class="pc-image"><img src="images/Sufra.webp" alt="Sufra" /></div>
       </div>
       <div class="proj-card" id="proj-card-bfm">
         <div class="pc-text">
@@ -1459,7 +1497,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/BFM.png" alt="BookForMe" /></div>
+        <div class="pc-image"><img src="images/BFM.webp" alt="BookForMe" /></div>
       </div>
       <div class="proj-card" id="proj-card-uop">
         <div class="pc-text">
@@ -1476,7 +1514,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/UoP.png" alt="UoP System" /></div>
+        <div class="pc-image"><img src="images/UoP.webp" alt="UoP System" /></div>
       </div>
       <div class="proj-card" id="proj-card-taskat">
         <div class="pc-text">
@@ -1493,7 +1531,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/Taskat.png" alt="Taskat" /></div>
+        <div class="pc-image"><img src="images/Taskat.webp" alt="Taskat" /></div>
       </div>
       <div class="proj-card" id="proj-card-netspeed">
         <div class="pc-text">
@@ -1510,7 +1548,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/NetSpeed.png" alt="NetSpeed" /></div>
+        <div class="pc-image"><img src="images/NetSpeed.webp" alt="NetSpeed" /></div>
       </div>
       <!-- floating dot nav -->
       <div class="proj-dots-nav" aria-hidden="true">
@@ -1710,9 +1748,17 @@
             <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.82a19.79 19.79 0 01-3.07-8.67 2 2 0 012-2.18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
             <div><div class="clink-k" data-i18n="contact.phoneK">الهاتف</div><div class="clink-v">+970 599 473 743</div></div>
           </a>
-          <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="clink">
+          <a href="https://github.com/Abu3Maher" target="_blank" rel="noopener" class="clink">
             <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
-            <div><div class="clink-k">GitHub</div><div class="clink-v">github.com/Mohammed-Al-Namla</div></div>
+            <div><div class="clink-k">GitHub</div><div class="clink-v">github.com/Abu3Maher</div></div>
+          </a>
+          <a href="https://www.linkedin.com/in/mohammed-al-namla-084907260" target="_blank" rel="noopener" class="clink">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+            <div><div class="clink-k">LinkedIn</div><div class="clink-v">mohammed-al-namla</div></div>
+          </a>
+          <a href="https://www.instagram.com/abu._.maher00" target="_blank" rel="noopener" class="clink">
+            <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+            <div><div class="clink-k">Instagram</div><div class="clink-v">abu._.maher00</div></div>
           </a>
           <div class="clink" style="cursor:default;">
             <div class="clink-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -1724,13 +1770,45 @@
       <div class="cg-form">
         <div class="cg-form-inner">
           <h3 class="cg-form-title" data-i18n="contact.formHeading">أرسل رسالة</h3>
-          <form onsubmit="handleForm(event)">
-            <div class="fg2">
-              <div class="fg"><label class="fl" data-i18n="contact.formName">الاسم</label><input id="fn" class="fi" type="text" data-i18n-ph="contact.formNamePh" placeholder="اسمك" /></div>
-              <div class="fg"><label class="fl" data-i18n="contact.formEmail">البريد الإلكتروني</label><input id="fe" class="fi" type="email" placeholder="your@email.com" /></div>
+
+          <!-- Success state -->
+          <div id="form-success" class="form-success-state" style="display:none;">
+            <div class="fs-icon-wrap">
+              <svg class="fs-icon" viewBox="0 0 52 52" fill="none">
+                <circle class="fs-circle" cx="26" cy="26" r="24" stroke="#c8923a" stroke-width="2"/>
+                <polyline class="fs-check" points="15,27 22,34 37,19" stroke="#c8923a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
-            <div class="fg"><label class="fl" data-i18n="contact.formSubject">الموضوع</label><input id="fs" class="fi" type="text" data-i18n-ph="contact.formSubjectPh" placeholder="استفسار عن مشروع" /></div>
-            <div class="fg"><label class="fl" data-i18n="contact.formMessage">الرسالة</label><textarea id="fm" class="ft" data-i18n-ph="contact.formMessagePh" placeholder="أخبرني عن مشروعك..."></textarea></div>
+            <h4 class="fs-title" data-i18n="contact.successTitle">تم الإرسال بنجاح!</h4>
+            <p class="fs-msg" data-i18n="contact.successMsg">شكراً لتواصلك معي. سأراجع رسالتك وأرد عليك في أقرب وقت ممكن.</p>
+            <button class="fs-back" onclick="resetForm()" data-i18n="contact.successBack">إرسال رسالة أخرى</button>
+          </div>
+
+          <!-- Form -->
+          <form id="contact-form" onsubmit="handleForm(event)" novalidate>
+            <input type="hidden" name="access_key" value="3814092a-588e-466c-ac6e-e5daae46f386" />
+            <div class="fg2">
+              <div class="fg">
+                <label class="fl" data-i18n="contact.formName">الاسم</label>
+                <input id="fn" name="name" class="fi" type="text" data-i18n-ph="contact.formNamePh" placeholder="اسمك" autocomplete="name" maxlength="80" />
+                <span class="fi-err" id="err-name"></span>
+              </div>
+              <div class="fg">
+                <label class="fl" data-i18n="contact.formEmail">البريد الإلكتروني</label>
+                <input id="fe" name="email" class="fi" type="email" placeholder="your@email.com" autocomplete="email" maxlength="120" />
+                <span class="fi-err" id="err-email"></span>
+              </div>
+            </div>
+            <div class="fg">
+              <label class="fl" data-i18n="contact.formSubject">الموضوع</label>
+              <input id="fs" name="subject" class="fi" type="text" data-i18n-ph="contact.formSubjectPh" placeholder="استفسار عن مشروع" maxlength="150" />
+              <span class="fi-err" id="err-subject"></span>
+            </div>
+            <div class="fg">
+              <label class="fl" data-i18n="contact.formMessage">الرسالة</label>
+              <textarea id="fm" name="message" class="ft" data-i18n-ph="contact.formMessagePh" placeholder="أخبرني عن مشروعك..." maxlength="2000"></textarea>
+              <span class="fi-err" id="err-message"></span>
+            </div>
             <button type="submit" class="cg-send-btn" id="form-submit-btn">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               <span data-i18n="contact.formSend">إرسال</span>
@@ -1748,7 +1826,9 @@
     <p class="foot-copy" data-i18n-html="footer.copy">© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸</p>
     <div class="foot-soc">
       <a href="mailto:moh.alnamla@gmail.com" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
-      <a href="https://github.com/Mohammed-Al-Namla" target="_blank" rel="noopener" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+      <a href="https://github.com/Abu3Maher" target="_blank" rel="noopener" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+      <a href="https://www.linkedin.com/in/mohammed-al-namla-084907260" target="_blank" rel="noopener" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.instagram.com/abu._.maher00" target="_blank" rel="noopener" class="foot-ico"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
     </div>
   </div>
 </footer>
@@ -1759,7 +1839,7 @@
 <div class="modal-bg" id="modal-sufra">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('sufra')">✕</button></div>
-    <div class="modal-img"><img src="images/Sufra.png" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
+    <div class="modal-img"><img src="images/Sufra.webp" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.sufra.badge">01 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
@@ -1784,7 +1864,7 @@
 <div class="modal-bg" id="modal-bfm">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('bfm')">✕</button></div>
-    <div class="modal-img"><img src="images/BFM.png" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
+    <div class="modal-img"><img src="images/BFM.webp" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.bfm.badge">02 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">BookForMe</div>
@@ -1809,7 +1889,7 @@
 <div class="modal-bg" id="modal-uop">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('uop')">✕</button></div>
-    <div class="modal-img"><img src="images/UOP.png" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
+    <div class="modal-img"><img src="images/UOP.webp" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.uop.badge">03 · مطوّر خلفيات · Staging</div>
       <div class="modal-title" data-i18n="m.uop.title">لوحة تحكم UOP</div>
@@ -1834,7 +1914,7 @@
 <div class="modal-bg" id="modal-taskat">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('taskat')">✕</button></div>
-    <div class="modal-img"><img src="images/Taskat.png" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
+    <div class="modal-img"><img src="images/Taskat.webp" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.taskat.badge">04 · مطوّر خلفيات · منصة خاصة</div>
       <div class="modal-title" data-i18n="m.taskat.title">تسكات</div>
@@ -1859,7 +1939,7 @@
 <div class="modal-bg" id="modal-netspeed">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('netspeed')">✕</button></div>
-    <div class="modal-img"><img src="images/NetSpeed.png" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
+    <div class="modal-img"><img src="images/NetSpeed.webp" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-badge" data-i18n="m.netspeed.badge">05 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">NetSpeed</div>
@@ -1955,11 +2035,11 @@ document.addEventListener('keydown',e=>{
 /* ── Cinematic projects ── */
 /* shared visual config keyed by project slug */
 const projVisual = {
-  sufra:    { index:'01', image:'images/Sufra.png',    modal:'sufra',    bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0d1f12 0%, #060e0a 60%, #040c08 100%)', accent:'72,185,110',   tint:'rgba(72,185,110,0.04)' },
-  bfm:      { index:'02', image:'images/BFM.png',      modal:'bfm',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a0e1f 0%, #0e0812 60%, #080510 100%)', accent:'160,100,210',  tint:'rgba(160,100,210,0.045)' },
-  uop:      { index:'03', image:'images/UOP.png',      modal:'uop',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0a1520 0%, #060e18 60%, #040a12 100%)', accent:'80,140,220',   tint:'rgba(80,140,220,0.04)' },
-  taskat:   { index:'04', image:'images/Taskat.png',   modal:'taskat',   bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0f0f1f 0%, #0a0a18 60%, #060610 100%)', accent:'100,100,230',  tint:'rgba(100,100,230,0.04)' },
-  netspeed: { index:'05', image:'images/NetSpeed.png', modal:'netspeed', bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a1000 0%, #120b00 60%, #0a0700 100%)', accent:'242,179,109',  tint:'rgba(242,179,109,0.04)' }
+  sufra:    { index:'01', image:'images/Sufra.webp',    modal:'sufra',    bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0d1f12 0%, #060e0a 60%, #040c08 100%)', accent:'72,185,110',   tint:'rgba(72,185,110,0.04)' },
+  bfm:      { index:'02', image:'images/BFM.webp',      modal:'bfm',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a0e1f 0%, #0e0812 60%, #080510 100%)', accent:'160,100,210',  tint:'rgba(160,100,210,0.045)' },
+  uop:      { index:'03', image:'images/UOP.webp',      modal:'uop',      bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0a1520 0%, #060e18 60%, #040a12 100%)', accent:'80,140,220',   tint:'rgba(80,140,220,0.04)' },
+  taskat:   { index:'04', image:'images/Taskat.webp',   modal:'taskat',   bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #0f0f1f 0%, #0a0a18 60%, #060610 100%)', accent:'100,100,230',  tint:'rgba(100,100,230,0.04)' },
+  netspeed: { index:'05', image:'images/NetSpeed.webp', modal:'netspeed', bg:'radial-gradient(ellipse 80% 60% at 50% 30%, #1a1000 0%, #120b00 60%, #0a0700 100%)', accent:'242,179,109',  tint:'rgba(242,179,109,0.04)' }
 };
 
 /* per-language copy */
@@ -1997,10 +2077,8 @@ function populateCards(lang){
   projKeys.forEach(key=>{
     const p = projCopy[lang]?.[key] || projCopy.ar[key];
     if(!p) return;
-    const title = document.getElementById(`pc-title-${key}`);
-    const sub   = document.getElementById(`pc-sub-${key}`);
-    if(title) title.textContent = p.title;
-    if(sub)   sub.textContent   = p.sub || '';
+    const sub = document.getElementById(`pc-sub-${key}`);
+    if(sub) sub.textContent = p.sub || '';
   });
 }
 
@@ -2032,27 +2110,91 @@ const projObserver = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting) activateCard(entry.target.dataset.project);
   });
-},{ threshold: .55 });
+},{ threshold: 0, rootMargin: '-40% 0px -40% 0px' });
 projSteps.forEach(step=>projObserver.observe(step));
 
 /* cards and first activation handled by applyLang init below */
 projectState.current = '';
 
-/* ── Form ── */
-function handleForm(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('button[type=submit]');
-  const sendingMsg = currentLang==='ar' ? 'جاري فتح البريد…' : 'Opening mail…';
-  btn.querySelector('[data-i18n]').textContent = sendingMsg;
-  const n=document.getElementById('fn').value,
-        s=document.getElementById('fs').value||'Portfolio Inquiry',
-        m=document.getElementById('fm').value;
-  window.location.href=`mailto:moh.alnamla@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent('Hi Mohammed,\n\n'+m+'\n\n— '+n)}`;
-  setTimeout(()=>{
-    const span=btn.querySelector('[data-i18n]');
-    if(span) span.textContent = i18n[currentLang]['contact.formSend'];
-  },1500);
+/* ── Form validation + submit ── */
+function setErr(id, msg){ const el=document.getElementById(id); if(el){el.textContent=msg; el.previousElementSibling?.classList.toggle('invalid',!!msg);} }
+function clearErrs(){ ['name','email','subject','message'].forEach(f=>setErr('err-'+f,'')); }
+
+function validateForm(){
+  const ar = currentLang==='ar';
+  let ok = true;
+  const name = document.getElementById('fn').value.trim();
+  const email = document.getElementById('fe').value.trim();
+  const msg   = document.getElementById('fm').value.trim();
+  if(!name || name.length < 2){
+    setErr('err-name', ar ? 'الرجاء إدخال اسمك' : 'Please enter your name'); ok=false;
+  } else if(name.length > 80){
+    setErr('err-name', ar ? 'الاسم طويل جداً' : 'Name too long'); ok=false;
+  } else setErr('err-name','');
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    setErr('err-email', ar ? 'بريد إلكتروني غير صالح' : 'Please enter a valid email'); ok=false;
+  } else setErr('err-email','');
+  if(!msg || msg.length < 10){
+    setErr('err-message', ar ? 'الرسالة قصيرة جداً (10 أحرف على الأقل)' : 'Message too short (min 10 characters)'); ok=false;
+  } else if(msg.length > 2000){
+    setErr('err-message', ar ? 'الرسالة طويلة جداً (2000 حرف كحد أقصى)' : 'Message too long (max 2000 characters)'); ok=false;
+  } else setErr('err-message','');
+  return ok;
 }
+
+function resetForm(){
+  const form = document.getElementById('contact-form');
+  const succ = document.getElementById('form-success');
+  form.reset(); clearErrs();
+  succ.style.display = 'none';
+  form.style.display = 'block';
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = false;
+  const span = btn.querySelector('[data-i18n]');
+  if(span) span.textContent = i18n[currentLang]['contact.formSend'];
+}
+
+async function handleForm(e){
+  e.preventDefault();
+  clearErrs();
+  if(!validateForm()) return;
+  const form = e.target;
+  const btn  = form.querySelector('button[type=submit]');
+  const span = btn.querySelector('[data-i18n]');
+  span.textContent = currentLang==='ar' ? 'جاري الإرسال…' : 'Sending…';
+  btn.disabled = true;
+  const payload = {
+    access_key: document.querySelector('[name="access_key"]').value,
+    name:    document.getElementById('fn').value.trim(),
+    email:   document.getElementById('fe').value.trim(),
+    subject: document.getElementById('fs').value.trim() || 'Portfolio Inquiry',
+    message: document.getElementById('fm').value.trim(),
+  };
+  try {
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if(json.success){
+      form.style.display = 'none';
+      document.getElementById('form-success').style.display = 'flex';
+    } else {
+      span.textContent = currentLang==='ar' ? 'حدث خطأ، أعد المحاولة' : 'Error, please try again';
+      btn.disabled = false;
+    }
+  } catch(_){
+    span.textContent = currentLang==='ar' ? 'تعذّر الإرسال' : 'Failed to send';
+    btn.disabled = false;
+  }
+}
+
+/* live validation — clear error as user types */
+['fn','fe','fs','fm'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', ()=>{ const key={'fn':'name','fe':'email','fs':'subject','fm':'message'}[id]; setErr('err-'+key,''); el.classList.remove('invalid'); });
+});
 
 /* ── i18n ── */
 let currentLang = localStorage.getItem('lang') || 'ar';
@@ -2142,6 +2284,9 @@ const i18n = {
     'contact.formMessage': 'الرسالة',
     'contact.formMessagePh': 'أخبرني عن مشروعك...',
     'contact.formSend': 'إرسال',
+    'contact.successTitle': 'تم الإرسال بنجاح!',
+    'contact.successMsg': 'شكراً لتواصلك معي. سأراجع رسالتك وأرد عليك في أقرب وقت ممكن.',
+    'contact.successBack': 'إرسال رسالة أخرى',
     'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
     'm.close': 'إغلاق →',
     'm.sufra.badge': '01 · مطوّر خلفيات · في الإنتاج',
@@ -2274,6 +2419,9 @@ const i18n = {
     'contact.formMessage': 'Message',
     'contact.formMessagePh': 'Tell me about your project...',
     'contact.formSend': 'Send Message',
+    'contact.successTitle': 'Message Sent!',
+    'contact.successMsg': 'Thanks for reaching out. I\'ll review your message and get back to you as soon as possible.',
+    'contact.successBack': 'Send another message',
     'footer.copy': '© 2025 <b>Mohammed Al-Namla</b> · Palestine 🇵🇸',
     'm.close': '← Close',
     'm.sufra.badge': '01 · Backend Developer · Live in Production',
