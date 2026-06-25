@@ -1151,7 +1151,10 @@
       color:rgba(242,245,249,.38); margin-bottom:12px;
       padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .modal-sec p { font-size:.84rem; color:rgba(242,245,249,.68); line-height:1.9; }
+    .modal-sec p { font-size:.84rem; color:rgba(242,245,249,.68); line-height:1.9; margin-bottom:10px; }
+    .modal-sec p:last-child { margin-bottom:0; }
+    .modal-sec p strong { color:rgba(242,245,249,.92); font-weight:600; }
+    .modal-sec code { font-size:.78rem; background:rgba(255,255,255,.06); border-radius:4px; padding:1px 6px; color:rgba(242,179,109,.82); }
     .modal-sec ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
     .modal-sec li {
       font-size:.82rem; color:rgba(242,245,249,.68);
@@ -1844,7 +1847,7 @@
       <div class="modal-badge" data-i18n="m.sufra.badge">01 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
       <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust</div>
-      <div class="modal-meta"><span data-i18n="m.sufra.date">📅 أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">🏢 مشروع شخصي</span><span>🌐 sufra.live</span></div>
+      <div class="modal-meta"><span data-i18n="m.sufra.date">أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">مؤسس مشارك</span><span>sufra.live</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -1869,7 +1872,7 @@
       <div class="modal-badge" data-i18n="m.bfm.badge">02 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">BookForMe</div>
       <div class="modal-sub" data-i18n="m.bfm.sub">SaaS حجوزات وتجارة متعدد المستأجرين — صالونات · عيادات · منتجعات</div>
-      <div class="modal-meta"><span data-i18n="m.bfm.date">📅 مارس 2024 – حتى الآن</span><span>🏢 Approved Tech</span><span>🌐 bookforme.ps</span></div>
+      <div class="modal-meta"><span data-i18n="m.bfm.date">مارس 2024 – حتى الآن</span><span>Approved Tech</span><span>bookforme.ps</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -1894,7 +1897,7 @@
       <div class="modal-badge" data-i18n="m.uop.badge">03 · مطوّر خلفيات · Staging</div>
       <div class="modal-title" data-i18n="m.uop.title">لوحة تحكم UOP</div>
       <div class="modal-sub" data-i18n="m.uop.sub">Headless CMS وموقع عام — جامعة فلسطين</div>
-      <div class="modal-meta"><span data-i18n="m.uop.date">📅 أكتوبر 2024 – أبريل 2025</span><span>🏢 Approved Tech</span><span>🌐 w-staging.up.edu.ps</span></div>
+      <div class="modal-meta"><span data-i18n="m.uop.date">أكتوبر 2024 – أبريل 2025</span><span>Approved Tech</span><span>w-staging.up.edu.ps</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -1919,7 +1922,7 @@
       <div class="modal-badge" data-i18n="m.taskat.badge">04 · مطوّر خلفيات · منصة خاصة</div>
       <div class="modal-title" data-i18n="m.taskat.title">تسكات</div>
       <div class="modal-sub" data-i18n="m.taskat.sub">إدارة مشاريع Agile وتعاون فريق في الوقت الفعلي</div>
-      <div class="modal-meta"><span data-i18n="m.taskat.date">📅 فبراير 2025 – مارس 2025</span><span>🏢 Approved Tech</span><span data-i18n="m.taskat.access">🔒 خاص</span></div>
+      <div class="modal-meta"><span data-i18n="m.taskat.date">فبراير 2025 – مارس 2025</span><span>Approved Tech</span><span data-i18n="m.taskat.access">🔒 خاص</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -1944,7 +1947,7 @@
       <div class="modal-badge" data-i18n="m.netspeed.badge">05 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title">NetSpeed</div>
       <div class="modal-sub" data-i18n="m.netspeed.sub">إدارة عمليات ISP وبطاقات الإنترنت — points.red-radius.com</div>
-      <div class="modal-meta"><span data-i18n="m.netspeed.date">📅 يناير 2025</span><span>🏢 Approved Tech</span><span>🌐 points.red-radius.com</span></div>
+      <div class="modal-meta"><span data-i18n="m.netspeed.date">يناير 2025</span><span>Approved Tech</span><span>points.red-radius.com</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -2045,18 +2048,18 @@ const projVisual = {
 /* per-language copy */
 const projCopy = {
   ar: {
-    sufra:    { title:'سُفرة', sub:'SaaS متكامل لإدارة المطاعم — من الطلبات والمبيعات إلى التقارير والأداء', copy:'SaaS إنتاجي للمطاعم، مبني كنظام متعدد الواجهات يعالج طلبات العملاء وعمليات الموظفين والطباعة الفعلية من نفس الخلفية.', points:['مونوريبو من 5 أجزاء: لوحة تحكم، قائمة، إدارة، جسر طباعة، وخلفية مشتركة.','نقطة بيع أوف لاين مع IndexedDB outbox sync للاتصالات غير المستقرة.','Cache busting بـ Redis وإشعارات VAPID push لعمليات القائمة الحية.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مطوّر خلفيات'] },
-    bfm:      { title:'BookForMe', sub:'منصة SaaS متعددة المستأجرين للحجز والتجارة — صالونات وعيادات ومنتجعات', copy:'منصة حجوزات وتجارة مقسمة على بوابات متخصصة لإبقاء العمليات والـ onboarding وحجز العملاء والملفات العامة كل منها في مكانه.', points:['3 بوابات و6 مستودعات ومعمارية service/transformer مشتركة.','Laravel Reverb يحافظ على تزامن التقويمات بدون تحديث الصفحة.','تدفقات CRM ومخزون مبنية للشركات ذات الفرق الكبيرة.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','خلفيات'] },
-    uop:      { title:'لوحة تحكم UOP', sub:'نظام CMS جامعي يُمكّن الموظفين من نشر المحتوى فورًا دون الحاجة لمطوّر', copy:'منصة محتوى يستطيع فيها الموظفون غير التقنيين نشر الصفحات فورًا بينما يظل API والموقع في تزامن.', points:['التوجيه الديناميكي بـ slug يعني أن الصفحات الجديدة لا تحتاج تغييرات في الكود.','كل نوع محتوى له طبقة ومخطط بيانات مخصص.','المحتوى بالعربية والإنجليزية يُعاد حسب منطق locale في API.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
-    taskat:   { title:'تسكات', sub:'منصة إدارة مشاريع متعددة المستأجرين مع دردشة حية وكانبان وصلاحيات متقدمة', copy:'مبنية لإبقاء الفرق في حركة داخل workspace متعدد المستأجرين، مع دردشة حية وتغييرات قابلة للتدقيق وصلاحيات على مستوى المشروع.', points:['الأدوار المخصصة تُعرَّف لكل مشروع وليس فقط عالميًا.','التحديثات الفورية تشمل الدردشة والردود والعناصر المثبتة.','تفاعلات Kanban المتفائلة تجعل الواجهة تبدو فورية.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['خاص','Realtime'] },
-    netspeed: { title:'NetSpeed', sub:'منصة ISP لإدارة آلاف المشتركين مع كاش Redis ومصادقة hotspot مدمجة', copy:'منصة إدارة عالية الحركة مصممة لآلاف المستخدمين المتزامنين مع كاش Redis ومصادقة مدمجة مع الأجهزة.', points:['طبقة كاش Redis خفضت حمل قاعدة البيانات بحوالي 60 بالمئة.','مصادقة hotspot مدمجة مع الراوترات تخدم الجلسات لحظيًا.','الدعم والإصلاحات وتتبع المعدات كلها في تدفق واحد.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ مستخدم'] }
+    sufra:    { title:'سُفرة', sub:'SaaS متعدد المستأجرين للمطاعم — قائمة رقمية، إدارة طاولات، نقطة بيع، شاشة مطبخ، وطباعة إيصالات. فكرتي، مبني مع شريك، وحالياً في الإنتاج مع عملاء حقيقيين.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مؤسس مشارك'] },
+    bfm:      { title:'BookForMe', sub:'SaaS متعدد المستأجرين لإدارة الحجوزات والموظفين والمخزون والتسويق للشركات الخدمية. انضممت كمطوّر خلفيات على قاعدة كود إنتاجية موزعة على 7 مستودعات.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','مطوّر خلفيات'] },
+    uop:      { title:'لوحة تحكم UOP', sub:'CMS كامل وموقع عام لجامعة فلسطين — وإعادة هيكلة معمارية شاملة لنظام قديم يحتوي على بيانات إنتاجية تمتد لأكثر من 10 سنوات.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['مُسلَّم','مطوّر خلفيات'] },
+    taskat:   { title:'تسكات', sub:'هجين بين Jira وSlack لفرق البرمجيات — لوحات كانبان، سبرنتات، إشعارات فورية، ورسائل الفريق، مبني بمعمارية متعددة المستأجرين تحت اشتراك واحد.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['مُسلَّم','مطوّر خلفيات'] },
+    netspeed: { title:'NetSpeed', sub:'منصة ISP عالية الحركة تخدم أكثر من 10,000 مستخدم متزامن — جُلبت لحل مشكلة أداء حرجة وإعادة بناء تجربة المستخدم بالكامل.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['مُسلَّم','مطوّر خلفيات'] }
   },
   en: {
-    sufra:    { title:'Sufra', sub:'Restaurant SaaS — ordering, POS, kitchen display, and print bridge in one system', copy:'Production SaaS for restaurants, built as a multi-surface system that handles customer ordering, staff operations, and physical printing from the same backend.', points:['5-part monorepo with dashboard, menu, admin, printer bridge, and shared backend.','Offline-first POS using IndexedDB outbox sync for unstable connections.','Redis cache busting and VAPID push notifications for live menu operations.'], tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Backend'] },
-    bfm:      { title:'BookForMe', sub:'Multi-tenant booking SaaS for salons, clinics, and spas across 3 specialist portals', copy:'Booking and commerce platform split into specialist portals so operations, onboarding, customer booking, and public profiles all stay cleanly separated.', points:['3 portals, 6 repositories, and a shared service/transformer architecture.','Laravel Reverb keeps calendars in sync without page refreshes.','CRM and inventory flows built for staff-heavy businesses.'], tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend'] },
-    uop:      { title:'UOP Dashboard', sub:'University CMS that lets non-technical staff publish pages without touching code', copy:'A content platform where non-technical staff can publish pages instantly while the API and website stay in lockstep.', points:['Dynamic slug routing means new pages need no code changes.','Every content type has a dedicated layer and schema.','Arabic and English content returned by locale-aware API logic.'], tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['CMS','Staging'] },
-    taskat:   { title:'Taskat', sub:'Multi-tenant project management with live chat, Kanban, and per-project role control', copy:'Built to keep teams moving inside one multi-tenant workspace, with live chat, auditable changes, and project-level permissions.', points:['Custom roles are defined per project, not just globally.','Real-time updates cover chat, reactions, and pinned items.','Optimistic Kanban interactions keep the UI feeling immediate.'], tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Private','Realtime'] },
-    netspeed: { title:'NetSpeed', sub:'ISP management platform serving 10K+ subscribers with Redis caching and hotspot auth', copy:'High-traffic management platform engineered for thousands of concurrent users with Redis caching and hardware-integrated authentication.', points:['Redis cache layer reduced database load by around 60 percent.','Router-integrated hotspot auth serves sessions in real time.','Support, repairs, and equipment tracking all live in one flow.'], tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Live','10K+ Users'] }
+    sufra:    { title:'Sufra', sub:'A multi-tenant SaaS for restaurants — digital menu, table management, POS, kitchen display, and receipt printing. My concept, built with a partner, currently live with real clients.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Co-Founder'] },
+    bfm:      { title:'BookForMe', sub:'A multi-tenant SaaS for service businesses to manage bookings, staff, inventory, and marketing — built across 7 repositories. I joined as backend developer on an existing production codebase.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend Dev'] },
+    uop:      { title:'UOP Dashboard', sub:'A full CMS and public website for the University of Palestine — and a complete architectural overhaul of a legacy system storing 10+ years of production data.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['Delivered','Backend Dev'] },
+    taskat:   { title:'Taskat', sub:'A Jira/Slack hybrid for software teams — kanban boards, sprints, real-time notifications, and team messaging, built with a multi-tenant architecture under a single subscription model.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Delivered','Backend Dev'] },
+    netspeed: { title:'NetSpeed', sub:'A high-traffic ISP management platform serving 10,000+ concurrent users — brought in to solve a critical performance problem and overhaul the user experience.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Delivered','Backend Dev'] }
   }
 };
 
@@ -2289,51 +2292,51 @@ const i18n = {
     'contact.successBack': 'إرسال رسالة أخرى',
     'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
     'm.close': 'إغلاق →',
-    'm.sufra.badge': '01 · مطوّر خلفيات · في الإنتاج',
+    'm.sufra.badge': 'مؤسس مشارك ومطوّر · في الإنتاج',
     'm.sufra.title': 'سُفرة',
-    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust',
-    'm.sufra.date': '📅 أبريل 2025 – حتى الآن',
-    'm.sufra.org': '🏢 مشروع شخصي',
-    'm.sufra.s1': 'مشاريع فرعية في المونوريبو',
+    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — قائمة رقمية، إدارة طاولات، نقطة بيع، شاشة مطبخ، وطباعة إيصالات.',
+    'm.sufra.date': 'أبريل 2025 – حتى الآن',
+    'm.sufra.org': 'مؤسس مشارك',
+    'm.sufra.s1': 'مشاريع في المونوريبو',
     'm.sufra.s2': 'نقطة بيع أوف لاين',
-    'm.sufra.s3': 'جسر طباعة أصلي',
-    'm.sufra.s4': 'طبقة كاش للقائمة',
-    'm.sufra.live': '🌐 عرض الموقع',
-    'm.bfm.badge': '02 · مطوّر خلفيات · في الإنتاج',
-    'm.bfm.sub': 'SaaS حجوزات وتجارة متعدد المستأجرين — صالونات · عيادات · منتجعات',
-    'm.bfm.date': '📅 مارس 2024 – حتى الآن',
-    'm.bfm.s1': 'بوابات منفصلة',
-    'm.bfm.s2': 'عملات',
+    'm.sufra.s3': 'جسر طباعة Rust أصلي',
+    'm.sufra.s4': 'كاش + Push فوري',
+    'm.sufra.live': 'عرض الموقع',
+    'm.bfm.badge': 'مطوّر خلفيات · في الإنتاج',
+    'm.bfm.sub': 'SaaS متعدد المستأجرين للحجوزات والتجارة — صالونات وعيادات ومنتجعات. انضممت على قاعدة كود إنتاجية موزعة على 7 مستودعات.',
+    'm.bfm.date': 'مارس 2024 – حتى الآن',
+    'm.bfm.s1': 'بوابات متخصصة',
+    'm.bfm.s2': 'عملات مدعومة',
     'm.bfm.s3': 'مستودعات',
-    'm.bfm.s4': 'في الإنتاج',
-    'm.bfm.live': '🌐 عرض الموقع',
-    'm.uop.badge': '03 · مطوّر خلفيات · Staging',
+    'm.bfm.s4': 'إنتاج مع عملاء مؤسسيين',
+    'm.bfm.live': 'عرض الموقع',
+    'm.uop.badge': 'مطوّر خلفيات · مُسلَّم',
     'm.uop.title': 'لوحة تحكم UOP',
-    'm.uop.sub': 'Headless CMS وموقع عام — جامعة فلسطين',
-    'm.uop.date': '📅 أكتوبر 2024 – أبريل 2025',
+    'm.uop.sub': 'CMS كامل وموقع عام لجامعة فلسطين — وإعادة هيكلة معمارية شاملة لنظام قديم يحتوي على 10+ سنوات من البيانات.',
+    'm.uop.date': 'أكتوبر 2024 – أبريل 2025',
     'm.uop.s1': 'نوع محتوى',
     'm.uop.s2': 'مستودعات',
     'm.uop.s3': 'توثيق OpenAPI 3.0',
     'm.uop.s4n': 'ع+EN',
     'm.uop.s4': 'ثنائي اللغة',
-    'm.uop.live': '🌐 عرض الموقع',
-    'm.taskat.badge': '04 · مطوّر خلفيات · منصة خاصة',
+    'm.uop.live': 'عرض الموقع',
+    'm.taskat.badge': 'مطوّر خلفيات · مُسلَّم',
     'm.taskat.title': 'تسكات',
-    'm.taskat.sub': 'إدارة مشاريع Agile وتعاون فريق في الوقت الفعلي',
-    'm.taskat.date': '📅 فبراير 2025 – مارس 2025',
+    'm.taskat.sub': 'هجين بين Jira وSlack لفرق البرمجيات — لوحات كانبان، سبرنتات، إشعارات فورية، ورسائل الفريق، تحت اشتراك متعدد المستأجرين.',
+    'm.taskat.date': 'فبراير 2025 – مارس 2025',
     'm.taskat.access': '🔒 خاص',
     'm.taskat.s1': 'محرك سبرنت كامل',
     'm.taskat.s2': 'دردشة فورية',
     'm.taskat.s3': 'أدوار ديناميكية لكل مشروع',
     'm.taskat.s4': 'متعدد المستأجرين',
-    'm.netspeed.badge': '05 · مطوّر خلفيات · في الإنتاج',
-    'm.netspeed.sub': 'إدارة عمليات ISP وبطاقات الإنترنت — points.red-radius.com',
-    'm.netspeed.date': '📅 يناير 2025',
+    'm.netspeed.badge': 'مطوّر خلفيات · مُسلَّم',
+    'm.netspeed.sub': 'منصة ISP عالية الحركة تخدم أكثر من 10,000 مستخدم متزامن — جُلبت لحل مشكلة أداء حرجة وإعادة بناء تجربة المستخدم.',
+    'm.netspeed.date': 'يناير 2025',
     'm.netspeed.s1': 'مستخدم متزامن',
     'm.netspeed.s2': 'زمن استجابة API',
-    'm.netspeed.s3': 'تقليل حمل قاعدة البيانات',
+    'm.netspeed.s3': 'انخفاض حمل قاعدة البيانات',
     'm.netspeed.s4': 'مصادقة Hotspot',
-    'm.netspeed.live': '🌐 عرض الموقع',
+    'm.netspeed.live': 'عرض الموقع',
   },
   en: {
     'nav.name': 'Mohammed Al-Namla',
@@ -2424,75 +2427,119 @@ const i18n = {
     'contact.successBack': 'Send another message',
     'footer.copy': '© 2025 <b>Mohammed Al-Namla</b> · Palestine 🇵🇸',
     'm.close': '← Close',
-    'm.sufra.badge': '01 · Backend Developer · Live in Production',
+    'm.sufra.badge': 'Co-Founder & Developer · Live in Production',
     'm.sufra.title': 'Sufra',
-    'm.sufra.sub': 'Multi-tenant restaurant SaaS — QR Menus · Offline POS · Kitchen Display · Rust Print Bridge',
-    'm.sufra.date': '📅 Apr 2025 – Present',
-    'm.sufra.org': '🏢 Personal Project',
+    'm.sufra.sub': 'Multi-tenant restaurant SaaS — digital menu, table management, POS, kitchen display, and receipt printing.',
+    'm.sufra.date': 'Apr 2025 – Present',
+    'm.sufra.org': 'Co-Founder',
     'm.sufra.s1': 'Sub-projects in monorepo',
     'm.sufra.s2': 'Offline-first POS',
-    'm.sufra.s3': 'Native print bridge',
-    'm.sufra.s4': 'Menu cache layer',
-    'm.sufra.live': '🌐 View Live Site',
-    'm.bfm.badge': '02 · Backend Developer · Production Live',
-    'm.bfm.sub': 'Multi-tenant booking & commerce SaaS — Salons · Clinics · Spas',
-    'm.bfm.date': '📅 Mar 2024 – Present',
-    'm.bfm.s1': 'Distinct portals',
-    'm.bfm.s2': 'Currencies',
+    'm.sufra.s3': 'Native Rust print bridge',
+    'm.sufra.s4': 'Redis cache + VAPID push',
+    'm.sufra.live': 'View Live Site',
+    'm.bfm.badge': 'Backend Developer · Production Live',
+    'm.bfm.sub': 'Multi-tenant SaaS for service businesses — bookings, staff, inventory, and marketing across 7 repositories. Joined as backend developer on an existing production codebase.',
+    'm.bfm.date': 'Mar 2024 – Present',
+    'm.bfm.s1': 'Specialist portals',
+    'm.bfm.s2': 'Currencies supported',
     'm.bfm.s3': 'Repositories',
-    'm.bfm.s4': 'Production',
-    'm.bfm.live': '🌐 View Live Site',
-    'm.uop.badge': '03 · Backend Developer · Staging Live',
+    'm.bfm.s4': 'Live with enterprise clients',
+    'm.bfm.live': 'View Live Site',
+    'm.uop.badge': 'Backend Developer · Delivered',
     'm.uop.title': 'UOP Dashboard',
-    'm.uop.sub': 'Headless CMS & public website — University of Palestine',
-    'm.uop.date': '📅 Oct 2024 – Apr 2025',
+    'm.uop.sub': 'Full CMS and public website for the University of Palestine — and a complete architectural overhaul of a legacy system storing 10+ years of production data.',
+    'm.uop.date': 'Oct 2024 – Apr 2025',
     'm.uop.s1': 'Content types',
     'm.uop.s2': 'Repositories',
-    'm.uop.s3': 'OpenAPI 3.0 docs',
+    'm.uop.s3': 'OpenAPI 3.0 documented',
     'm.uop.s4n': 'AR+EN',
-    'm.uop.s4': 'Multilingual',
-    'm.uop.live': '🌐 View Staging',
-    'm.taskat.badge': '04 · Backend Developer · Private Platform',
+    'm.uop.s4': 'Bilingual',
+    'm.uop.live': 'View Staging',
+    'm.taskat.badge': 'Backend Developer · Delivered',
     'm.taskat.title': 'Taskat',
-    'm.taskat.sub': 'Agile project management & real-time team collaboration',
-    'm.taskat.date': '📅 Feb 2025 – Mar 2025',
+    'm.taskat.sub': 'A Jira/Slack hybrid for software teams — kanban boards, sprints, real-time notifications, and team messaging under one multi-tenant subscription.',
+    'm.taskat.date': 'Feb 2025 – Mar 2025',
     'm.taskat.access': '🔒 Private',
     'm.taskat.s1': 'Full sprint engine',
     'm.taskat.s2': 'Real-time chat',
     'm.taskat.s3': 'Dynamic roles per project',
     'm.taskat.s4': 'Multi-tenant',
-    'm.netspeed.badge': '05 · Backend Developer · Production Live',
-    'm.netspeed.sub': 'ISP operations & internet card management — points.red-radius.com',
-    'm.netspeed.date': '📅 Jan 2025',
+    'm.netspeed.badge': 'Backend Developer · Delivered',
+    'm.netspeed.sub': 'High-traffic ISP management platform serving 10,000+ concurrent users — brought in to solve a critical performance problem and overhaul the user experience.',
+    'm.netspeed.date': 'Jan 2025',
     'm.netspeed.s1': 'Concurrent users',
     'm.netspeed.s2': 'API response time',
-    'm.netspeed.s3': 'DB load reduced',
+    'm.netspeed.s3': 'DB load reduction',
     'm.netspeed.s4': 'Hotspot auth',
-    'm.netspeed.live': '🌐 View Live',
+    'm.netspeed.live': 'View Live',
   }
 };
 
 /* Modal body HTML per lang */
 const modalBodies = {
   sufra: {
-    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>SaaS متعدد المستأجرين لأصحاب المطاعم — إدارة القوائم الرقمية، استقبال الطلبات عبر QR، تشغيل نقطة بيع تعمل بدون إنترنت، عرض الطلبات على شاشة المطبخ، وطباعة إيصالات ESC/POS عبر تطبيق سطح مكتب Rust.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>مونوريبو من 5 مشاريع: لوحة تحكم (Nuxt 4 SPA)، قائمة عملاء (Nuxt 4 SSR)، إدارة (Nuxt 4)، جسر طباعة (Tauri/Rust)، خلفية Supabase مشتركة.</li><li>نقطة بيع أوف لاين مع Dexie (IndexedDB) outbox — تزامن تلقائي عند عودة الاتصال.</li><li>تطبيق Rust/Tauri يعرض Axum HTTP محلي على port 9177 للطباعة الصامتة مع WebUSB كبديل.</li><li>طبقة كاش Redis (Upstash) مع cache busting إجباري بعد كل تعديل على القائمة.</li><li>تحقق WhatsApp OTP لاستعلام الطلبات — رموز 6 أرقام مع rate limiting في Postgres RPC.</li><li>إشعارات VAPID: Postgres trigger ← مسار الإرسال ← service worker.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Redis</span><span class="modal-tag">Dexie</span><span class="modal-tag">PWA</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span><span class="modal-tag">VAPID Push</span></div></div>`,
-    en: `<div class="modal-sec"><h4>Overview</h4><p>Production-grade multi-tenant SaaS enabling restaurant owners to manage digital menus, take orders via QR-code, run an offline-capable POS, display orders on kitchen screens, and print ESC/POS receipts via a native Rust desktop bridge.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>5-project monorepo: dashboard (Nuxt 4 SPA), customer menu (Nuxt 4 SSR), admin (Nuxt 4), printer bridge (Tauri/Rust), shared Supabase backend.</li><li>Offline-first POS with Dexie (IndexedDB) outbox — mutations sync automatically when connectivity returns.</li><li>Rust/Tauri desktop app exposes a local Axum HTTP server on port 9177 for silent ESC/POS printing with WebUSB fallback.</li><li>Redis (Upstash) cache layer with mandatory cache busting after every menu mutation.</li><li>WhatsApp OTP order-lookup flow — 6-digit codes verified via rate-limited Postgres RPC.</li><li>VAPID web push notifications: Postgres trigger → dashboard dispatch route → service worker.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Redis</span><span class="modal-tag">Dexie</span><span class="modal-tag">PWA</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span><span class="modal-tag">VAPID Push</span></div></div>`
+    ar: `
+<div class="modal-sec"><h4>الفكرة</h4><p>سُفرة بدأت كفكرتي الخاصة. رأيت أن أدوات إدارة المطاعم المتاحة إما مكلفة جداً، أو معقدة جداً، أو غير مبنية للسوق الناطق بالعربية. أسّست المشروع وقدت جميع القرارات التقنية من المعمارية حتى النشر.</p></div>
+<div class="modal-sec"><h4>التحدي الأول: نقطة البيع يجب أن تعمل بدون إنترنت</h4><p>المطاعم في غزة تواجه انقطاعات إنترنت متكررة. نقطة بيع تتوقف عند انقطاع الاتصال ليست منتجاً — إنها عبء.</p><p>بنيت نقطة بيع offline-first باستخدام <strong>IndexedDB outbox queue</strong>: كل العمليات (الطلبات، المدفوعات، تغييرات الحالة) تُكتب محلياً أولاً، ثم تتزامن تلقائياً عند عودة الاتصال. الكاشير لا يلاحظ الانقطاع. صفر خسارة في الطلبات.</p></div>
+<div class="modal-sec"><h4>التحدي الثاني: طباعة الإيصالات الحرارية من المتصفح</h4><p>Web USB APIs لا تستطيع الوصول للطابعات الحرارية USB مباشرة من تبويب المتصفح بسبب قيود أمنية على مستوى نظام التشغيل. الحلول المعتادة (خوادم طباعة خارجية، cloud print) تضيف تأخيراً واعتمادية خارجية.</p><p>كتبت <strong>تطبيق Windows tray أصلي بـ Rust</strong> باستخدام Tauri v2 + libusb، يعمل في الخلفية بصمت ويكشف خادم HTTP محلي (Axum) يستدعيه الـ dashboard عند الحاجة للطباعة. التطبيق يبدأ تلقائياً مع ويندوز، ويتحدث تلقائياً من GitHub Releases، ويرجع لـ WebUSB إذا لم يكن الجسر متاحاً.</p></div>
+<div class="modal-sec"><h4>التحدي الثالث: إشعارات الطلبات الفورية بدون خدمة خارجية</h4><p>طبّقت <strong>VAPID web push</strong> مُشغَّلة مباشرة من stored procedures في Postgres عبر Supabase. عندما يضع العميل طلباً، قاعدة البيانات نفسها ترسل الإشعار للمطعم — بدون خدمة push خارجية، بدون polling.</p></div>
+<div class="modal-sec"><h4>نموذج الأمان</h4><p>تطبيق القائمة للعملاء يعمل كلياً على Supabase anonymous access. لا يوجد مفتاح server مكشوف للعميل. جميع قواعد الوصول مطبّقة عبر سياسات <strong>Row-Level Security (RLS)</strong> على مستوى قاعدة البيانات، بثلاثة أدوار معزولة: anon وowner وadmin.</p></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+    en: `
+<div class="modal-sec"><h4>The Idea</h4><p>Sufra started as my own concept. I identified that most restaurant management tools in the market were either too expensive, too complex, or not built for the Arabic-speaking market. I co-founded the project and led all technical decisions from architecture to deployment.</p></div>
+<div class="modal-sec"><h4>Challenge 1: The POS must work without internet</h4><p>Restaurants in Gaza face frequent internet outages. A POS that stops working when the connection drops is not a product — it's a liability.</p><p>I built an offline-first POS using an <strong>IndexedDB outbox queue</strong>: all mutations (orders, payments, status changes) are written locally first, then synced automatically when connectivity resumes. The cashier never notices an outage. Zero order loss.</p></div>
+<div class="modal-sec"><h4>Challenge 2: Thermal receipt printing from the browser</h4><p>Web USB APIs cannot access USB thermal printers directly from a browser tab due to OS-level security restrictions. The standard workarounds add latency and external dependencies.</p><p>I wrote a <strong>native Windows tray application in Rust</strong> using Tauri v2 + libusb, which runs silently in the background and exposes a local HTTP server (Axum) that the dashboard calls when a receipt needs printing. The app auto-starts on Windows boot, auto-updates from GitHub Releases, and falls back to WebUSB if the bridge is unreachable.</p></div>
+<div class="modal-sec"><h4>Challenge 3: Real-time order notifications without a third-party service</h4><p>I implemented <strong>VAPID web push</strong> triggered directly from Postgres stored procedures via Supabase. When a customer places an order, the database itself fires the push notification to the restaurant — no external push service, no polling.</p></div>
+<div class="modal-sec"><h4>Security Model</h4><p>The customer-facing menu app runs entirely on anonymous Supabase access. There is no server key exposed to the client. All data access rules are enforced through <strong>Row-Level Security (RLS)</strong> policies at the database level, with three isolated roles: anon, owner, and admin.</p></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   bfm: {
-    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>SaaS متعدد المستأجرين يمكّن الشركات الخدمية من إدارة الحجوزات والعملاء والمخزون والتسويق. موزع على 6 مستودعات: سوبر آدمن، وكيل onboarding، تطبيق حجز العملاء، API الشركاء، لوحة الشركاء، وصفحات المتاجر العامة.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>بوابة دفع متعددة العملات — 5+ عملات مع response envelopes موحدة وتراجع عند الفشل.</li><li>Laravel Reverb (WebSockets) لتحديثات التقويم الفوري — تغييرات الحجز تظهر فورًا للموظفين.</li><li>محرك توفر معقد: مواعيد قابلة للحجز لكل موظف ولكل خدمة عبر ساعات العمل والأوقات المحجوبة.</li><li>CRM كامل: ملفات العملاء، تاريخ الحجوزات، ملاحظات، مستندات، بطاقات هدايا، حظر/رفع الحظر، استيراد/تصدير CSV.</li><li>مخزون: أوامر الشراء، جرد المخزون، إدارة الموردين، توليد SKU.</li><li>نمط Repository + Service + Transformer — controllers نحيفة، كل طبقة قابلة للاختبار بشكل مستقل.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
-    en: `<div class="modal-sec"><h4>Overview</h4><p>Multi-tenant SaaS enabling service businesses to manage online bookings, clients, inventory, and marketing. Split across 6 repositories: super-admin, onboarding agent, customer booking app, partner API, partner dashboard, and public store profiles.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Multi-currency payment gateway — 5+ currencies with consistent response envelopes and rollback on failure.</li><li>Laravel Reverb (WebSockets) for live calendar updates — booking changes appear instantly for staff without refresh.</li><li>Complex availability engine: bookable slots per employee per service across working hours, blocked times, and existing bookings.</li><li>Full CRM: client profiles, booking history, notes, documents, gift cards, block/unblock, CSV import/export.</li><li>Inventory: stock orders, stock takes, supplier management, SKU generation for products.</li><li>Repository + Service + Transformer pattern — controllers thin, every layer independently testable.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`
+    ar: `
+<div class="modal-sec"><h4>السياق</h4><p>BookForMe كان في الإنتاج عندما انضممت. التحدي لم يكن البناء من الصفر — بل كان الانضمام لنظام معقد متعدد المستودعات بدون توثيق handover، وقراءة قاعدة الكود مباشرة لفهم المعمارية قبل المساهمة.</p><p>هذا هو واقع معظم العمل المهني في البرمجيات: ترث الأنظمة، تتأقلم، وتحسّن بدون كسر ما يعمل بالفعل.</p></div>
+<div class="modal-sec"><h4>النظام</h4><p>7 مستودعات تغطي طبقات مختلفة من المنصة: سوبر آدمن (Blade + jQuery)، microservice للـ onboarding بمصادقة signature-based، API الشركاء (الأغنى بالميزات: حجوزات، تقويم، كتالوج، CRM، مخزون، تسويق، تقارير)، لوحة الشركاء (Nuxt 3)، تطبيق حجز العملاء (Nuxt 3)، صفحات المتاجر العامة، وميزات الوقت الفعلي عبر Laravel Reverb WebSockets.</p></div>
+<div class="modal-sec"><h4>مساهماتي</h4><ul><li>تطوير وصيانة ميزات إدارة الحجوزات: عروض التقويم، إعادة الجدولة، تدفقات الإلغاء، تاريخ الحجوزات مع تصدير CSV.</li><li>دمج بوابات دفع متعددة العملات تعالج المعاملات عبر 5+ عملات.</li><li>المساهمة في تحديثات حالة الحجز الفورية عبر Laravel Reverb.</li><li>الحفاظ على دعم ثنائي اللغة الكامل (عربي/إنجليزي) مع تبديل RTL.</li><li>جميع الأعمال تمت بدون إدخال breaking changes على integrations العملاء الحالية.</li></ul></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+    en: `
+<div class="modal-sec"><h4>The Context</h4><p>BookForMe was already in production when I joined. The challenge wasn't building from scratch — it was onboarding onto a complex, multi-repository system with no documentation handover, reading the codebase directly to understand the architecture before contributing.</p><p>This is the reality of most professional software work: you inherit systems, you adapt, and you improve without breaking what's already running.</p></div>
+<div class="modal-sec"><h4>The System</h4><p>7 repositories covering different layers of the platform: super-admin back-office (Blade + jQuery), partner onboarding microservice with signature-based auth, partner management API (the most feature-rich: bookings, calendar, catalogue, CRM, inventory, marketing, reports), partner dashboard (Nuxt 3), customer booking app (Nuxt 3, deployed on AWS Amplify), public store profiles, and real-time features via Laravel Reverb WebSockets.</p></div>
+<div class="modal-sec"><h4>My Contributions</h4><ul><li>Developed and maintained booking management features: calendar views, rescheduling, cancellation flows, booking history with CSV export.</li><li>Integrated multi-currency payment gateways processing transactions across 5+ currencies.</li><li>Contributed to real-time booking status updates via Laravel Reverb.</li><li>Maintained full Arabic/English bilingual support with RTL layout switching.</li><li>All work done without introducing breaking changes to existing client integrations.</li></ul></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   uop: {
-    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة رقمية شاملة لجامعة فلسطين — CMS إداري، JSON API بدون رأس، وموقع عام. الموظفون غير التقنيين يديرون المحتوى وينشرونه فورًا دون تدخل مطور.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>نظام صفحات ديناميكي: أي صفحة تُنشأ في CMS تُخدَّم تلقائيًا عبر <code>[...slug].vue</code> — لا تغييرات في الكود لصفحات جديدة.</li><li>Repository + Service + Transformer — كل نوع محتوى له طبقة مخصصة قابلة للاختبار بشكل مستقل.</li><li>توثيق OpenAPI 3.0 كامل مع schemas للطلبات والردود ومتطلبات المصادقة.</li><li>ثنائي اللغة: API يُعيد اللغة الصحيحة بناءً على Accept-Language header.</li><li>عزل الكليات: مسودات كلية لا تؤثر على محتوى كلية أخرى منشور.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span></div></div>`,
-    en: `<div class="modal-sec"><h4>Overview</h4><p>Comprehensive digital platform for the University of Palestine — admin CMS, headless JSON API, and public website. Non-technical staff manage all content and publish it instantly without developer involvement.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Dynamic page system: any CMS-created page automatically served via <code>[...slug].vue</code> catch-all — no code changes for new pages.</li><li>Repository + Service + Transformer — every content type has a dedicated layer, independently testable.</li><li>Full OpenAPI 3.0 documentation with request/response schemas and authentication requirements.</li><li>Multilingual: API returns correct locale based on Accept-Language header.</li><li>Faculty isolation: drafts in one faculty cannot affect another's published content.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span></div></div>`
+    ar: `
+<div class="modal-sec"><h4>المشكلة</h4><p>النظام الحالي كان يعاني من خلل معماري جوهري: الملفات الثنائية — الصور والمستندات وملفات PDF — كانت مخزّنة مباشرة كـ BLOBs داخل قاعدة البيانات. هذا يعني أن كل صفحة تعرض صوراً كانت تسحب بيانات ثنائية ضخمة عبر محرك قاعدة البيانات، مما يسبب: ضغطاً شديداً على الخادم، بطئاً في تحميل الصفحات، وتكلفة بنية تحتية مرتفعة ومتنامية.</p></div>
+<div class="modal-sec"><h4>الحل: نظام ملفات Polymorphic</h4><p>أعدت تصميم بنية تخزين الملفات بالكامل باستخدام نموذج polymorphic:</p><ul><li>جدول <code>files</code>: يخزن metadata الملف والمسار (سجل واحد لكل ملف فعلي)</li><li>جدول <code>file_assignments</code>: يربط الملفات بأي نموذج باستخدام <code>assignable_type / assignable_id</code></li></ul><p>الملف المُرفوع مرة واحدة يمكن الإشارة إليه عبر أخبار، فعاليات، معارض، كليات، أو أي نموذج آخر — بدون إعادة رفع. عند الرفع، الصور تُضغط وتُحوَّل لـ <strong>WebP</strong>، والمستندات تُعالَج لاستخراج <strong>thumbnail</strong>.</p></div>
+<div class="modal-sec"><h4>تحدي الهجرة</h4><p>قاعدة البيانات القديمة تحتوي على 10+ سنوات من بيانات الإنتاج. بنيت <strong>Artisan migration command</strong> مخصصاً يتصل بالقاعدتين القديمة والجديدة في وقت واحد، يقرأ السجلات القديمة، يستخرج الملفات الثنائية، يعالجها، ويدرج سجلات نظيفة ومنظّمة في المخطط الجديد — بدون أي فقدان للبيانات.</p></div>
+<div class="modal-sec"><h4>مزامنة FTP</h4><p>الخادم الرئيسي للعميل خاص، والموقع العام الخارجي يسحب الأصول من خادم FTP. طبّقت:</p><ul><li>جدول <code>file_sync_logs</code> لتتبع حالة المزامنة لكل ملف</li><li><strong>Queue Job</strong> يعمل في الخلفية ويعالج رفع FTP بعد اكتمال الطلب الرئيسي</li><li>منطق إعادة المحاولة التلقائي عند الفشل</li></ul><p>هذا فصل تأخير مزامنة FTP تماماً عن تجربة المستخدم عند الرفع.</p></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span><span class="modal-tag">Queue Jobs</span><span class="modal-tag">FTP Sync</span></div></div>`,
+    en: `
+<div class="modal-sec"><h4>The Problem</h4><p>The existing system had a fundamental architectural flaw: binary files — images, documents, PDFs — were stored directly as BLOBs inside the database. Every page load that displayed images was pulling large binary data through the database engine, causing severe server load, slow page times, high infrastructure cost, and no way to reuse a file once uploaded.</p></div>
+<div class="modal-sec"><h4>The Solution: Polymorphic File System</h4><p>I redesigned the entire file storage architecture using a polymorphic model:</p><ul><li><code>files</code> table: stores file metadata and path (one record per physical file)</li><li><code>file_assignments</code> table: links files to any model using <code>assignable_type / assignable_id</code></li></ul><p>A single upload is now stored once and can be referenced across news posts, events, galleries, colleges, or any other model — without re-uploading. On upload, images are compressed and converted to <strong>WebP</strong>, documents are processed to extract a <strong>thumbnail</strong> as the cover image.</p></div>
+<div class="modal-sec"><h4>The Migration Challenge</h4><p>The legacy database contained 10+ years of production data. I built a custom <strong>Artisan migration command</strong> that connected to both the legacy and new databases simultaneously, read records from the old schema, extracted each binary file, processed it, stored it in the new file system, and inserted clean normalized records into the new schema — without any data loss.</p></div>
+<div class="modal-sec"><h4>FTP Sync</h4><p>The client's main server is private and the external public website pulls assets from an FTP server. I implemented a <code>file_sync_logs</code> table to track sync status per file, a <strong>background Queue Job</strong> that handles FTP upload after the main request completes, and automatic retry logic on failure. This completely decoupled FTP sync latency from the user's upload experience.</p></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 12</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Inertia.js</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">OpenAPI 3.0</span><span class="modal-tag">TypeScript</span><span class="modal-tag">Queue Jobs</span><span class="modal-tag">FTP Sync</span></div></div>`
   },
   taskat: {
-    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة إدارة مشاريع Agile متكاملة تجمع تتبع المهام بأسلوب Jira والتواصل الجماعي بأسلوب Slack تحت اشتراك واحد متعدد المستأجرين.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>نظام صلاحيات ديناميكي — المدراء يعرّفون أدوارًا مخصصة لكل مشروع بأي تركيبة من الصلاحيات.</li><li>دردشة فورية عبر Laravel broadcasting — الرسائل والردود وحالة التثبيت تتحدث لحظيًا بدون polling.</li><li>سجل تدقيق للمشكلات — كل تغيير في أي حقل يُضاف لجدول التاريخ لسجل تغييرات لا يمكن تعديله.</li><li>محرك سبرنت — إغلاق السبرنت ينقل المهام غير المحلولة تلقائيًا للـ backlog ويولد ملخصًا.</li><li>Kanban مع واجهة optimistic — اللوحة تعيد الرسم دون انتظار رد الخادم.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
-    en: `<div class="modal-sec"><h4>Overview</h4><p>Full-featured agile project management platform combining Jira-style task tracking and Slack-style team communication under a single multi-tenant subscription.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Dynamic permission system — admins define custom roles per project with any combination of abilities.</li><li>Real-time chat via Laravel broadcasting — messages, reactions, and pin status update live without polling.</li><li>Issue audit trail — every field change appended to history table for a complete immutable changelog.</li><li>Sprint engine — completing a sprint auto-moves unresolved issues to backlog and generates a summary.</li><li>Kanban with optimistic UI — board re-renders without waiting for server response.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`
+    ar: `
+<div class="modal-sec"><h4>ما هو</h4><p>تسكات يعطي فرق البرمجيات كل ما يحتاجونه للتخطيط والشحن: مشاريع، مشكلات، لوحات كانبان، سبرنتات، حالات مخصصة، تسميات، أولويات، مرفقات ملفات، وبحث عالمي — مدمجاً مع طبقة رسائل الفريق حتى يبقى السياق والتواصل في نفس المكان.</p></div>
+<div class="modal-sec"><h4>المعمارية الخلفية</h4><ul><li><strong>Workspaces متعددة المستأجرين</strong> تحت اشتراك واحد — نشر واحد يخدم فرقاً متعددة معزولة.</li><li><strong>نظام صلاحيات ديناميكي دقيق</strong>: كل مستخدم يمكن أن يكون له أدوار مخصصة لكل مشروع، ليس فقط أدواراً عالمية. يدعم العضوية المتزامنة في مشاريع متعددة بمجموعات صلاحيات مختلفة.</li><li><strong>وقت فعلي عبر WebSockets</strong>: تحديثات اللوحة والإشعارات والرسائل حية بدون polling.</li><li><strong>إدارة دورة حياة السبرنت</strong>: إنشاء وبدء وإكمال السبرنتات مع عمليات جماعية على المشكلات.</li></ul></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Laravel Broadcasting</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+    en: `
+<div class="modal-sec"><h4>What It Is</h4><p>Taskat gives software teams everything they need to plan and ship work: projects, issues, kanban boards, sprints, custom statuses, labels, priorities, file attachments, and a global search — combined with a team messaging layer so context and communication stay in the same place.</p></div>
+<div class="modal-sec"><h4>Backend Architecture</h4><ul><li><strong>Multi-tenant workspaces</strong> under a single subscription — one deployment serves multiple isolated teams, reducing infrastructure overhead versus per-team deployments.</li><li><strong>Granular dynamic permission system</strong>: each user can have custom roles per project, not just global roles. Supports concurrent membership across multiple projects with different permission sets.</li><li><strong>Real-time via WebSockets</strong>: board updates, notifications, and messaging are live without polling.</li><li><strong>Sprint lifecycle management</strong>: create, start, and complete sprints with bulk issue operations.</li></ul></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">WebSockets</span><span class="modal-tag">Laravel Broadcasting</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   netspeed: {
-    ar: `<div class="modal-sec"><h4>نظرة عامة</h4><p>منصة إدارة ISP ("جمّعها") تتعامل مع بطاقات الإنترنت المدفوعة مسبقًا، حسابات المستخدمين، الدعم الفني، العمليات الميدانية، ونظام نقاط ولاء — مصممة لـ 10,000+ مستخدم متزامن بزمن استجابة أقل من 200ms.</p></div><div class="modal-sec"><h4>أبرز الأعمال التقنية</h4><ul><li>طبقة كاش Redis — استعلامات كثيرة القراءة محفوظة في الكاش، تقليل حمل قاعدة البيانات بـ ~60% والقضاء على الاختناقات في أوقات الذروة.</li><li>API hotspot مدمج مع الأجهزة — الراوترات الفعلية تستدعي هذا الـ endpoint للمصادقة على جلسات الإنترنت لحظيًا.</li><li>نظام نقاط الولاء — المستخدمون يكسبون نقاطًا من استبدال البطاقات ويستردونها بهدايا مع تتبع التنفيذ الكامل.</li><li>تذاكر الدعم، العمليات الميدانية (إصلاحات، تركيبات، إدارة مناطق)، وتتبع عهدة المعدات.</li></ul></div><div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">SMS API</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`,
-    en: `<div class="modal-sec"><h4>Overview</h4><p>Full-stack ISP management platform ("Jamme3ha") handling prepaid internet cards, user accounts, technical support, field operations, and a points-based loyalty system — engineered for 10,000+ concurrent users at sub-200ms response time.</p></div><div class="modal-sec"><h4>Key Technical Work</h4><ul><li>Redis cache layer — frequently-read queries cached, reducing DB load by ~60% and eliminating peak-hour bottlenecks.</li><li>Hardware-integrated hotspot API — physical routers call this endpoint to authenticate internet sessions in real time.</li><li>Points loyalty system — users earn points from card redemptions and redeem for gifts with full fulfillment tracking.</li><li>Support ticketing, field operations (repairs, installations, area management), and equipment custody tracking.</li></ul></div><div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">SMS API</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`
+    ar: `
+<div class="modal-sec"><h4>المشكلة</h4><p>صاحب المنصة جاء بشكوى مباشرة: النظام بطيء، والمستخدمون يلاحظون. المنصة كانت تخدم 10,000+ مستخدم نشط متزامن عبر إدارة بطاقات الإنترنت، مكافآت الولاء، تذاكر الدعم، والعمليات الميدانية — وكانت تعاني تحت الحمل.</p></div>
+<div class="modal-sec"><h4>ما فعلته</h4><p><strong>الأداء:</strong> حللت أكثر استعلامات قاعدة البيانات تكلفةً ودمجت <strong>Redis caching</strong> عبر المسارات الحرجة. النتيجة: ~60% انخفاض في حمل قاعدة البيانات وزمن استجابة API أقل من 200ms في أوقات الذروة.</p><p><strong>إعادة بناء واجهة المستخدم:</strong> أعدت بناء الواجهة الموجّهة للعملاء لبوابة إدارة بطاقات الإنترنت — الجزء الأكثر استخداماً في النظام. بسّطت التدفقات الرئيسية حتى تطلّبت الإجراءات الشائعة خطوات أقل.</p></div>
+<div class="modal-sec"><h4>المنصة</h4><p>بعيداً عن الأداء، النظام يغطي: إدارة بطاقات الإنترنت مع التفعيل والتجديد والتحكم، نظام نقاط ولاء وهدايا، تذاكر دعم فني كاملة، عمليات ميدانية (إصلاحات شبكات، إصلاحات عملاء، تركيبات جديدة)، ولوحة إدارة مع RBAC وسجل نشاط وتاريخ تسجيل الدخول ورسوم بيانية حية.</p></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">Blade</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`,
+    en: `
+<div class="modal-sec"><h4>The Problem</h4><p>The platform owner came with a direct complaint: the system is slow, and users notice. The platform was serving 10,000+ concurrent active users across internet card management, loyalty rewards, support ticketing, and field operations — and it was struggling under the load.</p></div>
+<div class="modal-sec"><h4>What I Did</h4><p><strong>Performance:</strong> Profiled the most expensive database queries and integrated <strong>Redis caching</strong> across the critical paths. The result: ~60% reduction in database load and sub-200ms average API response time under peak load.</p><p><strong>UI/UX Overhaul:</strong> Rebuilt the client-facing interface for the internet card management portal — the most-used part of the system. Simplified the primary user flows so the most common actions required fewer steps.</p></div>
+<div class="modal-sec"><h4>The Platform</h4><p>Beyond performance, the system covers: internet card management with card activation, renewal, and control; points-based loyalty and gifting system; full support ticketing with categorization and history; field operations (network repairs, client repairs, new installations); admin dashboard with RBAC, activity logging, login history, and real-time charts.</p></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">PHP 8+</span><span class="modal-tag">Redis Cache</span><span class="modal-tag">MySQL</span><span class="modal-tag">AdminLTE</span><span class="modal-tag">jQuery</span><span class="modal-tag">Blade</span><span class="modal-tag">Hotspot API</span><span class="modal-tag">RBAC</span></div></div>`
   }
 };
 
