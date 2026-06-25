@@ -1329,6 +1329,12 @@
       /* About */
       .about-grid { grid-template-columns: 1fr; gap: 24px; }
       .fact-grid { grid-template-columns: 1fr 1fr; }
+      .fact-cell { padding: 12px 14px; }
+      .fc-k { font-size: .56rem; }
+      .fc-v { font-size: .75rem; line-height: 1.35; }
+      .about-card { padding: 20px; }
+      .chips { gap: 5px; }
+      .chip { font-size: .65rem; padding: 4px 9px; }
       .rv-r { transform: translateY(24px); }
 
       /* Skills */
@@ -1348,21 +1354,30 @@
       .exp-role { font-size: .94rem; }
       .exp-tags { flex-wrap: wrap; }
 
-      /* Projects — keep sticky cinema, adapt to single-column */
+      /* Projects — sticky cinema, single-column */
       .proj-sticky { height: 100svh; }
       .proj-card { grid-template-columns: 1fr; }
-      .pc-image { min-height: 42vw; order: -1; }
+      .pc-image { min-height: 48svh; order: -1; flex-shrink: 0; }
       .pc-image::before {
         background:
-          linear-gradient(to bottom, rgba(4,8,15,.6) 0%, transparent 40%),
-          linear-gradient(to top, #07111e 0%, transparent 32%);
+          linear-gradient(to bottom, rgba(4,8,15,.5) 0%, transparent 36%),
+          linear-gradient(to top, #07111e 12%, transparent 50%);
       }
-      .pc-text { padding: 20px 20px 28px; justify-content: flex-end; }
-      .pc-num { font-size: 4rem; }
-      .pc-title { font-size: 1.9rem; }
-      .pc-subtitle { font-size: .82rem; }
-      .pc-footer { margin-top: 16px; flex-wrap: wrap; gap: 10px; }
-      .proj-cta { width: 100%; justify-content: center; }
+      .pc-text {
+        padding: 16px 20px 24px;
+        justify-content: flex-start;
+        flex: 1;
+        overflow: hidden;
+      }
+      .pc-num { font-size: 2.6rem; line-height: 1; margin-bottom: 2px; }
+      .pc-name-block { margin-top: 4px; }
+      .pc-title { font-size: clamp(1.4rem,5.5vw,1.8rem); margin-bottom: 6px; line-height: 1.1; }
+      .pc-subtitle { font-size: .78rem; line-height: 1.6;
+        display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .pc-role-row { margin-bottom: 6px; }
+      .pc-footer { margin-top: 12px; gap: 8px; }
+      .proj-cta { width: auto; padding: 10px 18px; font-size: .76rem; }
+      .pc-counter { font-size: .64rem; }
 
       /* Modal */
       .modal-overlay { padding: 8px; }
@@ -1403,7 +1418,11 @@
 
       /* About */
       .fact-grid { grid-template-columns: 1fr 1fr; }
-      .fc-v { font-size: 1.4rem; }
+      .fc-v { font-size: .72rem; }
+      .about-card { padding: 16px; }
+      .ac-name { font-size: .95rem; }
+      .ac-role { font-size: .66rem; margin-bottom: 14px; }
+      .chip { font-size: .6rem; padding: 3px 8px; }
 
       /* Skills — keep 2 cols on small phones, tighten */
       .sk-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -1416,10 +1435,13 @@
       .sk-chip { font-size: .62rem; padding: 4px 9px; }
 
       /* Projects */
-      .pc-image { min-height: 54vw; }
-      .pc-num { font-size: 3.2rem; }
-      .pc-title { font-size: 1.6rem; }
-      .pc-role-badge, .pc-status-live, .pc-status-delivered { font-size: .56rem; padding: 2px 7px; }
+      .pc-image { min-height: 46svh; }
+      .pc-num { font-size: 2.2rem; }
+      .pc-title { font-size: clamp(1.2rem,5vw,1.5rem); }
+      .pc-subtitle { font-size: .74rem; }
+      .pc-footer { margin-top: 10px; }
+      .proj-cta { padding: 9px 16px; font-size: .72rem; }
+      .pc-role-badge, .pc-status-live, .pc-status-delivered { font-size: .54rem; padding: 2px 6px; }
 
       /* Modal */
       .modal-highlights { grid-template-columns: 1fr 1fr; }
