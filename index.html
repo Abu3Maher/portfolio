@@ -1165,6 +1165,21 @@
       color:rgba(242,245,249,.3); font-size:.8rem; top:1px;
     }
     .modal-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    /* Highlight stat cards inside modals */
+    .modal-highlights { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:4px; }
+    .mhl { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:4px; }
+    .mhl-num { font-size:1.45rem; font-weight:800; color:rgba(242,179,109,0.92); letter-spacing:-.03em; line-height:1; }
+    .mhl-lbl { font-size:.68rem; color:rgba(242,245,249,.38); font-weight:500; letter-spacing:.02em; line-height:1.4; }
+    /* Challenge block: problem + solution inline */
+    .modal-challenge { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:18px 20px; margin-bottom:4px; }
+    .modal-challenge + .modal-challenge { margin-top:0; }
+    .mc-label { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(242,179,109,.55); margin-bottom:8px; }
+    .mc-title { font-size:.88rem; font-weight:700; color:rgba(242,245,249,.92); margin-bottom:10px; line-height:1.4; }
+    .mc-body { font-size:.82rem; color:rgba(242,245,249,.62); line-height:1.85; }
+    .mc-body strong { color:rgba(242,245,249,.9); font-weight:600; }
+    .mc-body code { font-size:.78rem; background:rgba(255,255,255,.06); border-radius:4px; padding:1px 6px; color:rgba(242,179,109,.82); }
+    @media(max-width:768px){ .modal-highlights { grid-template-columns:repeat(3,1fr); gap:8px; } .mhl-num { font-size:1.2rem; } }
+    @media(max-width:480px){ .modal-highlights { grid-template-columns:1fr 1fr; } }
     .modal-tag {
       font-size:.64rem; font-weight:600; color:rgba(242,245,249,.5);
       background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
@@ -1519,27 +1534,10 @@
         </div>
         <div class="pc-image"><img src="images/UOP.webp" alt="UOP Dashboard" /></div>
       </div>
-      <div class="proj-card" id="proj-card-taskat">
-        <div class="pc-text">
-          <div class="pc-text-inner">
-            <div class="pc-num">04</div>
-            <h3 class="pc-title" id="pc-title-taskat">Taskat</h3>
-            <p class="pc-subtitle" id="pc-sub-taskat"></p>
-            <div class="pc-footer">
-              <button class="proj-cta" onclick="openModal('taskat')" type="button">
-                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-              <span class="pc-counter" dir="ltr">04 / 05</span>
-            </div>
-          </div>
-        </div>
-        <div class="pc-image"><img src="images/Taskat.webp" alt="Taskat" /></div>
-      </div>
       <div class="proj-card" id="proj-card-netspeed">
         <div class="pc-text">
           <div class="pc-text-inner">
-            <div class="pc-num">05</div>
+            <div class="pc-num">04</div>
             <h3 class="pc-title" id="pc-title-netspeed">NetSpeed</h3>
             <p class="pc-subtitle" id="pc-sub-netspeed"></p>
             <div class="pc-footer">
@@ -1547,11 +1545,28 @@
                 <span data-i18n="projects.openBtn">عرض التفاصيل</span>
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
-              <span class="pc-counter" dir="ltr">05 / 05</span>
+              <span class="pc-counter" dir="ltr">04 / 05</span>
             </div>
           </div>
         </div>
         <div class="pc-image"><img src="images/NetSpeed.webp" alt="NetSpeed" /></div>
+      </div>
+      <div class="proj-card" id="proj-card-taskat">
+        <div class="pc-text">
+          <div class="pc-text-inner">
+            <div class="pc-num">05</div>
+            <h3 class="pc-title" id="pc-title-taskat">Taskat</h3>
+            <p class="pc-subtitle" id="pc-sub-taskat"></p>
+            <div class="pc-footer">
+              <button class="proj-cta" onclick="openModal('taskat')" type="button">
+                <span data-i18n="projects.openBtn">عرض التفاصيل</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+              <span class="pc-counter" dir="ltr">05 / 05</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-image"><img src="images/Taskat.webp" alt="Taskat" /></div>
       </div>
       <!-- floating dot nav -->
       <div class="proj-dots-nav" aria-hidden="true">
@@ -1567,8 +1582,8 @@
       <div class="proj-step" data-project="sufra"></div>
       <div class="proj-step" data-project="bfm"></div>
       <div class="proj-step" data-project="uop"></div>
-      <div class="proj-step" data-project="taskat"></div>
       <div class="proj-step" data-project="netspeed"></div>
+      <div class="proj-step" data-project="taskat"></div>
     </div>
   </div>
 </section>
@@ -1847,7 +1862,7 @@
       <div class="modal-badge" data-i18n="m.sufra.badge">01 · مطوّر خلفيات · في الإنتاج</div>
       <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
       <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust</div>
-      <div class="modal-meta"><span data-i18n="m.sufra.date">أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">مؤسس مشارك</span><span>sufra.live</span></div>
+      <div class="modal-meta"><span data-i18n="m.sufra.date">أبريل 2025 – حتى الآن</span><span data-i18n="m.sufra.org">مطوّر متكامل</span><span>sufra.live</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
@@ -2048,18 +2063,18 @@ const projVisual = {
 /* per-language copy */
 const projCopy = {
   ar: {
-    sufra:    { title:'سُفرة', sub:'SaaS متعدد المستأجرين للمطاعم — قائمة رقمية، إدارة طاولات، نقطة بيع، شاشة مطبخ، وطباعة إيصالات. فكرتي، مبني مع شريك، وحالياً في الإنتاج مع عملاء حقيقيين.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مؤسس مشارك'] },
-    bfm:      { title:'BookForMe', sub:'SaaS متعدد المستأجرين لإدارة الحجوزات والموظفين والمخزون والتسويق للشركات الخدمية. انضممت كمطوّر خلفيات على قاعدة كود إنتاجية موزعة على 7 مستودعات.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','مطوّر خلفيات'] },
-    uop:      { title:'لوحة تحكم UOP', sub:'CMS كامل وموقع عام لجامعة فلسطين — وإعادة هيكلة معمارية شاملة لنظام قديم يحتوي على بيانات إنتاجية تمتد لأكثر من 10 سنوات.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['مُسلَّم','مطوّر خلفيات'] },
-    taskat:   { title:'تسكات', sub:'هجين بين Jira وSlack لفرق البرمجيات — لوحات كانبان، سبرنتات، إشعارات فورية، ورسائل الفريق، مبني بمعمارية متعددة المستأجرين تحت اشتراك واحد.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['مُسلَّم','مطوّر خلفيات'] },
-    netspeed: { title:'NetSpeed', sub:'منصة ISP عالية الحركة تخدم أكثر من 10,000 مستخدم متزامن — جُلبت لحل مشكلة أداء حرجة وإعادة بناء تجربة المستخدم بالكامل.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['مُسلَّم','مطوّر خلفيات'] }
+    sufra:    { title:'سُفرة', sub:'SaaS متعدد المستأجرين للمطاعم — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات، مخزون، تقارير مبيعات، وطبقة سوبر آدمن كاملة. حالياً في الإنتاج مع عملاء مطاعم حقيقيين.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','مطوّر متكامل'] },
+    bfm:      { title:'BookForMe', sub:'SaaS متعدد المستأجرين واسع النطاق للشركات الخدمية — صالونات وعيادات ومنتجعات — يغطي الحجوزات والتجارة الإلكترونية والمخزون والموظفين والعضويات والتسويق عبر 7 مستودعات.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','مطوّر خلفيات'] },
+    uop:      { title:'لوحة تحكم UOP', sub:'CMS كامل وموقع عام لجامعة فلسطين — وإعادة هيكلة معمارية شاملة لنظام قديم يحتوي على 10+ سنوات من بيانات الإنتاج.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['مُسلَّم','مطوّر خلفيات'] },
+    netspeed: { title:'NetSpeed', sub:'منصة ISP عالية الحركة تخدم 10,000+ مستخدم متزامن — جُلبت لحل مشكلة أداء حرجة وإعادة بناء تجربة المستخدم بالكامل.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['مُسلَّم','مطوّر خلفيات'] },
+    taskat:   { title:'تسكات', sub:'هجين بين Jira وSlack لفرق البرمجيات — لوحات كانبان، سبرنتات، إشعارات فورية، ورسائل الفريق تحت معمارية متعددة المستأجرين.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['مُسلَّم','مطوّر خلفيات'] }
   },
   en: {
-    sufra:    { title:'Sufra', sub:'A multi-tenant SaaS for restaurants — digital menu, table management, POS, kitchen display, and receipt printing. My concept, built with a partner, currently live with real clients.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Co-Founder'] },
-    bfm:      { title:'BookForMe', sub:'A multi-tenant SaaS for service businesses to manage bookings, staff, inventory, and marketing — built across 7 repositories. I joined as backend developer on an existing production codebase.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend Dev'] },
-    uop:      { title:'UOP Dashboard', sub:'A full CMS and public website for the University of Palestine — and a complete architectural overhaul of a legacy system storing 10+ years of production data.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['Delivered','Backend Dev'] },
-    taskat:   { title:'Taskat', sub:'A Jira/Slack hybrid for software teams — kanban boards, sprints, real-time notifications, and team messaging, built with a multi-tenant architecture under a single subscription model.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Delivered','Backend Dev'] },
-    netspeed: { title:'NetSpeed', sub:'A high-traffic ISP management platform serving 10,000+ concurrent users — brought in to solve a critical performance problem and overhaul the user experience.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Delivered','Backend Dev'] }
+    sufra:    { title:'Sufra', sub:'A multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.', tags:['Nuxt 4','Supabase','Rust / Tauri','Redis','PWA'], badges:['Live','Full-Stack Dev'] },
+    bfm:      { title:'BookForMe', sub:'A large-scale multi-tenant SaaS for service businesses — salons, clinics, spas — covering bookings, e-commerce, inventory, staff, memberships, and marketing across 7 repositories.', tags:['Laravel 11','Nuxt 3','Vue 3','Reverb','MySQL'], badges:['Production','Backend Dev'] },
+    uop:      { title:'UOP Dashboard', sub:'A full CMS and public website for the University of Palestine — including a complete architectural overhaul of a legacy system storing 10+ years of production data.', tags:['Laravel 12','Nuxt 4','OpenAPI','Sanctum','TypeScript'], badges:['Delivered','Backend Dev'] },
+    netspeed: { title:'NetSpeed', sub:'A high-traffic ISP management platform serving 10,000+ concurrent users — brought in to solve a critical performance problem and overhaul the user experience.', tags:['Laravel','Redis','MySQL','AdminLTE','Hotspot API'], badges:['Delivered','Full-Stack Dev'] },
+    taskat:   { title:'Taskat', sub:'A Jira/Slack hybrid for software teams — kanban boards, sprints, real-time notifications, and team messaging under a multi-tenant architecture.', tags:['Laravel','WebSockets','Nuxt 3','Vue 3','RBAC'], badges:['Delivered','Backend Dev'] }
   }
 };
 
@@ -2073,7 +2088,7 @@ const projectState = {
 const projCinema  = document.getElementById('proj-cinema');
 const projDots    = [...document.querySelectorAll('.proj-dot')];
 const projSteps   = [...document.querySelectorAll('.proj-step')];
-const projKeys    = ['sufra','bfm','uop','taskat','netspeed'];
+const projKeys    = ['sufra','bfm','uop','netspeed','taskat'];
 
 /* populate each card's text from projCopy */
 function populateCards(lang){
@@ -2292,18 +2307,18 @@ const i18n = {
     'contact.successBack': 'إرسال رسالة أخرى',
     'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
     'm.close': 'إغلاق →',
-    'm.sufra.badge': 'مؤسس مشارك ومطوّر · في الإنتاج',
+    'm.sufra.badge': 'مطوّر متكامل · في الإنتاج',
     'm.sufra.title': 'سُفرة',
-    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — قائمة رقمية، إدارة طاولات، نقطة بيع، شاشة مطبخ، وطباعة إيصالات.',
+    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات، مخزون، تقارير مبيعات، وطبقة سوبر آدمن. حالياً في الإنتاج مع عملاء حقيقيين.',
     'm.sufra.date': 'أبريل 2025 – حتى الآن',
-    'm.sufra.org': 'مؤسس مشارك',
+    'm.sufra.org': 'مطوّر متكامل',
     'm.sufra.s1': 'مشاريع في المونوريبو',
     'm.sufra.s2': 'نقطة بيع أوف لاين',
     'm.sufra.s3': 'جسر طباعة Rust أصلي',
     'm.sufra.s4': 'كاش + Push فوري',
     'm.sufra.live': 'عرض الموقع',
     'm.bfm.badge': 'مطوّر خلفيات · في الإنتاج',
-    'm.bfm.sub': 'SaaS متعدد المستأجرين للحجوزات والتجارة — صالونات وعيادات ومنتجعات. انضممت على قاعدة كود إنتاجية موزعة على 7 مستودعات.',
+    'm.bfm.sub': 'SaaS متعدد المستأجرين واسع النطاق للشركات الخدمية — صالونات وعيادات ومنتجعات — يغطي الحجوزات والتجارة الإلكترونية والمخزون والموظفين والعضويات والتسويق عبر 7 مستودعات.',
     'm.bfm.date': 'مارس 2024 – حتى الآن',
     'm.bfm.s1': 'بوابات متخصصة',
     'm.bfm.s2': 'عملات مدعومة',
@@ -2427,18 +2442,18 @@ const i18n = {
     'contact.successBack': 'Send another message',
     'footer.copy': '© 2025 <b>Mohammed Al-Namla</b> · Palestine 🇵🇸',
     'm.close': '← Close',
-    'm.sufra.badge': 'Co-Founder & Developer · Live in Production',
+    'm.sufra.badge': 'Full-Stack Developer · Live in Production',
     'm.sufra.title': 'Sufra',
-    'm.sufra.sub': 'Multi-tenant restaurant SaaS — digital menu, table management, POS, kitchen display, and receipt printing.',
+    'm.sufra.sub': 'Multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.',
     'm.sufra.date': 'Apr 2025 – Present',
-    'm.sufra.org': 'Co-Founder',
+    'm.sufra.org': 'Full-Stack Developer',
     'm.sufra.s1': 'Sub-projects in monorepo',
     'm.sufra.s2': 'Offline-first POS',
     'm.sufra.s3': 'Native Rust print bridge',
     'm.sufra.s4': 'Redis cache + VAPID push',
     'm.sufra.live': 'View Live Site',
     'm.bfm.badge': 'Backend Developer · Production Live',
-    'm.bfm.sub': 'Multi-tenant SaaS for service businesses — bookings, staff, inventory, and marketing across 7 repositories. Joined as backend developer on an existing production codebase.',
+    'm.bfm.sub': 'A large-scale multi-tenant SaaS for service businesses — salons, clinics, spas — covering bookings, e-commerce, inventory, staff, memberships, and marketing across 7 repositories.',
     'm.bfm.date': 'Mar 2024 – Present',
     'm.bfm.s1': 'Specialist portals',
     'm.bfm.s2': 'Currencies supported',
@@ -2479,30 +2494,56 @@ const i18n = {
 const modalBodies = {
   sufra: {
     ar: `
-<div class="modal-sec"><h4>الفكرة</h4><p>سُفرة بدأت كفكرتي الخاصة. رأيت أن أدوات إدارة المطاعم المتاحة إما مكلفة جداً، أو معقدة جداً، أو غير مبنية للسوق الناطق بالعربية. أسّست المشروع وقدت جميع القرارات التقنية من المعمارية حتى النشر.</p></div>
-<div class="modal-sec"><h4>التحدي الأول: نقطة البيع يجب أن تعمل بدون إنترنت</h4><p>المطاعم في غزة تواجه انقطاعات إنترنت متكررة. نقطة بيع تتوقف عند انقطاع الاتصال ليست منتجاً — إنها عبء.</p><p>بنيت نقطة بيع offline-first باستخدام <strong>IndexedDB outbox queue</strong>: كل العمليات (الطلبات، المدفوعات، تغييرات الحالة) تُكتب محلياً أولاً، ثم تتزامن تلقائياً عند عودة الاتصال. الكاشير لا يلاحظ الانقطاع. صفر خسارة في الطلبات.</p></div>
-<div class="modal-sec"><h4>التحدي الثاني: طباعة الإيصالات الحرارية من المتصفح</h4><p>Web USB APIs لا تستطيع الوصول للطابعات الحرارية USB مباشرة من تبويب المتصفح بسبب قيود أمنية على مستوى نظام التشغيل. الحلول المعتادة (خوادم طباعة خارجية، cloud print) تضيف تأخيراً واعتمادية خارجية.</p><p>كتبت <strong>تطبيق Windows tray أصلي بـ Rust</strong> باستخدام Tauri v2 + libusb، يعمل في الخلفية بصمت ويكشف خادم HTTP محلي (Axum) يستدعيه الـ dashboard عند الحاجة للطباعة. التطبيق يبدأ تلقائياً مع ويندوز، ويتحدث تلقائياً من GitHub Releases، ويرجع لـ WebUSB إذا لم يكن الجسر متاحاً.</p></div>
-<div class="modal-sec"><h4>التحدي الثالث: إشعارات الطلبات الفورية بدون خدمة خارجية</h4><p>طبّقت <strong>VAPID web push</strong> مُشغَّلة مباشرة من stored procedures في Postgres عبر Supabase. عندما يضع العميل طلباً، قاعدة البيانات نفسها ترسل الإشعار للمطعم — بدون خدمة push خارجية، بدون polling.</p></div>
-<div class="modal-sec"><h4>نموذج الأمان</h4><p>تطبيق القائمة للعملاء يعمل كلياً على Supabase anonymous access. لا يوجد مفتاح server مكشوف للعميل. جميع قواعد الوصول مطبّقة عبر سياسات <strong>Row-Level Security (RLS)</strong> على مستوى قاعدة البيانات، بثلاثة أدوار معزولة: anon وowner وadmin.</p></div>
+<div class="modal-sec"><h4>الفكرة</h4><p>سُفرة هو نظام تشغيل متكامل للمطاعم. رأيت أن معظم أدوات إدارة المطاعم إما مكلفة جداً، معقدة جداً، أو غير مبنية للسوق الناطق بالعربية. قدت جميع القرارات التقنية من المعمارية حتى النشر.</p></div>
+<div class="modal-sec"><h4>ما تغطيه المنصة</h4>
+<p><strong>لوحة تحكم صاحب المطعم:</strong></p>
+<ul><li>إدارة الطلبات الفورية وتتبعها</li><li>نقطة بيع مع إدارة الطاولات وتدفقات الكاشير</li><li>شاشة مطبخ (KDS) لتوزيع الطلبات</li><li>شاشة النادل لإدخال الطلبات على الطاولة</li><li>إدارة القائمة: فئات وعناصر وعروض وأسعار</li><li>تخطيط الطاولات والتعيينات</li><li>دليل العملاء مع تاريخ الطلبات</li><li>إدارة الفريق مع صلاحيات مبنية على الأدوار</li><li>تقارير المبيعات والتحليلات</li><li>إدارة المخزون والموردين وتدقيق المخزون</li><li>إعدادات وتخصيصات كاملة لكل مطعم</li></ul>
+<p><strong>واجهة العميل (العامة):</strong></p>
+<ul><li>قائمة رقمية عبر QR مع عرض غني للعناصر</li><li>طلب إلكتروني مع سلة وإتمام الدفع</li><li>تاريخ الطلبات والتتبع لكل عميل</li></ul>
+<p><strong>السوبر آدمن:</strong></p>
+<ul><li>تحكم كامل في جميع المطاعم والمستخدمين</li><li>إدارة الاشتراكات والخطط</li><li>إحصاءات تفصيلية لكل مطعم</li><li>نظام إعلانات لتواصل المنصة</li></ul></div>
+<div class="modal-sec"><h4>التحدي الأول: نقطة البيع يجب أن تعمل بدون إنترنت</h4><p>المطاعم في غزة تواجه انقطاعات إنترنت متكررة. نقطة بيع تتوقف عند انقطاع الاتصال ليست منتجاً — إنها عبء.</p><p>بنيت نقطة بيع offline-first باستخدام <strong>IndexedDB outbox queue</strong>: كل العمليات تُكتب محلياً أولاً، ثم تتزامن تلقائياً عند عودة الاتصال. الكاشير لا يلاحظ الانقطاع. صفر خسارة في الطلبات.</p></div>
+<div class="modal-sec"><h4>التحدي الثاني: طباعة الإيصالات الحرارية من المتصفح</h4><p>Web USB APIs لا تستطيع الوصول للطابعات الحرارية مباشرة بسبب قيود أمنية على مستوى نظام التشغيل.</p><p>كتبت <strong>تطبيق Windows tray أصلي بـ Rust</strong> باستخدام Tauri v2 + libusb، يعمل في الخلفية ويكشف خادم HTTP محلي يستدعيه الـ dashboard. يبدأ تلقائياً مع ويندوز، يتحدث من GitHub Releases، ويرجع لـ WebUSB عند الحاجة.</p></div>
+<div class="modal-sec"><h4>التحدي الثالث: إشعارات فورية بدون خدمة خارجية</h4><p>طبّقت <strong>VAPID web push</strong> مُشغَّلة مباشرة من stored procedures في Postgres. عندما يضع العميل طلباً، قاعدة البيانات نفسها ترسل الإشعار للمطعم — بدون خدمة push خارجية، بدون polling.</p></div>
+<div class="modal-sec"><h4>نموذج الأمان</h4><p>تطبيق القائمة يعمل كلياً على Supabase anonymous access. جميع قواعد الوصول مطبّقة عبر سياسات <strong>Row-Level Security (RLS)</strong> بثلاثة أدوار معزولة: anon وowner وadmin.</p></div>
 <div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
     en: `
-<div class="modal-sec"><h4>The Idea</h4><p>Sufra started as my own concept. I identified that most restaurant management tools in the market were either too expensive, too complex, or not built for the Arabic-speaking market. I co-founded the project and led all technical decisions from architecture to deployment.</p></div>
-<div class="modal-sec"><h4>Challenge 1: The POS must work without internet</h4><p>Restaurants in Gaza face frequent internet outages. A POS that stops working when the connection drops is not a product — it's a liability.</p><p>I built an offline-first POS using an <strong>IndexedDB outbox queue</strong>: all mutations (orders, payments, status changes) are written locally first, then synced automatically when connectivity resumes. The cashier never notices an outage. Zero order loss.</p></div>
-<div class="modal-sec"><h4>Challenge 2: Thermal receipt printing from the browser</h4><p>Web USB APIs cannot access USB thermal printers directly from a browser tab due to OS-level security restrictions. The standard workarounds add latency and external dependencies.</p><p>I wrote a <strong>native Windows tray application in Rust</strong> using Tauri v2 + libusb, which runs silently in the background and exposes a local HTTP server (Axum) that the dashboard calls when a receipt needs printing. The app auto-starts on Windows boot, auto-updates from GitHub Releases, and falls back to WebUSB if the bridge is unreachable.</p></div>
-<div class="modal-sec"><h4>Challenge 3: Real-time order notifications without a third-party service</h4><p>I implemented <strong>VAPID web push</strong> triggered directly from Postgres stored procedures via Supabase. When a customer places an order, the database itself fires the push notification to the restaurant — no external push service, no polling.</p></div>
+<div class="modal-sec"><h4>The Idea</h4><p>Sufra is a complete restaurant operating system. I identified that most restaurant management tools in the market were either too expensive, too complex, or not built for the Arabic-speaking market. I led all technical decisions from architecture to deployment.</p></div>
+<div class="modal-sec"><h4>What the Platform Covers</h4>
+<p><strong>Partner Dashboard (Restaurant Owner):</strong></p>
+<ul><li>Real-time order management and order tracking</li><li>POS terminal with table management and cashier flows</li><li>Kitchen Display System (KDS) for order dispatch</li><li>Waiter-facing screen for table-side order entry</li><li>Menu management: categories, items, offers, and pricing</li><li>Table layout and assignment management</li><li>Customer directory with order history</li><li>Team management with role-based access</li><li>Sales reports and analytics</li><li>Inventory management, suppliers, and stock auditing</li><li>Full settings and customization per restaurant</li></ul>
+<p><strong>Customer-Facing (Public):</strong></p>
+<ul><li>QR-based digital menu with rich item display</li><li>Online ordering with cart and checkout</li><li>Order history and tracking per customer</li></ul>
+<p><strong>Super-Admin:</strong></p>
+<ul><li>Full control over all restaurants and users</li><li>Subscription and plan management</li><li>Detailed per-restaurant statistics</li><li>Announcement system for platform-wide communication</li></ul></div>
+<div class="modal-sec"><h4>Challenge 1: The POS must work without internet</h4><p>Restaurants in Gaza face frequent internet outages. A POS that stops working when the connection drops is not a product — it's a liability.</p><p>I built an offline-first POS using an <strong>IndexedDB outbox queue</strong>: all mutations are written locally first, then synced automatically when connectivity resumes. The cashier never notices an outage. Zero order loss.</p></div>
+<div class="modal-sec"><h4>Challenge 2: Thermal receipt printing from the browser</h4><p>Web USB APIs cannot access USB thermal printers directly from a browser tab due to OS-level security restrictions.</p><p>I wrote a <strong>native Windows tray application in Rust</strong> using Tauri v2 + libusb, which runs silently in the background and exposes a local HTTP server that the dashboard calls when a receipt needs printing. The app auto-starts on Windows boot, auto-updates from GitHub Releases, and falls back to WebUSB if the bridge is unreachable.</p></div>
+<div class="modal-sec"><h4>Challenge 3: Real-time notifications without a third-party service</h4><p>I implemented <strong>VAPID web push</strong> triggered directly from Postgres stored procedures via Supabase. When a customer places an order, the database itself fires the push notification to the restaurant — no external push service, no polling.</p></div>
 <div class="modal-sec"><h4>Security Model</h4><p>The customer-facing menu app runs entirely on anonymous Supabase access. There is no server key exposed to the client. All data access rules are enforced through <strong>Row-Level Security (RLS)</strong> policies at the database level, with three isolated roles: anon, owner, and admin.</p></div>
 <div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   bfm: {
     ar: `
-<div class="modal-sec"><h4>السياق</h4><p>BookForMe كان في الإنتاج عندما انضممت. التحدي لم يكن البناء من الصفر — بل كان الانضمام لنظام معقد متعدد المستودعات بدون توثيق handover، وقراءة قاعدة الكود مباشرة لفهم المعمارية قبل المساهمة.</p><p>هذا هو واقع معظم العمل المهني في البرمجيات: ترث الأنظمة، تتأقلم، وتحسّن بدون كسر ما يعمل بالفعل.</p></div>
-<div class="modal-sec"><h4>النظام</h4><p>7 مستودعات تغطي طبقات مختلفة من المنصة: سوبر آدمن (Blade + jQuery)، microservice للـ onboarding بمصادقة signature-based، API الشركاء (الأغنى بالميزات: حجوزات، تقويم، كتالوج، CRM، مخزون، تسويق، تقارير)، لوحة الشركاء (Nuxt 3)، تطبيق حجز العملاء (Nuxt 3)، صفحات المتاجر العامة، وميزات الوقت الفعلي عبر Laravel Reverb WebSockets.</p></div>
-<div class="modal-sec"><h4>مساهماتي</h4><ul><li>تطوير وصيانة ميزات إدارة الحجوزات: عروض التقويم، إعادة الجدولة، تدفقات الإلغاء، تاريخ الحجوزات مع تصدير CSV.</li><li>دمج بوابات دفع متعددة العملات تعالج المعاملات عبر 5+ عملات.</li><li>المساهمة في تحديثات حالة الحجز الفورية عبر Laravel Reverb.</li><li>الحفاظ على دعم ثنائي اللغة الكامل (عربي/إنجليزي) مع تبديل RTL.</li><li>جميع الأعمال تمت بدون إدخال breaking changes على integrations العملاء الحالية.</li></ul></div>
+<div class="modal-sec"><h4>السياق</h4><p>BookForMe كان في الإنتاج عندما انضممت. التحدي لم يكن البناء من الصفر — بل كان الانضمام لنظام معقد متعدد المستودعات بدون توثيق handover، وقراءة قاعدة الكود مباشرة لفهم المعمارية قبل المساهمة.</p></div>
+<div class="modal-sec"><h4>ما تغطيه المنصة</h4>
+<p><strong>لوحة تحكم صاحب العمل:</strong></p>
+<ul><li>لوحة إحصاءات مع تحليلات تفصيلية للأعمال</li><li>إدارة الحجوزات: عرض تقويم، إعادة جدولة، إلغاء، تاريخ مع تصدير</li><li>إدارة الموارد (غرف، كراسي، محطات) مع منع التعارض</li><li>إدارة الموظفين: ملفات شخصية، ورديات، ساعات عمل، تعيين خدمات</li><li>إدارة الفروع للشركات متعددة المواقع</li><li>تجارة إلكترونية داخلية: منتجات، خصومات، وكوبونات</li><li>إدارة مخزون وموردين وتدقيق مخزون</li><li>نظام عضويات واشتراكات</li><li>نظام ولاء وهدايا</li><li>تذكيرات ونظام إشعارات آلي</li><li>إدارة حزم SMS مع تتبع الاستهلاك</li><li>نظام إعلانات</li><li>تقارير تفصيلية عبر جميع الوحدات</li><li>دمج بوابات دفع متعددة العملات (5+ عملات)</li></ul>
+<p><strong>تطبيق الموظف:</strong></p>
+<ul><li>جدول الحجوزات الشخصي وإدارة الطابور</li><li>تحديثات حالة الحجوزات في الوقت الفعلي</li></ul>
+<p><strong>واجهة العميل:</strong></p>
+<ul><li>حجز إلكتروني مع اختيار الموظف وتوفر فوري</li><li>كشف التعارضات لمنع الحجز المزدوج</li><li>شراء منتجات وعضويات إلكتروني</li><li>دمج بوابة الدفع</li></ul></div>
+<div class="modal-sec"><h4>الحجم</h4><p>7 مستودعات: سوبر آدمن، microservice للـ onboarding، API الشركاء، لوحة الشركاء (Nuxt 3)، تطبيق حجز العملاء (Nuxt 3)، تطبيق الموظف، وصفحات المتاجر العامة. ميزات الوقت الفعلي مدعومة بـ Laravel Reverb WebSockets. دعم ثنائي اللغة (عربي/إنجليزي) مع RTL كامل.</p></div>
 <div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
     en: `
-<div class="modal-sec"><h4>The Context</h4><p>BookForMe was already in production when I joined. The challenge wasn't building from scratch — it was onboarding onto a complex, multi-repository system with no documentation handover, reading the codebase directly to understand the architecture before contributing.</p><p>This is the reality of most professional software work: you inherit systems, you adapt, and you improve without breaking what's already running.</p></div>
-<div class="modal-sec"><h4>The System</h4><p>7 repositories covering different layers of the platform: super-admin back-office (Blade + jQuery), partner onboarding microservice with signature-based auth, partner management API (the most feature-rich: bookings, calendar, catalogue, CRM, inventory, marketing, reports), partner dashboard (Nuxt 3), customer booking app (Nuxt 3, deployed on AWS Amplify), public store profiles, and real-time features via Laravel Reverb WebSockets.</p></div>
-<div class="modal-sec"><h4>My Contributions</h4><ul><li>Developed and maintained booking management features: calendar views, rescheduling, cancellation flows, booking history with CSV export.</li><li>Integrated multi-currency payment gateways processing transactions across 5+ currencies.</li><li>Contributed to real-time booking status updates via Laravel Reverb.</li><li>Maintained full Arabic/English bilingual support with RTL layout switching.</li><li>All work done without introducing breaking changes to existing client integrations.</li></ul></div>
+<div class="modal-sec"><h4>The Context</h4><p>BookForMe was already in production when I joined. The challenge wasn't building from scratch — it was onboarding onto a complex, multi-repository system with no documentation handover, reading the codebase directly to understand the architecture before contributing.</p></div>
+<div class="modal-sec"><h4>What the Platform Covers</h4>
+<p><strong>Partner Dashboard (Business Owner):</strong></p>
+<ul><li>Statistics dashboard with detailed business analytics</li><li>Booking management: calendar view, rescheduling, cancellations, history with export</li><li>Resource management (rooms, chairs, stations) with conflict prevention</li><li>Staff management: profiles, shifts, working hours, and service assignments</li><li>Branch management for multi-location businesses</li><li>Internal e-commerce: products, discounts, and coupon system</li><li>Inventory management, suppliers, and stock auditing</li><li>Membership and subscription system</li><li>Loyalty and gifting system</li><li>Reminders and automated notification system</li><li>SMS package management with consumption tracking</li><li>Announcement system</li><li>Detailed reports across all modules</li><li>Multi-currency payment gateway integration (5+ currencies)</li></ul>
+<p><strong>Employee App:</strong></p>
+<ul><li>Personal booking schedule and queue management</li><li>Booking status updates in real time</li></ul>
+<p><strong>Customer-Facing:</strong></p>
+<ul><li>Online booking with staff selection and real-time availability</li><li>Conflict detection to prevent double-booking</li><li>Online product and membership purchasing</li><li>Payment gateway integration</li></ul></div>
+<div class="modal-sec"><h4>The Scale</h4><p>7 repositories: super-admin back-office, partner onboarding microservice, partner management API, partner dashboard (Nuxt 3), customer booking app (Nuxt 3), employee app, and public store profiles. Real-time features powered by Laravel Reverb WebSockets. Full Arabic/English bilingual support with RTL layout switching throughout.</p></div>
 <div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel 11</span><span class="modal-tag">PHP 8.2/8.3</span><span class="modal-tag">Nuxt 3</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Sanctum</span><span class="modal-tag">MySQL</span><span class="modal-tag">AWS S3</span><span class="modal-tag">AWS Amplify</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   uop: {
