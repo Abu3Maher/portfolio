@@ -1348,32 +1348,21 @@
       .exp-role { font-size: .94rem; }
       .exp-tags { flex-wrap: wrap; }
 
-      /* Projects — disable sticky cinema, show as stacked cards */
-      .proj-cinema { display: block; }
-      .proj-sticky { position: relative; height: auto; overflow: visible; }
-      .proj-scroll { display: none; }
-      .proj-card {
-        position: relative !important;
-        opacity: 1 !important;
-        transform: none !important;
-        grid-template-columns: 1fr;
-        margin-bottom: 20px;
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .pc-image { min-height: 50vw; order: -1; }
+      /* Projects — keep sticky cinema, adapt to single-column */
+      .proj-sticky { height: 100svh; }
+      .proj-card { grid-template-columns: 1fr; }
+      .pc-image { min-height: 42vw; order: -1; }
       .pc-image::before {
         background:
-          linear-gradient(to bottom, rgba(4,8,15,.55) 0%, transparent 36%),
-          linear-gradient(to top, #07111e 0%, transparent 28%);
+          linear-gradient(to bottom, rgba(4,8,15,.6) 0%, transparent 40%),
+          linear-gradient(to top, #07111e 0%, transparent 32%);
       }
-      .pc-text { padding: 20px 18px 32px; }
+      .pc-text { padding: 20px 20px 28px; justify-content: flex-end; }
       .pc-num { font-size: 4rem; }
       .pc-title { font-size: 1.9rem; }
       .pc-subtitle { font-size: .82rem; }
-      .pc-footer { margin-top: 20px; flex-wrap: wrap; gap: 10px; }
+      .pc-footer { margin-top: 16px; flex-wrap: wrap; gap: 10px; }
       .proj-cta { width: 100%; justify-content: center; }
-      .proj-dots { display: none; }
 
       /* Modal */
       .modal-overlay { padding: 8px; }
@@ -2213,10 +2202,7 @@ function populateCards(lang){
   });
 }
 
-const isMobileCinema = () => window.innerWidth <= 768;
-
 function activateCard(key){
-  if(isMobileCinema()) return;
   if(projectState.current === key) return;
   const prevKey = projectState.current;
   projectState.current = key;
@@ -2850,7 +2836,7 @@ function closeMobileMenu() {
 /* init */
 applyLang(currentLang);
 projectState.current = '';
-if(!isMobileCinema()) activateCard('sufra');
+activateCard('sufra');
 </script>
 </body>
 </html>
