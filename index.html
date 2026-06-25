@@ -32,15 +32,11 @@
       --tf: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: #040814; }
 
     body {
       font-family: 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
-      background-color: #f4f7fb;
-      background-image:
-        radial-gradient(ellipse 80% 65% at 50% 38%, rgba(15, 27, 42, 0.05) 0%, transparent 68%),
-        radial-gradient(ellipse 42% 28% at 18% 82%, rgba(229, 165, 92, 0.05) 0%, transparent 65%);
-      background-attachment: fixed;
+      background-color: #040814;
       color: #1a2431;
       line-height: 1.7;
       font-weight: 400;
@@ -209,6 +205,7 @@
         radial-gradient(ellipse 80% 64% at 50% 0%, rgba(72,90,128,0.22) 0%, transparent 68%),
         radial-gradient(ellipse 44% 30% at 18% 78%, rgba(229,165,92,0.08) 0%, transparent 62%),
         linear-gradient(180deg, #040814 0%, #09101d 100%);
+      background-attachment: scroll;
       color: var(--body);
       isolation: isolate; position: relative; z-index: 1;
     }
@@ -246,6 +243,7 @@
       background-image:
         radial-gradient(ellipse 80% 55% at 50% 0%, rgba(215,192,150,0.10) 0%, transparent 60%),
         linear-gradient(180deg, #fbfdff 0%, #eef3f8 100%);
+      background-attachment: scroll;
       isolation: isolate; position: relative; z-index: 2; color: #1a2431;
     }
     section.theme-light .s-label         { color: #6b7d94; }
@@ -457,7 +455,6 @@
     }
 
     /* ── ABOUT ── */
-    #about { background: transparent; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-p { font-size:.89rem; font-weight:400; color:var(--body); line-height:1.9; margin-bottom:15px; }
     .about-p strong { color:var(--head); font-weight:600; }
@@ -494,7 +491,6 @@
     .chip:hover { color:var(--head); background:rgba(242,179,109,0.07); border-color:var(--glass-bord2); }
 
     /* ── SKILLS ── */
-    #skills { background: transparent; }
     .sk-head { margin-bottom:56px; }
     .sk-intro {
       display:flex; align-items:flex-end; justify-content:space-between;
@@ -1276,7 +1272,7 @@
       /* About */
       .about-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
 
-      /* Skills — 2 cols */
+      /* Skills — 2×2 grid */
       .sk-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
 
       /* Experience — narrower timeline */
@@ -1310,34 +1306,35 @@
     ══════════════════════════════════════════ */
     @media(max-width:768px){
       /* Base */
-      .wrap { padding:0 18px; }
-      .nav-w { padding:0 18px; }
-      section { padding:72px 0; }
-      body { background-attachment: scroll; cursor: auto; }
+      .wrap { padding:0 20px; }
+      .nav-w { padding:0 20px; }
+      section { padding:64px 0; }
+      body { cursor: auto; }
       #cur,#cur-r { display:none; }
 
       /* Nav */
       .nav-pill { display:none; }
-      .nav-burger { display:flex; }
+      .nav-burger { display:flex; cursor: pointer; }
+      .nav-drawer-link { cursor: pointer; }
 
       /* Hero */
       #hero { min-height: 100svh; padding-top: 58px; }
-      .hero-inner { padding: 36px 18px 72px; }
-      .hero-first, .hero-last { font-size: clamp(3.4rem,14vw,6rem); }
-      .hero-underline { width: 140px; }
-      .hero-role-line { font-size: .78rem; }
-      .hero-soc { gap: 6px; }
-      .soc { width: 36px; height: 36px; }
+      .hero-inner { padding: 28px 20px 60px; text-align: center; }
+      .hero-first, .hero-last { font-size: clamp(3rem,11vw,5.5rem); }
+      .hero-underline { width: 120px; margin: 0 auto; }
+      .hero-role-line { font-size: .76rem; justify-content: center; }
+      .hero-soc { gap: 8px; justify-content: center; }
+      .soc { width: 38px; height: 38px; cursor: pointer; }
 
       /* About */
-      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-grid { grid-template-columns: 1fr; gap: 24px; }
       .fact-grid { grid-template-columns: 1fr 1fr; }
       .rv-r { transform: translateY(24px); }
 
       /* Skills */
       .sk-intro { flex-direction: column; gap: 20px; }
       .sk-intro-left { max-width: none; }
-      .sk-core { justify-content: flex-start; gap: 24px; }
+      .sk-core { justify-content: flex-start; gap: 20px; flex-wrap: wrap; }
       .sk-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .sk-card { padding: 20px 16px 18px; border-radius: 14px; }
 
@@ -1349,34 +1346,50 @@
       .exp-card-top { flex-direction: column; gap: 6px; align-items: flex-start; }
       .exp-period-mobile { display: block; }
       .exp-role { font-size: .94rem; }
+      .exp-tags { flex-wrap: wrap; }
 
-      /* Projects */
-      .proj-card { grid-template-columns: 1fr; }
-      .pc-image { min-height: 52vw; order: -1; }
+      /* Projects — disable sticky cinema, show as stacked cards */
+      .proj-cinema { display: block; }
+      .proj-sticky { position: relative; height: auto; overflow: visible; }
+      .proj-scroll { display: none; }
+      .proj-card {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        grid-template-columns: 1fr;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .pc-image { min-height: 50vw; order: -1; }
       .pc-image::before {
         background:
           linear-gradient(to bottom, rgba(4,8,15,.55) 0%, transparent 36%),
           linear-gradient(to top, #07111e 0%, transparent 28%);
       }
-      .pc-text { padding: 20px 18px 72px; }
-      .pc-num { font-size: 4.5rem; }
-      .pc-title { font-size: 2rem; }
+      .pc-text { padding: 20px 18px 32px; }
+      .pc-num { font-size: 4rem; }
+      .pc-title { font-size: 1.9rem; }
       .pc-subtitle { font-size: .82rem; }
-      .pc-footer { margin-top: 28px; flex-wrap: wrap; }
+      .pc-footer { margin-top: 20px; flex-wrap: wrap; gap: 10px; }
       .proj-cta { width: 100%; justify-content: center; }
+      .proj-dots { display: none; }
 
       /* Modal */
-      .modal { border-radius: 18px; }
-      .modal-img { height: 200px; }
-      .modal-hero { padding: 0 18px 20px; margin-top: -18px; }
-      .modal-body { padding: 0 18px 28px; }
-      .modal-stats { margin: 0 18px 20px; grid-template-columns: 1fr 1fr; }
-      .modal-divider { margin: 0 18px 18px; }
-      .modal-title { font-size: clamp(1.5rem,6vw,2.2rem); }
+      .modal-overlay { padding: 8px; }
+      .modal { border-radius: 18px; max-height: calc(100svh - 16px); }
+      .modal-img { height: 180px; }
+      .modal-hero { padding: 0 16px 18px; margin-top: -16px; }
+      .modal-body { padding: 0 16px 28px; }
+      .modal-stats { margin: 0 16px 18px; grid-template-columns: 1fr 1fr; }
+      .modal-divider { margin: 0 16px 16px; }
+      .modal-title { font-size: clamp(1.4rem,5.5vw,2rem); }
+      .modal-highlights { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+      .mhl-num { font-size: 1.2rem; }
 
       /* Contact */
-      .contact-grid { grid-template-columns: 1fr; gap: 28px; }
-      .cg-form-inner { padding: 20px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+      .cg-form-inner { padding: 20px 16px; }
       .fg2 { grid-template-columns: 1fr; }
       .cg-title { font-size: 1.6rem; }
 
@@ -1388,29 +1401,53 @@
        RESPONSIVE — small phones 480px
     ══════════════════════════════════════════ */
     @media(max-width:480px){
-      .wrap { padding:0 14px; }
-      .nav-w { padding:0 14px; }
+      .wrap { padding:0 16px; }
+      .nav-w { padding:0 16px; }
+      section { padding:52px 0; }
 
       /* Hero */
-      .hero-first, .hero-last { font-size: clamp(2.8rem,16vw,5rem); }
-      .hero-underline { width: 110px; }
+      .hero-inner { padding: 20px 16px 48px; }
+      .hero-first, .hero-last { font-size: clamp(2.6rem,13vw,4.5rem); }
+      .hero-underline { width: 96px; }
+      .hero-role-line { font-size: .72rem; gap: 6px; }
+      .soc { width: 36px; height: 36px; }
 
       /* About */
-      .fact-grid { grid-template-columns: 1fr; }
+      .fact-grid { grid-template-columns: 1fr 1fr; }
+      .fc-v { font-size: 1.4rem; }
 
-      /* Skills — single col */
-      .sk-grid { grid-template-columns: 1fr; }
-      .sk-core { gap: 16px; }
-      .sk-core-val { font-size: 1.2rem; }
+      /* Skills — keep 2 cols on small phones, tighten */
+      .sk-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .sk-card { padding: 16px 12px 14px; border-radius: 12px; }
+      .sk-ico { width: 30px; height: 30px; margin-bottom: 10px; }
+      .sk-title { font-size: .72rem; margin-bottom: 10px; }
+      .sk-core { gap: 14px; }
+      .sk-core-val { font-size: 1.1rem; }
+      .sk-chips { gap: 5px; }
+      .sk-chip { font-size: .62rem; padding: 4px 9px; }
 
       /* Projects */
-      .pc-image { min-height: 56vw; }
-      .pc-num { font-size: 3.8rem; }
-      .pc-title { font-size: 1.8rem; }
+      .pc-image { min-height: 54vw; }
+      .pc-num { font-size: 3.2rem; }
+      .pc-title { font-size: 1.6rem; }
+      .pc-role-badge, .pc-status-live, .pc-status-delivered { font-size: .56rem; padding: 2px 7px; }
+
+      /* Modal */
+      .modal-highlights { grid-template-columns: 1fr 1fr; }
+      .modal-tag { font-size: .6rem; padding: 3px 8px; }
+      .mc-label { font-size: .64rem; }
+      .mc-body { font-size: .82rem; }
+      .modal-feature-grid { grid-template-columns: 1fr; }
 
       /* Contact */
-      .clink { padding: 12px 14px; }
-      .cg-send-btn { font-size: .78rem; }
+      .clink { padding: 11px 13px; gap: 10px; }
+      .clink-v { font-size: .78rem; }
+      .cg-send-btn { font-size: .78rem; padding: 13px; }
+
+      /* Exp */
+      .exp-co { flex-wrap: wrap; gap: 4px; }
+      .exp-co-sep { display: none; }
+      .exp-co-loc { font-size: .72rem; }
     }
   </style>
 </head>
@@ -1666,11 +1703,10 @@
         <div class="sk-core-item"><span class="sk-core-val">MySQL</span><span class="sk-core-lbl" data-i18n="skills.m3">قاعدة البيانات</span></div>
       </div>
     </div>
-    <div class="sk-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="sk-grid">
       <!-- Backend -->
       <div class="sk-card rv d1">
         <div class="sk-ico">
-          <!-- server / API icon -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d4f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
         </div>
         <div class="sk-title" data-i18n="skills.card1">الخلفية</div>
@@ -1681,7 +1717,6 @@
       <!-- Database -->
       <div class="sk-card rv d2">
         <div class="sk-ico">
-          <!-- database cylinder icon -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d4f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
         <div class="sk-title" data-i18n="skills.card2">قواعد البيانات والتخزين</div>
@@ -1692,12 +1727,21 @@
       <!-- DevOps -->
       <div class="sk-card rv d3">
         <div class="sk-ico">
-          <!-- terminal / CI icon -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d4f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
         </div>
         <div class="sk-title" data-i18n="skills.card3">DevOps والأدوات</div>
         <div class="sk-chips">
-          <span class="sk-chip">Git</span><span class="sk-chip">GitHub Actions</span><span class="sk-chip">PHPUnit</span><span class="sk-chip">Vercel</span><span class="sk-chip">AWS Amplify</span>
+          <span class="sk-chip">Git</span><span class="sk-chip">GitHub Actions</span><span class="sk-chip">PHPUnit</span><span class="sk-chip">Docker</span><span class="sk-chip">Vercel</span><span class="sk-chip">AWS Amplify</span>
+        </div>
+      </div>
+      <!-- Frontend -->
+      <div class="sk-card rv d4">
+        <div class="sk-ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d4f63" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="sk-title" data-i18n="skills.card4">الواجهة الأمامية</div>
+        <div class="sk-chips">
+          <span class="sk-chip">Vue 3</span><span class="sk-chip">Nuxt 4</span><span class="sk-chip">TypeScript</span><span class="sk-chip">Tailwind CSS</span><span class="sk-chip">Pinia</span><span class="sk-chip">Zod</span>
         </div>
       </div>
     </div>
@@ -2169,12 +2213,14 @@ function populateCards(lang){
   });
 }
 
+const isMobileCinema = () => window.innerWidth <= 768;
+
 function activateCard(key){
+  if(isMobileCinema()) return;
   if(projectState.current === key) return;
   const prevKey = projectState.current;
   projectState.current = key;
   const idx = projKeys.indexOf(key);
-  /* transition: old card exits left, new card enters from right */
   projKeys.forEach((k,i)=>{
     const card = document.getElementById(`proj-card-${k}`);
     if(!card) return;
@@ -2189,7 +2235,6 @@ function activateCard(key){
       card.classList.remove('active','exit');
     }
   });
-  /* dots */
   projDots.forEach((dot,i)=>dot.classList.toggle('active', i === idx));
 }
 
@@ -2805,7 +2850,7 @@ function closeMobileMenu() {
 /* init */
 applyLang(currentLang);
 projectState.current = '';
-activateCard('sufra');
+if(!isMobileCinema()) activateCard('sufra');
 </script>
 </body>
 </html>
