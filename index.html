@@ -1337,6 +1337,21 @@
       body { cursor: auto; }
       #cur,#cur-r { display:none; }
 
+      /* ── PERF: kill GPU-heavy effects on mobile ── */
+      /* animated blur(90px) orbs are the biggest mobile bottleneck */
+      .orb { display: none; }
+      /* stop the infinite hero glow compositing — keep them static */
+      .hero-glow-a, .hero-glow-b { animation: none; }
+      /* backdrop-filter forces costly repaints during scroll */
+      #nav, .nav-drawer, .about-card, .fact-cell, .modal, .modal-live,
+      .proj-mob-arrow, .sk-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      /* solidify the nav since its blur is gone */
+      #nav { background: rgba(5,9,18,.92); }
+      .nav-drawer { background: rgba(5,9,18,.98); }
+
       /* Nav */
       .nav-pill { display:none; }
       .nav-burger { display:flex; cursor: pointer; }
@@ -1637,7 +1652,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/Sufra.webp" alt="Sufra" /></div>
+        <div class="pc-image"><img src="images/Sufra.webp" alt="Sufra" decoding="async" fetchpriority="high" /></div>
       </div>
       <div class="proj-card" id="proj-card-bfm">
         <div class="pc-text">
@@ -1654,7 +1669,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/BFM.webp" alt="BookForMe" /></div>
+        <div class="pc-image"><img src="images/BFM.webp" alt="BookForMe" loading="lazy" decoding="async" /></div>
       </div>
       <div class="proj-card" id="proj-card-uop">
         <div class="pc-text">
@@ -1671,7 +1686,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/UOP.webp" alt="UOP Dashboard" /></div>
+        <div class="pc-image"><img src="images/UOP.webp" alt="UOP Dashboard" loading="lazy" decoding="async" /></div>
       </div>
       <div class="proj-card" id="proj-card-netspeed">
         <div class="pc-text">
@@ -1688,7 +1703,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/NetSpeed.webp" alt="NetSpeed" /></div>
+        <div class="pc-image"><img src="images/NetSpeed.webp" alt="NetSpeed" loading="lazy" decoding="async" /></div>
       </div>
       <div class="proj-card" id="proj-card-taskat">
         <div class="pc-text">
@@ -1705,7 +1720,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/Taskat.webp" alt="Taskat" /></div>
+        <div class="pc-image"><img src="images/Taskat.webp" alt="Taskat" loading="lazy" decoding="async" /></div>
       </div>
       <!-- floating dot nav -->
       <div class="proj-dots-nav" aria-hidden="true">
@@ -2005,7 +2020,7 @@
 <div class="modal-bg" id="modal-sufra">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('sufra')">✕</button></div>
-    <div class="modal-img"><img src="images/Sufra.webp" alt="Sufra" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
+    <div class="modal-img"><img src="images/Sufra.webp" alt="Sufra" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
         <span class="mrs-role" data-i18n="proj.role.fullstack">Full-Stack Developer</span>
@@ -2033,7 +2048,7 @@
 <div class="modal-bg" id="modal-bfm">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('bfm')">✕</button></div>
-    <div class="modal-img"><img src="images/BFM.webp" alt="BookForMe" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
+    <div class="modal-img"><img src="images/BFM.webp" alt="BookForMe" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>📅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
         <span class="mrs-role" data-i18n="proj.role.backend">Backend Developer</span>
@@ -2061,7 +2076,7 @@
 <div class="modal-bg" id="modal-uop">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('uop')">✕</button></div>
-    <div class="modal-img"><img src="images/UOP.webp" alt="UOP Dashboard" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
+    <div class="modal-img"><img src="images/UOP.webp" alt="UOP Dashboard" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>🎓</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
         <span class="mrs-role" data-i18n="proj.role.backend">Backend Developer</span>
@@ -2089,7 +2104,7 @@
 <div class="modal-bg" id="modal-taskat">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('taskat')">✕</button></div>
-    <div class="modal-img"><img src="images/Taskat.webp" alt="Taskat" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
+    <div class="modal-img"><img src="images/Taskat.webp" alt="Taskat" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>✅</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
         <span class="mrs-role" data-i18n="proj.role.backend">Backend Developer</span>
@@ -2117,7 +2132,7 @@
 <div class="modal-bg" id="modal-netspeed">
   <div class="modal">
     <div class="modal-top"><button class="modal-x" onclick="closeModal('netspeed')">✕</button></div>
-    <div class="modal-img"><img src="images/NetSpeed.webp" alt="NetSpeed" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
+    <div class="modal-img"><img src="images/NetSpeed.webp" alt="NetSpeed" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>📡</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
         <span class="mrs-role" data-i18n="proj.role.fullstack">Full-Stack Developer</span>
@@ -2142,20 +2157,23 @@
 </div>
 
 <script>
-/* ── Cursor ── */
-const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function tick(){
-  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
-  curR.style.left=rx+'px'; curR.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,button,.chip,.sk-chip,.proj-cta,.proj-stage-action,.proj-dot,.clink,.modal-x,.soc').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
-});
+/* ── Cursor (desktop / fine-pointer only — skipped on touch for perf) ── */
+const hasFinePointer = window.matchMedia('(pointer:fine)').matches;
+if(hasFinePointer){
+  const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function tick(){
+    rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
+    curR.style.left=rx+'px'; curR.style.top=ry+'px';
+    requestAnimationFrame(tick);
+  })();
+  document.querySelectorAll('a,button,.chip,.sk-chip,.proj-cta,.proj-stage-action,.proj-dot,.clink,.modal-x,.soc').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
 
 /* ── Scroll / nav / progress ── */
 const prog=document.getElementById('prog'),nav=document.getElementById('nav');
@@ -2182,14 +2200,16 @@ window.addEventListener('scroll',()=>{
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');}),{threshold:.06});
 document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s').forEach(el=>io.observe(el));
 
-/* ── Magnetic buttons ── */
-document.querySelectorAll('.btn-cta,.modal-live').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.12}px) translateY(-1px)`;
+/* ── Magnetic buttons (fine-pointer only) ── */
+if(hasFinePointer){
+  document.querySelectorAll('.btn-cta,.modal-live').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.12}px) translateY(-1px)`;
+    });
+    btn.addEventListener('mouseleave',()=>btn.style.transform='');
   });
-  btn.addEventListener('mouseleave',()=>btn.style.transform='');
-});
+}
 
 /* ── Modals ── */
 function openModal(id){
