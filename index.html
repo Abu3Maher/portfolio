@@ -2023,18 +2023,18 @@
     <div class="modal-img"><img src="images/Sufra.webp" alt="Sufra" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=modal-img-ph>🍽️</div>'" /></div>
     <div class="modal-hero">
       <div class="modal-role-strip">
-        <span class="mrs-role" data-i18n="proj.role.fullstack">Full-Stack Developer</span>
+        <span class="mrs-role" data-i18n="proj.role.fullstackBackend">Full-Stack Developer (Backend-First)</span>
         <span class="mrs-status-live" data-i18n="proj.status.live">Production Live</span>
       </div>
       <div class="modal-title" data-i18n="m.sufra.title">سُفرة</div>
-      <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · جسر طباعة Rust</div>
+      <div class="modal-sub" data-i18n="m.sufra.sub">SaaS متعدد المستأجرين للمطاعم — قوائم QR · نقطة بيع أوف لاين · شاشة مطبخ · واجهة خلفية Laravel</div>
       <div class="modal-meta"><span data-i18n="m.sufra.date">أبريل 2025 – حتى الآن</span><span>sufra.live</span></div>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-stats">
-      <div class="mstat"><div class="mstat-n">5</div><div class="mstat-l" data-i18n="m.sufra.s1">مشاريع فرعية في المونوريبو</div></div>
+      <div class="mstat"><div class="mstat-n">Laravel</div><div class="mstat-l" data-i18n="m.sufra.s1">واجهة خلفية REST كاملة</div></div>
       <div class="mstat"><div class="mstat-n">PWA</div><div class="mstat-l" data-i18n="m.sufra.s2">نقطة بيع أوف لاين</div></div>
-      <div class="mstat"><div class="mstat-n">Rust</div><div class="mstat-l" data-i18n="m.sufra.s3">جسر طباعة أصلي</div></div>
+      <div class="mstat"><div class="mstat-n">WebSockets</div><div class="mstat-l" data-i18n="m.sufra.s3">إشعارات فورية</div></div>
       <div class="mstat"><div class="mstat-n">Redis</div><div class="mstat-l" data-i18n="m.sufra.s4">طبقة كاش للقائمة</div></div>
     </div>
     <div class="modal-body">
@@ -2246,14 +2246,14 @@ const projVisual = {
 /* per-language copy */
 const projCopy = {
   ar: {
-    sufra:    { title:'سُفرة', sub:'منصة SaaS متعددة المستأجرين للمطاعم — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات وعملاء وفريق، مخزون، تقارير مبيعات، وسوبر آدمن كامل. حالياً في الإنتاج مع عملاء مطاعم حقيقيين.' },
+    sufra:    { title:'سُفرة', sub:'منصة SaaS متعددة المستأجرين للمطاعم مبنية على Laravel — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات وعملاء وفريق، مخزون، تقارير مبيعات، وسوبر آدمن كامل. حالياً في الإنتاج مع عملاء مطاعم حقيقيين.' },
     bfm:      { title:'BookForMe', sub:'SaaS متعدد المستأجرين واسع النطاق للشركات الخدمية — صالونات وعيادات ومنتجعات — يغطي الحجوزات والتجارة الإلكترونية والمخزون والموظفين والعضويات والتسويق عبر 7 مستودعات.' },
     uop:      { title:'لوحة تحكم UOP', sub:'CMS كامل وموقع عام لجامعة فلسطين — تضمّنت المهمة إعادة هيكلة معمارية شاملة لنظام قديم يحتوي على 10+ سنوات من بيانات الإنتاج.' },
     netspeed: { title:'NetSpeed', sub:'منصة ISP عالية الحركة تخدم 10,000+ مستخدم متزامن — جُلبت لحل مشكلة أداء حرجة وإعادة بناء واجهة المستخدم بالكامل.' },
     taskat:   { title:'تسكات', sub:'هجين بين Jira وSlack لفرق البرمجيات — لوحات كانبان، سبرنتات، إشعارات فورية، ورسائل فريق تحت معمارية متعددة المستأجرين.' }
   },
   en: {
-    sufra:    { title:'Sufra', sub:'A multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, customer directory, team management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.' },
+    sufra:    { title:'Sufra', sub:'A Laravel-powered multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, customer directory, team management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.' },
     bfm:      { title:'BookForMe', sub:'A large-scale multi-tenant SaaS for service businesses — salons, clinics, spas — covering bookings, e-commerce, inventory, staff, memberships, and marketing across 7 repositories.' },
     uop:      { title:'UOP Dashboard', sub:'A full CMS and public website for the University of Palestine — including a complete architectural overhaul of a legacy system storing 10+ years of production data.' },
     netspeed: { title:'NetSpeed', sub:'A high-traffic ISP management platform serving 10,000+ concurrent users — brought in to solve a critical performance problem and overhaul the user experience.' },
@@ -2474,6 +2474,7 @@ const i18n = {
     'projects.sub': 'بعض من الأعمال التي شاركت في بنائها — انقر على أي مشروع لعرض التفاصيل.',
     'projects.openBtn': 'عرض التفاصيل',
     'proj.role.fullstack': 'مطوّر متكامل',
+    'proj.role.fullstackBackend': 'مطوّر متكامل (واجهة خلفية أولاً)',
     'proj.role.backend': 'مطوّر الواجهة الخلفية',
     'proj.status.live': 'في الإنتاج',
     'proj.status.delivered': 'مُسلَّم',
@@ -2535,15 +2536,15 @@ const i18n = {
     'contact.successBack': 'إرسال رسالة أخرى',
     'footer.copy': '© 2025 <b>محمد النملة</b> · فلسطين 🇵🇸',
     'm.close': 'إغلاق →',
-    'm.sufra.badge': 'مطوّر متكامل · في الإنتاج',
+    'm.sufra.badge': 'مطوّر متكامل (خلفية أولاً) · في الإنتاج',
     'm.sufra.title': 'سُفرة',
-    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات، مخزون، تقارير مبيعات، وطبقة سوبر آدمن. حالياً في الإنتاج مع عملاء حقيقيين.',
+    'm.sufra.sub': 'SaaS متعدد المستأجرين للمطاعم مبني على Laravel — نقطة بيع، شاشة مطبخ، قائمة QR رقمية، إدارة طاولات، مخزون، تقارير مبيعات، وطبقة سوبر آدمن. حالياً في الإنتاج مع عملاء حقيقيين.',
     'm.sufra.date': 'أبريل 2025 – حتى الآن',
-    'm.sufra.org': 'مطوّر متكامل',
-    'm.sufra.s1': 'مشاريع في المونوريبو',
+    'm.sufra.org': 'مطوّر متكامل (خلفية أولاً)',
+    'm.sufra.s1': 'واجهة خلفية Laravel',
     'm.sufra.s2': 'نقطة بيع أوف لاين',
-    'm.sufra.s3': 'جسر طباعة Rust أصلي',
-    'm.sufra.s4': 'كاش + Push فوري',
+    'm.sufra.s3': 'إشعارات فورية WebSockets',
+    'm.sufra.s4': 'كاش Redis + Push',
     'm.sufra.live': 'عرض الموقع',
     'm.bfm.badge': 'مطوّر الواجهة الخلفية · في الإنتاج',
     'm.bfm.sub': 'SaaS متعدد المستأجرين واسع النطاق للشركات الخدمية — صالونات وعيادات ومنتجعات — يغطي الحجوزات والتجارة الإلكترونية والمخزون والموظفين والعضويات والتسويق عبر 7 مستودعات.',
@@ -2613,6 +2614,7 @@ const i18n = {
     'projects.sub': 'A selection of work I\'ve built — click any project to see the details.',
     'projects.openBtn': 'Open case study',
     'proj.role.fullstack': 'Full-Stack Developer',
+    'proj.role.fullstackBackend': 'Full-Stack Developer (Backend-First)',
     'proj.role.backend': 'Backend Developer',
     'proj.status.live': 'Production Live',
     'proj.status.delivered': 'Delivered',
@@ -2674,15 +2676,15 @@ const i18n = {
     'contact.successBack': 'Send another message',
     'footer.copy': '© 2025 <b>Mohammed Al-Namla</b> · Palestine 🇵🇸',
     'm.close': '← Close',
-    'm.sufra.badge': 'Full-Stack Developer · Live in Production',
+    'm.sufra.badge': 'Full-Stack (Backend-First) · Live in Production',
     'm.sufra.title': 'Sufra',
-    'm.sufra.sub': 'Multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.',
+    'm.sufra.sub': 'Laravel-powered multi-tenant restaurant SaaS — POS, kitchen display, digital QR menu, table management, inventory, sales reports, and a full super-admin layer. Currently live with real restaurant clients.',
     'm.sufra.date': 'Apr 2025 – Present',
-    'm.sufra.org': 'Full-Stack Developer',
-    'm.sufra.s1': 'Sub-projects in monorepo',
+    'm.sufra.org': 'Full-Stack Developer (Backend-First)',
+    'm.sufra.s1': 'Laravel REST backend',
     'm.sufra.s2': 'Offline-first POS',
-    'm.sufra.s3': 'Native Rust print bridge',
-    'm.sufra.s4': 'Redis cache + VAPID push',
+    'm.sufra.s3': 'Real-time via WebSockets',
+    'm.sufra.s4': 'Redis cache + web push',
     'm.sufra.live': 'View Live Site',
     'm.bfm.badge': 'Backend Developer · Production Live',
     'm.bfm.sub': 'A large-scale multi-tenant SaaS for service businesses — salons, clinics, spas — covering bookings, e-commerce, inventory, staff, memberships, and marketing across 7 repositories.',
@@ -2726,7 +2728,7 @@ const i18n = {
 const modalBodies = {
   sufra: {
     ar: `
-<div class="modal-sec"><h4>الفكرة</h4><p>سُفرة هو نظام تشغيل متكامل للمطاعم. رأيت أن معظم أدوات إدارة المطاعم إما مكلفة جداً، معقدة جداً، أو غير مبنية للسوق الناطق بالعربية. قدت جميع القرارات التقنية من المعمارية حتى النشر.</p></div>
+<div class="modal-sec"><h4>الفكرة</h4><p>سُفرة هو نظام تشغيل متكامل للمطاعم. رأيت أن معظم أدوات إدارة المطاعم إما مكلفة جداً، معقدة جداً، أو غير مبنية للسوق الناطق بالعربية. قدت جميع القرارات التقنية من المعمارية حتى النشر — بناءً على واجهة خلفية <strong>Laravel</strong>، بعقلية <strong>الخلفية أولاً (Backend-First)</strong> مع تسليم كامل للواجهات الأمامية أيضاً (<strong>Full-Stack</strong>).</p></div>
 <div class="modal-sec"><h4>ما تغطيه المنصة</h4>
 <p><strong>لوحة تحكم صاحب المطعم</strong></p>
 <div class="modal-feature-grid"><ul>
@@ -2747,14 +2749,13 @@ const modalBodies = {
 <ul><li>قائمة رقمية عبر QR مع عرض غني للعناصر</li><li>طلب إلكتروني مع سلة وإتمام الدفع</li><li>تاريخ الطلبات والتتبع لكل عميل</li></ul>
 <p style="margin-top:14px"><strong>السوبر آدمن</strong></p>
 <ul><li>تحكم كامل في جميع المطاعم والمستخدمين</li><li>إدارة الاشتراكات والخطط</li><li>إحصاءات تفصيلية لكل مطعم ونشاطه</li><li>نظام إعلانات لتواصل المنصة</li></ul></div>
-<div class="modal-sec"><h4>التحدي الأول — نقطة البيع يجب أن تعمل بدون إنترنت</h4><div class="modal-challenge"><div class="mc-label">المشكلة</div><div class="mc-body">المطاعم في غزة تواجه انقطاعات إنترنت متكررة. نقطة بيع تتوقف عند انقطاع الاتصال ليست منتجاً — إنها عبء.</div></div><div class="modal-challenge"><div class="mc-label">الحل</div><div class="mc-body">بنيت نقطة بيع offline-first باستخدام <strong>IndexedDB outbox queue</strong>: كل العمليات تُكتب محلياً أولاً، ثم تتزامن تلقائياً عند عودة الاتصال. الكاشير لا يلاحظ الانقطاع أبداً. صفر خسارة في الطلبات.</div></div></div>
-<div class="modal-sec"><h4>التحدي الثاني — طباعة الإيصالات الحرارية من المتصفح</h4><div class="modal-challenge"><div class="mc-label">المشكلة</div><div class="mc-body">Web USB APIs لا تستطيع الوصول للطابعات الحرارية مباشرة من تبويب المتصفح بسبب قيود أمنية على مستوى نظام التشغيل. الحلول البديلة تضيف تأخيراً واعتمادية خارجية.</div></div><div class="modal-challenge"><div class="mc-label">الحل</div><div class="mc-body">كتبت <strong>تطبيق Windows tray أصلي بـ Rust</strong> باستخدام Tauri v2 + libusb، يعمل صامتاً في الخلفية ويكشف خادم HTTP محلي يستدعيه الـ dashboard عند الطباعة. يبدأ تلقائياً مع ويندوز، يتحدّث من GitHub Releases، ويرجع لـ WebUSB عند الحاجة.</div></div></div>
-<div class="modal-sec"><h4>التحدي الثالث — إشعارات فورية بدون خدمة خارجية</h4><div class="modal-challenge"><div class="mc-label">المشكلة</div><div class="mc-body">الإشعارات المبنية على polling بطيئة ومكلفة. خدمات push الخارجية تضيف اعتمادية خارجية وتكاليف شهرية متكررة.</div></div><div class="modal-challenge"><div class="mc-label">الحل</div><div class="mc-body">طبّقت <strong>VAPID web push</strong> مُشغَّلة مباشرة من stored procedures في Postgres. عندما يضع العميل طلباً، قاعدة البيانات نفسها ترسل الإشعار للمطعم — مما ألغى تماماً تكاليف الخدمات السحابية الخارجية (<strong>Zero-cost Third-party Dependency</strong>) وضمن معالجة سريعة على مستوى قاعدة البيانات مباشرة.</div></div></div>
-<div class="modal-sec"><h4>نموذج الأمان</h4><p>تطبيق القائمة يعمل كلياً على Supabase anonymous access — لا يُكشف أي مفتاح خادم للعميل. جميع قواعد الوصول مطبّقة عبر سياسات <strong>Row-Level Security (RLS)</strong> بثلاثة أدوار معزولة: <code>anon</code> و<code>owner</code> و<code>admin</code>.</p></div>
-<div class="modal-sec"><h4>الكاش</h4><p>طبقة <strong>Upstash Redis</strong> مشتركة تجلس بين لوحة تحكم المالك وتطبيق القائمة العام. كل عملية تعديل تقوم بـ <strong>Cache Busting</strong> لكلا الكاشين في نفس الوقت — التغييرات تظهر فوراً للعملاء دون إرهاق قاعدة البيانات.</p></div>
-<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
+<div class="modal-sec"><h4>التحدي الأول — نقطة البيع يجب أن تعمل بدون إنترنت</h4><div class="modal-challenge"><div class="mc-label">المشكلة</div><div class="mc-body">المطاعم في غزة تواجه انقطاعات إنترنت متكررة. نقطة بيع تتوقف عند انقطاع الاتصال ليست منتجاً — إنها عبء.</div></div><div class="modal-challenge"><div class="mc-label">الحل</div><div class="mc-body">بنيت نقطة بيع offline-first باستخدام <strong>IndexedDB outbox queue</strong> على الواجهة الأمامية، تتزامن مع واجهة خلفية <strong>Laravel REST API</strong>: كل العمليات تُكتب محلياً أولاً، ثم تُرسَل وتُعالَج عبر endpoints مخصصة للمزامنة عند عودة الاتصال. الكاشير لا يلاحظ الانقطاع أبداً. صفر خسارة في الطلبات.</div></div></div>
+<div class="modal-sec"><h4>التحدي الثاني — إشعارات فورية بدون خدمة خارجية</h4><div class="modal-challenge"><div class="mc-label">المشكلة</div><div class="mc-body">الإشعارات المبنية على polling بطيئة ومكلفة. خدمات push الخارجية تضيف اعتمادية خارجية وتكاليف شهرية متكررة.</div></div><div class="modal-challenge"><div class="mc-label">الحل</div><div class="mc-body">طبّقت البث الفوري عبر <strong>Laravel Broadcasting + WebSockets (Reverb/Echo)</strong>: عندما يضع العميل طلباً، حدث Laravel Event يُطلَق فوراً ويُبَث للمطعم مباشرة عبر قناة خاصة — بدون أي polling وبدون أي خدمة سحابية خارجية مدفوعة (<strong>Zero-cost Third-party Dependency</strong>)، مع معالجة الطابور عبر <strong>Laravel Queues</strong> لضمان عدم حظر الطلب الأساسي.</div></div></div>
+<div class="modal-sec"><h4>نموذج الأمان</h4><p>الواجهة الخلفية مبنية بالكامل على <strong>Laravel</strong> مع مصادقة عبر <strong>Sanctum</strong> وتفويض دقيق عبر <strong>Policies &amp; Gates</strong> بثلاثة أدوار معزولة: <code>customer</code> و<code>owner</code> و<code>admin</code>. كل طلب API يمر عبر middleware للتحقق من الهوية والصلاحية قبل الوصول لأي بيانات.</p></div>
+<div class="modal-sec"><h4>الكاش</h4><p>طبقة <strong>Redis</strong> مدمجة في Laravel تجلس بين لوحة تحكم المالك وتطبيق القائمة العام. كل عملية تعديل تقوم بـ <strong>Cache Busting</strong> لكلا الكاشين في نفس الوقت — التغييرات تظهر فوراً للعملاء دون إرهاق قاعدة البيانات.</p></div>
+<div class="modal-sec"><h4>التقنيات المستخدمة</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">Sanctum</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Queues</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">Web Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`,
     en: `
-<div class="modal-sec"><h4>The Idea</h4><p>Sufra (سُفرة) is a complete restaurant operating system. I identified that most restaurant management tools in the market were either too expensive, too complex, or not built for the Arabic-speaking market. I led all technical decisions from architecture to deployment.</p></div>
+<div class="modal-sec"><h4>The Idea</h4><p>Sufra (سُفرة) is a complete restaurant operating system. I identified that most restaurant management tools in the market were either too expensive, too complex, or not built for the Arabic-speaking market. I led all technical decisions from architecture to deployment — built on a <strong>Laravel</strong> backend, approached <strong>backend-first</strong> while also owning the frontend end-to-end (<strong>Full-Stack</strong>).</p></div>
 <div class="modal-sec"><h4>What the Platform Covers</h4>
 <p><strong>Partner Dashboard — Restaurant Owner</strong></p>
 <div class="modal-feature-grid"><ul>
@@ -2775,12 +2776,11 @@ const modalBodies = {
 <ul><li>QR-based digital menu with rich item display</li><li>Online ordering with cart and checkout</li><li>Order history and tracking per customer</li></ul>
 <p style="margin-top:14px"><strong>Super-Admin</strong></p>
 <ul><li>Full control over all restaurants and users</li><li>Subscription and plan management</li><li>Detailed per-restaurant statistics and activity</li><li>Announcement system for platform-wide communication</li></ul></div>
-<div class="modal-sec"><h4>Challenge 1 — The POS must work without internet</h4><div class="modal-challenge"><div class="mc-label">Problem</div><div class="mc-body">Restaurants in Gaza face frequent internet outages. A POS that stops working when the connection drops is not a product — it's a liability.</div></div><div class="modal-challenge"><div class="mc-label">Solution</div><div class="mc-body">I built an offline-first POS using an <strong>IndexedDB outbox queue</strong>: all mutations (orders, payments, status changes) are written locally first, then synced automatically when connectivity resumes. The cashier never notices an outage. Zero order loss.</div></div></div>
-<div class="modal-sec"><h4>Challenge 2 — Thermal receipt printing from the browser</h4><div class="modal-challenge"><div class="mc-label">Problem</div><div class="mc-body">Web USB APIs cannot access USB thermal printers directly from a browser tab due to OS-level security restrictions. Standard workarounds add latency and external dependencies.</div></div><div class="modal-challenge"><div class="mc-label">Solution</div><div class="mc-body">I wrote a <strong>native Windows tray application in Rust</strong> using Tauri v2 + libusb, which runs silently in the background and exposes a local HTTP server the dashboard calls when printing. Auto-starts on boot, auto-updates from GitHub Releases, falls back to WebUSB if the bridge is unreachable.</div></div></div>
-<div class="modal-sec"><h4>Challenge 3 — Real-time notifications without a third-party service</h4><div class="modal-challenge"><div class="mc-label">Problem</div><div class="mc-body">Polling-based notifications are slow and wasteful. Third-party push services add recurring monthly costs and external dependencies.</div></div><div class="modal-challenge"><div class="mc-label">Solution</div><div class="mc-body">I implemented <strong>VAPID web push</strong> triggered directly from Postgres stored procedures via Supabase. When a customer places an order, the database itself fires the push notification to the restaurant — eliminating third-party cloud service costs entirely (<strong>Zero-cost Third-party Dependency</strong>) and ensuring processing at the database layer with minimal latency.</div></div></div>
-<div class="modal-sec"><h4>Security Model</h4><p>The customer-facing menu app runs entirely on anonymous Supabase access — no server key is ever exposed to the client. All data access is enforced through <strong>Row-Level Security (RLS)</strong> policies at the database level, with three isolated roles: <code>anon</code>, <code>owner</code>, and <code>admin</code>.</p></div>
-<div class="modal-sec"><h4>Caching</h4><p>A shared <strong>Upstash Redis</strong> cache layer sits between the owner dashboard and the public menu app. Every mutation performs <strong>Cache Busting</strong> on both caches simultaneously — menu changes reflect instantly for customers without hammering the database.</p></div>
-<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Supabase</span><span class="modal-tag">Postgres RLS</span><span class="modal-tag">Rust</span><span class="modal-tag">Tauri v2</span><span class="modal-tag">Axum</span><span class="modal-tag">Upstash Redis</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">VAPID Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`
+<div class="modal-sec"><h4>Challenge 1 — The POS must work without internet</h4><div class="modal-challenge"><div class="mc-label">Problem</div><div class="mc-body">Restaurants in Gaza face frequent internet outages. A POS that stops working when the connection drops is not a product — it's a liability.</div></div><div class="modal-challenge"><div class="mc-label">Solution</div><div class="mc-body">I built an offline-first POS using an <strong>IndexedDB outbox queue</strong> on the frontend, syncing against a <strong>Laravel REST API</strong>: all mutations (orders, payments, status changes) are written locally first, then pushed to dedicated sync endpoints once connectivity resumes. The cashier never notices an outage. Zero order loss.</div></div></div>
+<div class="modal-sec"><h4>Challenge 2 — Real-time notifications without a third-party service</h4><div class="modal-challenge"><div class="mc-label">Problem</div><div class="mc-body">Polling-based notifications are slow and wasteful. Third-party push services add recurring monthly costs and external dependencies.</div></div><div class="modal-challenge"><div class="mc-label">Solution</div><div class="mc-body">I implemented real-time broadcasting with <strong>Laravel Broadcasting + WebSockets (Reverb/Echo)</strong>: when a customer places an order, a Laravel event fires instantly and is broadcast straight to the restaurant on a private channel — no polling, no paid third-party service (<strong>Zero-cost Third-party Dependency</strong>), with <strong>Laravel Queues</strong> handling the dispatch so the request/response cycle is never blocked.</div></div></div>
+<div class="modal-sec"><h4>Security Model</h4><p>The backend is built entirely on <strong>Laravel</strong>, with authentication via <strong>Sanctum</strong> and fine-grained authorization through <strong>Policies &amp; Gates</strong> across three isolated roles: <code>customer</code>, <code>owner</code>, and <code>admin</code>. Every API request passes through middleware that verifies identity and permission before touching any data.</p></div>
+<div class="modal-sec"><h4>Caching</h4><p>A <strong>Redis</strong> cache layer built into Laravel sits between the owner dashboard and the public menu app. Every mutation performs <strong>Cache Busting</strong> on both caches simultaneously — menu changes reflect instantly for customers without hammering the database.</p></div>
+<div class="modal-sec"><h4>Tech Stack</h4><div class="modal-tags"><span class="modal-tag">Laravel</span><span class="modal-tag">Sanctum</span><span class="modal-tag">Laravel Reverb</span><span class="modal-tag">Queues</span><span class="modal-tag">MySQL</span><span class="modal-tag">Redis</span><span class="modal-tag">Nuxt 4</span><span class="modal-tag">Vue 3</span><span class="modal-tag">Dexie / IndexedDB</span><span class="modal-tag">PWA</span><span class="modal-tag">Web Push</span><span class="modal-tag">Pinia</span><span class="modal-tag">Zod</span><span class="modal-tag">Tailwind CSS</span></div></div>`
   },
   bfm: {
     ar: `
