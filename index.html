@@ -5,9 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>محمد النملة — مطوّر الواجهة الخلفية</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23040814'/><rect width='32' height='32' rx='8' fill='none' stroke='%23E5A55C' stroke-width='1.5' stroke-opacity='0.5'/><text x='16' y='22' text-anchor='middle' font-family='inherit' font-weight='800' font-size='13' fill='%23F7FAFF' letter-spacing='-1'>MN</text></svg>" />
+  <!-- apply saved language before first paint — avoids the AR→EN flip flash -->
+  <script>
+    (function(){
+      try{
+        var l = localStorage.getItem('lang') || 'ar';
+        var d = document.documentElement;
+        d.lang = l;
+        d.dir  = l === 'ar' ? 'rtl' : 'ltr';
+        if(l === 'en') document.title = 'Mohammed Al-Namla — Backend Developer';
+      }catch(e){}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- fonts load async so first paint never waits on fonts.googleapis.com -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -155,7 +170,7 @@
             </div>
           </div>
         </div>
-        <div class="pc-image"><img src="images/Sufra.webp" alt="Sufra" decoding="async" fetchpriority="high" /></div>
+        <div class="pc-image"><img src="images/Sufra.webp" alt="Sufra" loading="lazy" decoding="async" /></div>
       </div>
       <div class="proj-card" id="proj-card-bfm">
         <div class="pc-text">
