@@ -83,8 +83,9 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       height: 58px;
-      background: rgba(7,12,22,0.72);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      /* PERF: no backdrop-filter here — a fixed blur re-renders every scrolled
+         frame and was measured as the root cause of page-wide jank */
+      background: rgba(6,10,19,0.90);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background var(--t), border-color var(--t), box-shadow var(--t);
     }
@@ -162,7 +163,6 @@
     .nav-drawer {
       display: none; flex-direction: column;
       background: rgba(5,9,18,0.98);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border-top: 1px solid rgba(255,255,255,0.07);
       padding: 8px 28px 20px;
     }
@@ -382,7 +382,6 @@
       border: 1px solid var(--glass-border); background: var(--glass);
       display: flex; align-items: center; justify-content: center;
       color: var(--ink3); text-decoration: none;
-      backdrop-filter: var(--blur);
       transition: all var(--tf); cursor: none;
     }
     .soc:hover { color: var(--head); border-color: var(--glass-bord2); background: rgba(242,179,109,0.06); transform: translateY(-3px); }
@@ -431,14 +430,13 @@
       background: var(--glass-border);
       border: 1px solid var(--glass-border); border-radius: var(--r); overflow: hidden;
     }
-    .fact-cell { padding:15px 17px; background:var(--glass2); backdrop-filter:var(--blur); }
+    .fact-cell { padding:15px 17px; background:var(--glass2); }
     .fc-k { font-size:.59rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-bottom:4px; font-weight:600; }
     .fc-v { font-size:.8rem; font-weight:600; color:var(--head); }
     .fc-v.hi { color:var(--body); }
     .about-card {
       background: var(--glass); border: 1px solid var(--glass-border);
       border-radius: var(--rl); padding: 30px;
-      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
       position: relative; overflow: hidden;
     }
     .about-card::after {
@@ -1035,9 +1033,12 @@
       background:rgba(4,8,16,0.88);
       backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px);
       display:flex; align-items:center; justify-content:center; padding:20px;
-      opacity:0; pointer-events:none; transition:opacity .3s ease;
+      /* PERF: visibility gate is critical — at opacity:0 alone, five hidden
+         full-viewport blur(28px) overlays composite on EVERY frame */
+      opacity:0; pointer-events:none; visibility:hidden;
+      transition:opacity .3s ease, visibility 0s .3s;
     }
-    .modal-bg.open { opacity:1; pointer-events:all; }
+    .modal-bg.open { opacity:1; pointer-events:all; visibility:visible; transition:opacity .3s ease; }
     .modal {
       background:#07111e;
       border:1px solid rgba(255,255,255,0.07);
