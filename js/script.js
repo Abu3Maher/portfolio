@@ -161,7 +161,7 @@ function setActiveProject(key){
   projectState.current = key;
   const idx = projKeys.indexOf(key);
   const now = Date.now();
-  const fastSwitch = now - lastSwitchAt < 250;
+  const fastSwitch = now - lastSwitchAt < 150;
   lastSwitchAt = now;
   projKeys.forEach((k)=>{
     const card = document.getElementById(`proj-card-${k}`);
@@ -176,7 +176,7 @@ function setActiveProject(key){
       if(fastSwitch){
         card.classList.remove('exit');
       } else {
-        exitTimeouts[k] = setTimeout(()=>{ card.classList.remove('exit'); exitTimeouts[k] = null; }, 700);
+        exitTimeouts[k] = setTimeout(()=>{ card.classList.remove('exit'); exitTimeouts[k] = null; }, 400);
       }
     } else {
       card.classList.remove('active','exit');
