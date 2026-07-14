@@ -66,6 +66,10 @@ const io=new IntersectionObserver(e=>e.forEach(x=>{
 }),{threshold:.06});
 document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s').forEach(el=>io.observe(el));
 
+/* ── Pause infinite animations while their section is off-screen ── */
+const animIO=new IntersectionObserver(e=>e.forEach(x=>x.target.classList.toggle('anim-paused',!x.isIntersecting)));
+['hero','contact'].forEach(id=>{const el=document.getElementById(id);if(el)animIO.observe(el);});
+
 /* ── Magnetic buttons (fine-pointer only) ── */
 if(hasFinePointer){
   document.querySelectorAll('.btn-cta,.modal-live').forEach(btn=>{

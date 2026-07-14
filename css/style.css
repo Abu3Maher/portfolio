@@ -1493,6 +1493,11 @@
       }
     }
 
+    /* ── PERF: infinite animations tick only while their section is on-screen
+       (class toggled by an IntersectionObserver in script.js) ── */
+    .anim-paused .hero-scroll-bar,
+    .anim-paused .contact-avail-dot { animation-play-state: paused; }
+
     /* ── DIAGNOSTIC: global animation kill-switch.
        Active while <html> has class "kill-anim" — remove that class to restore motion. ── */
     html.kill-anim *, html.kill-anim *::before, html.kill-anim *::after {
