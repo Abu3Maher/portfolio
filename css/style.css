@@ -1492,3 +1492,18 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* ── DIAGNOSTIC: global animation kill-switch.
+       Active while <html> has class "kill-anim" — remove that class to restore motion. ── */
+    html.kill-anim *, html.kill-anim *::before, html.kill-anim *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    /* reveal-on-scroll elements start hidden via CSS — show them immediately */
+    html.kill-anim .rv, html.kill-anim .rv-l, html.kill-anim .rv-r, html.kill-anim .rv-s,
+    html.kill-anim .hero-eyebrow, html.kill-anim .hero-first, html.kill-anim .hero-last,
+    html.kill-anim .hero-underline, html.kill-anim .hero-role-line,
+    html.kill-anim .hero-soc, html.kill-anim .hero-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+    }
