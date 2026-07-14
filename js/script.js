@@ -2,14 +2,23 @@
 const hasFinePointer = window.matchMedia('(pointer:fine)').matches;
 if(hasFinePointer){
   const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function tick(){
+  let mx=0,my=0,rx=0,ry=0,curRunning=false;
+  function tick(){
     rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
     cur.style.transform=`translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+    if(Math.abs(mx-rx)<.1 && Math.abs(my-ry)<.1){
+      rx=mx; ry=my;
+      curR.style.transform=`translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+      curRunning=false;
+      return;
+    }
     curR.style.transform=`translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
     requestAnimationFrame(tick);
-  })();
+  }
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    if(!curRunning){ curRunning=true; requestAnimationFrame(tick); }
+  });
   document.querySelectorAll('a,button,.chip,.sk-chip,.proj-cta,.proj-stage-action,.proj-dot,.clink,.modal-x,.soc').forEach(el=>{
     el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
     el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
@@ -19,10 +28,14 @@ if(hasFinePointer){
 /* ── Scroll / nav / progress ── */
 const prog=document.getElementById('prog'),nav=document.getElementById('nav');
 let isScrolling = false;
+let scrollableH = 1;
+function updateScrollableH(){ scrollableH = Math.max(document.documentElement.scrollHeight - innerHeight, 1); }
+updateScrollableH();
+window.addEventListener('resize', updateScrollableH, {passive:true});
 window.addEventListener('scroll',()=>{
   if(!isScrolling){
     window.requestAnimationFrame(()=>{
-      prog.style.transform=`scaleX(${window.scrollY/(document.documentElement.scrollHeight-innerHeight)})`;
+      prog.style.transform=`scaleX(${window.scrollY/scrollableH})`;
       nav.classList.toggle('up',window.scrollY>20);
       isScrolling = false;
     });
@@ -136,26 +149,41 @@ function populateCards(lang){
   });
 }
 
-function activateCard(key){
-  if(projectState.current === key) return;
+const exitTimeouts = {};
+let lastSwitchAt = 0;
+
+function setActiveProject(key){
   const prevKey = projectState.current;
   projectState.current = key;
   const idx = projKeys.indexOf(key);
-  projKeys.forEach((k,i)=>{
+  const now = Date.now();
+  const fastSwitch = now - lastSwitchAt < 250;
+  lastSwitchAt = now;
+  projKeys.forEach((k)=>{
     const card = document.getElementById(`proj-card-${k}`);
     if(!card) return;
+    if(exitTimeouts[k]){ clearTimeout(exitTimeouts[k]); exitTimeouts[k] = null; }
     if(k === key){
       card.classList.remove('exit');
       card.classList.add('active');
     } else if(k === prevKey){
       card.classList.remove('active');
       card.classList.add('exit');
-      setTimeout(()=>card.classList.remove('exit'), 700);
+      if(fastSwitch){
+        card.classList.remove('exit');
+      } else {
+        exitTimeouts[k] = setTimeout(()=>{ card.classList.remove('exit'); exitTimeouts[k] = null; }, 700);
+      }
     } else {
       card.classList.remove('active','exit');
     }
   });
   projDots.forEach((dot,i)=>dot.classList.toggle('active', i === idx));
+}
+
+function activateCard(key){
+  if(projectState.current === key) return;
+  setActiveProject(key);
 }
 
 const projObserver = new IntersectionObserver(entries=>{
@@ -170,22 +198,7 @@ function mobileProjNav(dir){
   const idx = projKeys.indexOf(projectState.current);
   /* loop: wrap around both ends */
   const next = (idx + dir + projKeys.length) % projKeys.length;
-  const prevKey = projectState.current;
-  const key = projKeys[next];
-  projectState.current = key;
-  projKeys.forEach((k)=>{
-    const card = document.getElementById(`proj-card-${k}`);
-    if(!card) return;
-    if(k === key){
-      card.classList.remove('exit'); card.classList.add('active');
-    } else if(k === prevKey){
-      card.classList.remove('active'); card.classList.add('exit');
-      setTimeout(()=>card.classList.remove('exit'), 700);
-    } else {
-      card.classList.remove('active','exit');
-    }
-  });
-  projDots.forEach((dot,i)=>dot.classList.toggle('active', i === next));
+  setActiveProject(projKeys[next]);
 }
 
 /* touch swipe on the sticky panel */
@@ -793,6 +806,8 @@ function applyLang(lang) {
   document.querySelectorAll('.proj-cta [data-i18n]').forEach(span => {
     span.textContent = t['projects.openBtn'] || (lang === 'ar' ? 'عرض التفاصيل' : 'Open case study');
   });
+  /* text lengths changed — page height may differ */
+  updateScrollableH();
 }
 
 function toggleLang() {

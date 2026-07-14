@@ -21,7 +21,7 @@
       --tf: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html { scroll-behavior: smooth; background-color: #040814; }
+    html { background-color: #040814; }
 
     body {
       font-family: 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -39,23 +39,17 @@
       width: 580px; height: 580px;
       background: radial-gradient(circle, rgba(15,27,42,0.12) 0%, transparent 70%);
       top: -140px; right: -100px;
-      animation: orbA 22s ease-in-out infinite alternate;
     }
     .orb-b {
       width: 400px; height: 400px;
       background: radial-gradient(circle, rgba(229,165,92,0.10) 0%, transparent 70%);
       bottom: 5%; left: -80px;
-      animation: orbB 28s ease-in-out infinite alternate;
     }
     .orb-c {
       width: 300px; height: 300px;
       background: radial-gradient(circle, rgba(138,167,200,0.08) 0%, transparent 70%);
       top: 50%; left: 40%;
-      animation: orbC 34s ease-in-out infinite alternate;
     }
-    @keyframes orbA { to { transform: translate(-60px, 100px) scale(1.14); } }
-    @keyframes orbB { to { transform: translate(80px, -60px) scale(1.10); } }
-    @keyframes orbC { to { transform: translate(-40px, 80px) scale(1.08); } }
 
     ::selection { background: rgba(242,179,109,0.18); color: var(--head); }
     ::-webkit-scrollbar { display: none; }
@@ -65,8 +59,7 @@
     #cur {
       position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--head); transform: translate3d(-50%,-50%,0);
-      mix-blend-mode: difference;
+      background: var(--accent); transform: translate3d(-50%,-50%,0);
       transition: width .18s, height .18s;
     }
     #cur-r {
@@ -335,10 +328,6 @@
       from { opacity:0; transform: translateY(40px) rotate(4deg); }
       to   { opacity:1; transform: none; }
     }
-    @keyframes glowPulse {
-      0%,100% { opacity:.18; transform:scale(1); }
-      50% { opacity:.28; transform:scale(1.08); }
-    }
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
@@ -426,21 +415,20 @@
       100% { transform: scaleY(0); transform-origin: bottom; opacity:0; }
     }
 
-    /* Glow orbs specific to hero */
+    /* Glow orbs specific to hero — static at glowPulse's midpoint opacity */
     .hero-glow {
       position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+      opacity: .22;
     }
     .hero-glow-a {
       width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(69,87,124,0.18) 0%, transparent 70%);
       top: -100px; right: -120px;
-      animation: glowPulse 8s ease-in-out infinite;
     }
     .hero-glow-b {
       width: 400px; height: 400px;
       background: radial-gradient(circle, rgba(229,165,92,0.10) 0%, transparent 70%);
       bottom: -80px; left: -80px;
-      animation: glowPulse 11s 2s ease-in-out infinite;
     }
 
     /* ── ABOUT ── */
@@ -594,18 +582,21 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(16px);
-      transition: opacity .52s ease, transform .52s cubic-bezier(.4,0,.2,1);
-      will-change: opacity, transform;
+      visibility: hidden;
+      transition: opacity .52s ease, transform .52s cubic-bezier(.4,0,.2,1), visibility 0s .52s;
     }
     .proj-card.active {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
+      visibility: visible;
+      transition-delay: 0s;
     }
     .proj-card.exit {
       opacity: 0;
       transform: translateY(-12px);
-      transition: opacity .32s ease, transform .32s ease;
+      visibility: visible;
+      transition: opacity .32s ease, transform .32s ease, visibility 0s .32s;
     }
 
     /* LEFT: text panel */
@@ -1327,10 +1318,8 @@
       #cur,#cur-r { display:none; }
 
       /* ── PERF: kill GPU-heavy effects on mobile ── */
-      /* animated blur(90px) orbs are the biggest mobile bottleneck */
+      /* blur(90px) orbs are the biggest mobile bottleneck */
       .orb { display: none; }
-      /* stop the infinite hero glow compositing — keep them static */
-      .hero-glow-a, .hero-glow-b { animation: none; }
       /* backdrop-filter forces costly repaints during scroll */
       #nav, .nav-drawer, .about-card, .fact-cell, .modal, .modal-live,
       .proj-mob-arrow, .sk-card {
@@ -1493,4 +1482,13 @@
       .exp-co { flex-wrap: wrap; gap: 4px; }
       .exp-co-sep { display: none; }
       .exp-co-loc { font-size: .72rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
